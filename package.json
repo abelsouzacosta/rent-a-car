@@ -1,0 +1,7 @@
+{
+  "name": "rent-a-car",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Abel Souza <abelsouzacosta@gmail.com>",
+  "license": "MIT"
+}
