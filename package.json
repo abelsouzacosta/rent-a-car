@@ -33,6 +33,6 @@
     "express": "^4.17.2"
   },
   "scripts": {
-    "dev": "tsnd src/server.ts"
+    "dev": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts"
   }
 }
