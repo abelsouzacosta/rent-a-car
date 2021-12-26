@@ -2,8 +2,9 @@ import { Router, Request, Response } from "express";
 
 import { CategoryRepository } from "../repositories/CategoryRepository";
 import { CreateCategoryService } from "../services/categories/CreateCategoryService";
+import { DeleteCategoryService } from "../services/categories/DeleteCategoryService";
 import { ListCategoryService } from "../services/categories/ListCategoriesService";
-import { UdpateCategoryRepository } from "../services/categories/UpdateCategoryRepository";
+import { UdpateCategoryService } from "../services/categories/UpdateCategoryService";
 
 const categoriesRoutes = Router();
 const categoryRepository = new CategoryRepository();
@@ -30,9 +31,19 @@ categoriesRoutes.put("/:id", (request: Request, response: Response) => {
   const { id } = request.params;
   const { name, description } = request.body;
 
-  const update = new UdpateCategoryRepository(categoryRepository);
+  const update = new UdpateCategoryService(categoryRepository);
 
   update.execute({ id, name, description });
+
+  return response.status(200).send();
+});
+
+categoriesRoutes.delete("/:id", (request: Request, response: Response) => {
+  const { id } = request.params;
+
+  const delete_category = new DeleteCategoryService(categoryRepository);
+
+  delete_category.execute({ id });
 
   return response.status(200).send();
 });

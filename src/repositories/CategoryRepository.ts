@@ -43,6 +43,14 @@ class CategoryRepository {
     category.description = description || category.description;
     category.createdAt = new Date();
   }
+
+  delete(id: string): void {
+    const category = this.findById(id);
+
+    const categoryIndex = this.categories.indexOf(category);
+
+    this.categories.splice(categoryIndex, 1);
+  }
 }
 
 export { CategoryRepository };
