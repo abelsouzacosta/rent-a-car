@@ -1,5 +1,5 @@
 import { Category } from "../../models/Category";
-import { ICategoryRepository } from "../../repositories/ICategoryRepository";
+import { ICategoryRepository } from "../../repositories/category/ICategoryRepository";
 
 class ListCategoryService {
   protected repository: ICategoryRepository;
