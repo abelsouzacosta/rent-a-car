@@ -1,10 +1,9 @@
+import { CategoryRepository } from "@repositories/category/CategoryRepository";
+import { CreateCategoryService } from "@services/categories/CreateCategoryService";
+import { DeleteCategoryService } from "@services/categories/DeleteCategoryService";
+import { ListCategoryService } from "@services/categories/ListCategoriesService";
+import { UdpateCategoryService } from "@services/categories/UpdateCategoryService";
 import { Router, Request, Response } from "express";
-
-import { CategoryRepository } from "../repositories/CategoryRepository";
-import { CreateCategoryService } from "../services/categories/CreateCategoryService";
-import { DeleteCategoryService } from "../services/categories/DeleteCategoryService";
-import { ListCategoryService } from "../services/categories/ListCategoriesService";
-import { UdpateCategoryService } from "../services/categories/UpdateCategoryService";
 
 const categoriesRoutes = Router();
 const categoryRepository = new CategoryRepository();
