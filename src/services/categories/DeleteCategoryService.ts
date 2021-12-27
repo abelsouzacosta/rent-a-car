@@ -1,13 +1,13 @@
-import { CategoryRepository } from "../../repositories/CategoryRepository";
+import { ICategoryRepository } from "../../repositories/ICategoryRepository";
 
 interface IDeleteCategoryDTO {
   id: string;
 }
 
 class DeleteCategoryService {
-  protected repository: CategoryRepository;
+  protected repository: ICategoryRepository;
 
-  constructor(repository: CategoryRepository) {
+  constructor(repository: ICategoryRepository) {
     this.repository = repository;
   }
 

@@ -1,10 +1,10 @@
 import { Category } from "../../models/Category";
-import { CategoryRepository } from "../../repositories/CategoryRepository";
+import { ICategoryRepository } from "../../repositories/ICategoryRepository";
 
 class ListCategoryService {
-  protected repository: CategoryRepository;
+  protected repository: ICategoryRepository;
 
-  constructor(repository: CategoryRepository) {
+  constructor(repository: ICategoryRepository) {
     this.repository = repository;
   }
 
