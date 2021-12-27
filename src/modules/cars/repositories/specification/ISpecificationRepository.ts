@@ -11,6 +11,10 @@ interface IUpdateSpecificationDTO {
   description?: string;
 }
 
+interface IDeleteSpecificationDTO {
+  id: string;
+}
+
 interface ISpecificationRepository {
   findByName(name: string): Specification;
 
@@ -29,4 +33,5 @@ export {
   ISpecificationRepository,
   ICreateSpecificationDTO,
   IUpdateSpecificationDTO,
+  IDeleteSpecificationDTO,
 };
