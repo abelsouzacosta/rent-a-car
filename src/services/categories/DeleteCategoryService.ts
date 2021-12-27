@@ -1,4 +1,4 @@
-import { ICategoryRepository } from "../../repositories/category/ICategoryRepository";
+import { ICategoryRepository } from "@repositories/category/ICategoryRepository";
 
 interface IDeleteCategoryDTO {
   id: string;

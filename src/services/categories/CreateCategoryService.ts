@@ -1,7 +1,7 @@
 import {
   ICategoryRepository,
   ICreateCategoryDTO,
-} from "../../repositories/category/ICategoryRepository";
+} from "@repositories/category/ICategoryRepository";
 
 class CreateCategoryService {
   protected repository: ICategoryRepository;

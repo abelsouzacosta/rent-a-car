@@ -1,7 +1,7 @@
 import {
   ICategoryRepository,
   IUpdateCategoryDTO,
-} from "../../repositories/category/ICategoryRepository";
+} from "@repositories/category/ICategoryRepository";
 
 class UdpateCategoryService {
   protected repository: ICategoryRepository;
