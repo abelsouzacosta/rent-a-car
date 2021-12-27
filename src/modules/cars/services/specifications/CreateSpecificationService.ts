@@ -1,7 +1,7 @@
 import {
   ISpecificationRepository,
   ICreateSpecificationDTO,
-} from "@repositories/specification/ISpecificationRepository";
+} from "@cars/repositories/specification/ISpecificationRepository";
 
 class CreateSpecificationService {
   protected repository: ISpecificationRepository;

@@ -1,4 +1,4 @@
-import { Specification } from "@models/Specification";
+import { Specification } from "@cars/models/Specification";
 
 import {
   ICreateSpecificationDTO,

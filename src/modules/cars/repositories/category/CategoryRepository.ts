@@ -1,4 +1,4 @@
-import { Category } from "@models/Category";
+import { Category } from "@cars/models/Category";
 
 import {
   ICategoryRepository,
