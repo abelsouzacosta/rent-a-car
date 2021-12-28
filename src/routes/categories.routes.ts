@@ -1,50 +1,27 @@
-import { Router, Request, Response } from "express";
-import { CategoryRepository } from "src/modules/cars/repositories/category/CategoryRepository";
-import { CreateCategoryService } from "src/modules/cars/services/categories/CreateCategoryService";
-import { DeleteCategoryService } from "src/modules/cars/services/categories/DeleteCategoryService";
-import { ListCategoryService } from "src/modules/cars/services/categories/ListCategoriesService";
-import { UdpateCategoryService } from "src/modules/cars/services/categories/UpdateCategoryService";
+import {
+  create,
+  list,
+  update,
+  delete_category,
+} from "@cars/usecases/categories";
+import { Router } from "express";
 
 const categoriesRoutes = Router();
-const categoryRepository = new CategoryRepository();
 
-categoriesRoutes.post("/", (request: Request, response: Response) => {
-  const { name, description } = request.body;
-
-  const create = new CreateCategoryService(categoryRepository);
-
-  create.execute({ name, description });
-
-  return response.status(201).send();
+categoriesRoutes.post("/", (request, response) => {
+  create.handle(request, response);
 });
 
-categoriesRoutes.get("/", (request: Request, response: Response) => {
-  const list = new ListCategoryService(categoryRepository);
-
-  const categories = list.execute();
-
-  return response.status(200).json(categories);
+categoriesRoutes.get("/", (request, response) => {
+  list.handle(request, response);
 });
 
-categoriesRoutes.put("/:id", (request: Request, response: Response) => {
-  const { id } = request.params;
-  const { name, description } = request.body;
-
-  const update = new UdpateCategoryService(categoryRepository);
-
-  update.execute({ id, name, description });
-
-  return response.status(200).send();
+categoriesRoutes.put("/:id", (request, response) => {
+  update.handle(request, response);
 });
 
-categoriesRoutes.delete("/:id", (request: Request, response: Response) => {
-  const { id } = request.params;
-
-  const delete_category = new DeleteCategoryService(categoryRepository);
-
-  delete_category.execute({ id });
-
-  return response.status(200).send();
+categoriesRoutes.delete("/:id", (request, response) => {
+  delete_category.handle(request, response);
 });
 
 export { categoriesRoutes };

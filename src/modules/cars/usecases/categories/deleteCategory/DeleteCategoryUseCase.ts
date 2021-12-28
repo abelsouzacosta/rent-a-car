@@ -4,7 +4,7 @@ interface IDeleteCategoryDTO {
   id: string;
 }
 
-class DeleteCategoryService {
+class DeleteCategoryUseCase {
   protected repository: ICategoryRepository;
 
   constructor(repository: ICategoryRepository) {
@@ -20,4 +20,4 @@ class DeleteCategoryService {
   }
 }
 
-export { DeleteCategoryService };
+export { DeleteCategoryUseCase };

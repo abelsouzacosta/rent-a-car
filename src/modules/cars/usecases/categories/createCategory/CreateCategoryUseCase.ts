@@ -3,7 +3,7 @@ import {
   ICreateCategoryDTO,
 } from "@cars/repositories/category/ICategoryRepository";
 
-class CreateCategoryService {
+class CreateCategoryUseCase {
   protected repository: ICategoryRepository;
 
   constructor(repository: ICategoryRepository) {
@@ -19,4 +19,4 @@ class CreateCategoryService {
   }
 }
 
-export { CreateCategoryService };
+export { CreateCategoryUseCase };

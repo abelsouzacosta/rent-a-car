@@ -1,7 +1,7 @@
 import { Category } from "@cars/models/Category";
 import { ICategoryRepository } from "@cars/repositories/category/ICategoryRepository";
 
-class ListCategoryService {
+class ListCategoryUseCase {
   protected repository: ICategoryRepository;
 
   constructor(repository: ICategoryRepository) {
@@ -13,4 +13,4 @@ class ListCategoryService {
   }
 }
 
-export { ListCategoryService };
+export { ListCategoryUseCase };

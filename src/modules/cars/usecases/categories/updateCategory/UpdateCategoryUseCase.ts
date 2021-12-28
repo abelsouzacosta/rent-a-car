@@ -3,7 +3,7 @@ import {
   IUpdateCategoryDTO,
 } from "@cars/repositories/category/ICategoryRepository";
 
-class UdpateCategoryService {
+class UdpateCategoryUseCase {
   protected repository: ICategoryRepository;
 
   constructor(repository: ICategoryRepository) {
@@ -24,4 +24,4 @@ class UdpateCategoryService {
   }
 }
 
-export { UdpateCategoryService };
+export { UdpateCategoryUseCase };
