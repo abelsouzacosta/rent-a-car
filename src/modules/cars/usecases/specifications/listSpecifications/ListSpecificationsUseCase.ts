@@ -1,7 +1,7 @@
 import { Specification } from "@cars/models/Specification";
 import { ISpecificationRepository } from "@cars/repositories/specification/ISpecificationRepository";
 
-class ListSpecificationsService {
+class ListSpecificationsUseCase {
   protected repository: ISpecificationRepository;
 
   constructor(repository: ISpecificationRepository) {
@@ -13,4 +13,4 @@ class ListSpecificationsService {
   }
 }
 
-export { ListSpecificationsService };
+export { ListSpecificationsUseCase };
