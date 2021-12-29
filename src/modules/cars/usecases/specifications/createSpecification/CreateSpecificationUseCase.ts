@@ -3,7 +3,7 @@ import {
   ICreateSpecificationDTO,
 } from "@cars/repositories/specification/ISpecificationRepository";
 
-class CreateSpecificationService {
+class CreateSpecificationUseCase {
   protected repository: ISpecificationRepository;
 
   constructor(repository: ISpecificationRepository) {
@@ -20,4 +20,4 @@ class CreateSpecificationService {
   }
 }
 
-export { CreateSpecificationService };
+export { CreateSpecificationUseCase };
