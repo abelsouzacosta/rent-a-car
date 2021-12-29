@@ -1,6 +1,5 @@
 import { DeleteSpecificationservice } from "@modules/cars/services/specifications/DeleteSpecificationService";
-import { UpdateSpecificationService } from "@modules/cars/services/specifications/UpdateSpecificationService";
-import { create, list } from "@modules/cars/usecases/specifications";
+import { create, list, update } from "@modules/cars/usecases/specifications";
 import { Router, Request, Response } from "express";
 import { SpecificationRepository } from "src/modules/cars/repositories/specification/SpecificationRepository";
 
@@ -15,15 +14,8 @@ specificationRouter.get("/", (request, response) => {
   list.handle(request, response);
 });
 
-specificationRouter.put("/:id", (request: Request, response: Response) => {
-  const { id } = request.params;
-  const { name, description } = request.body;
-
-  const update = new UpdateSpecificationService(specificationRepository);
-
-  update.execute({ id, name, description });
-
-  return response.status(200).send();
+specificationRouter.put("/:id", (request, response) => {
+  update.handle(request, response);
 });
 
 specificationRouter.delete("/:id", (request: Request, response: Response) => {

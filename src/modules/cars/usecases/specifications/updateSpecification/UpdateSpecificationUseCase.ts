@@ -3,7 +3,7 @@ import {
   IUpdateSpecificationDTO,
 } from "@modules/cars/repositories/specification/ISpecificationRepository";
 
-class UpdateSpecificationService {
+class UpdateSpecificationUseCase {
   protected repository: ISpecificationRepository;
 
   constructor(repository: ISpecificationRepository) {
@@ -27,4 +27,4 @@ class UpdateSpecificationService {
   }
 }
 
-export { UpdateSpecificationService };
+export { UpdateSpecificationUseCase };
