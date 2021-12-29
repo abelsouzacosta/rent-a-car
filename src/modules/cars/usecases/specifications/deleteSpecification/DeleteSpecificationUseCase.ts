@@ -3,7 +3,7 @@ import {
   IDeleteSpecificationDTO,
 } from "@modules/cars/repositories/specification/ISpecificationRepository";
 
-class DeleteSpecificationservice {
+class DeleteSpecificationUseCase {
   protected repository: ISpecificationRepository;
 
   constructor(repository: ISpecificationRepository) {
@@ -19,4 +19,4 @@ class DeleteSpecificationservice {
   }
 }
 
-export { DeleteSpecificationservice };
+export { DeleteSpecificationUseCase };
