@@ -2,7 +2,13 @@ import { create } from "@cars/usecases/categories/createCategory";
 import { delete_category } from "@cars/usecases/categories/deleteCategory";
 import { list } from "@cars/usecases/categories/listCategory";
 import { update } from "@cars/usecases/categories/updateCategory";
+import { import_category } from "@modules/cars/usecases/categories/importCategory";
 import { Router } from "express";
+import multer from "multer";
+
+const upload = multer({
+  dest: "./tmp",
+});
 
 const categoriesRoutes = Router();
 
@@ -20,6 +26,10 @@ categoriesRoutes.put("/:id", (request, response) => {
 
 categoriesRoutes.delete("/:id", (request, response) => {
   delete_category.handle(request, response);
+});
+
+categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
+  import_category.handle(request, response);
 });
 
 export { categoriesRoutes };
