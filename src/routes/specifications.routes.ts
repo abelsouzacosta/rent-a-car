@@ -1,9 +1,7 @@
-import {
-  create,
-  list,
-  update,
-  delete_specification,
-} from "@modules/cars/usecases/specifications";
+import { create } from "@cars/usecases/specifications/createSpecification";
+import { delete_specification } from "@cars/usecases/specifications/deleteSpecification";
+import { list } from "@cars/usecases/specifications/listSpecifications";
+import { update } from "@cars/usecases/specifications/updateSpecification";
 import { Router } from "express";
 
 const specificationRouter = Router();
