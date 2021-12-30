@@ -9,7 +9,7 @@ import { ListCategoryUseCase } from "./listCategory/ListCategoryUseCase";
 import { UpdateCategoryController } from "./updateCategory/UpdateCategoryController";
 import { UdpateCategoryUseCase } from "./updateCategory/UpdateCategoryUseCase";
 
-const repository = new CategoryRepository();
+const repository = CategoryRepository.getInstance();
 
 const createCategoryUseCase = new CreateCategoryUseCase(repository);
 const listCategoryUseCase = new ListCategoryUseCase(repository);

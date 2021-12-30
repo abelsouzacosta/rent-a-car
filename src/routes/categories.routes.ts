@@ -1,9 +1,7 @@
-import {
-  create,
-  list,
-  update,
-  delete_category,
-} from "@cars/usecases/categories";
+import { create } from "@cars/usecases/categories/createCategory";
+import { delete_category } from "@cars/usecases/categories/deleteCategory";
+import { list } from "@cars/usecases/categories/listCategory";
+import { update } from "@cars/usecases/categories/updateCategory";
 import { Router } from "express";
 
 const categoriesRoutes = Router();
