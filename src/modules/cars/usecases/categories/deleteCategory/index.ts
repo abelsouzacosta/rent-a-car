@@ -1,4 +1,4 @@
-import { CategoryRepository } from "@modules/cars/repositories/category/CategoryRepository";
+import { CategoryRepository } from "@modules/cars/repositories/implementations/category/CategoryRepository";
 
 import { DeleteCategoryController } from "./DeleteCategoryController";
 import { DeleteCategoryUseCase } from "./DeleteCategoryUseCase";

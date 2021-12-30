@@ -1,4 +1,4 @@
-import { SpecificationRepository } from "@modules/cars/repositories/specification/SpecificationRepository";
+import { SpecificationRepository } from "@modules/cars/repositories/implementations/specification/SpecificationRepository";
 
 import { ListSpecificationsController } from "./ListSpecificationsController";
 import { ListSpecificationsUseCase } from "./ListSpecificationsUseCase";

@@ -4,7 +4,7 @@ import {
   ICreateSpecificationDTO,
   ISpecificationRepository,
   IUpdateSpecificationDTO,
-} from "./ISpecificationRepository";
+} from "../../specification/ISpecificationRepository";
 
 class SpecificationRepository implements ISpecificationRepository {
   private specifications: Specification[];

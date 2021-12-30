@@ -4,7 +4,7 @@ import {
   ICategoryRepository,
   ICreateCategoryDTO,
   IUpdateCategoryDTO,
-} from "./ICategoryRepository";
+} from "../../category/ICategoryRepository";
 
 class CategoryRepository implements ICategoryRepository {
   private static INSTANCE: CategoryRepository;

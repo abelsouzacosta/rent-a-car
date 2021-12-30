@@ -1,4 +1,4 @@
-import { SpecificationRepository } from "@modules/cars/repositories/specification/SpecificationRepository";
+import { SpecificationRepository } from "@modules/cars/repositories/implementations/specification/SpecificationRepository";
 
 import { DeleteSpecificationController } from "./DeleteSpecificationController";
 import { DeleteSpecificationUseCase } from "./DeleteSpecificationUseCase";
