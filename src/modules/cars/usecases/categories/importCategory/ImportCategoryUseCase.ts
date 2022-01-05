@@ -2,25 +2,50 @@ import { ICategoryRepository } from "@modules/cars/repositories/category/ICatego
 import { parse } from "csv-parse";
 import { createReadStream } from "fs";
 
+interface IImportCategory {
+  name: string;
+  description: string;
+}
+
 class ImportCategoryUseCase {
   protected repository: ICategoryRepository;
 
+  protected categories: IImportCategory[];
+
   constructor(repository: ICategoryRepository) {
     this.repository = repository;
+    this.categories = [];
   }
 
-  execute(file: Express.Multer.File): void {
-    const stream = createReadStream(file.path);
+  load(file: Express.Multer.File): Promise<IImportCategory[]> {
+    return new Promise((resolve, reject) => {
+      const stream = createReadStream(file.path);
 
-    const parseFile = parse({});
+      const parseFile = parse({});
 
-    stream.pipe(parseFile);
+      stream.pipe(parseFile);
 
-    parseFile.on("data", async (line) => {
-      const [name, description] = line;
+      parseFile
+        .on("data", (line) => {
+          const [name, description] = line;
 
-      this.repository.create({ name, description });
+          this.categories.push({ name, description });
+        })
+        .on("end", () => {
+          resolve(this.categories);
+        })
+        .on("error", (err) => {
+          reject(err);
+        });
     });
+  }
+
+  async execute(file: Express.Multer.File): Promise<void> {
+    const response = await this.load(file);
+
+    response.map(({ name, description }) =>
+      this.repository.create({ name, description })
+    );
   }
 }
 
