@@ -10,7 +10,9 @@ class ImportCategoryUseCase {
     stream.pipe(parseFile);
 
     parseFile.on("data", async (line) => {
-      console.log(line);
+      const [marca, modelo, cor] = line;
+
+      console.log(`Marca: ${marca}, modelo: ${modelo} - ${cor}`);
     });
   }
 }
