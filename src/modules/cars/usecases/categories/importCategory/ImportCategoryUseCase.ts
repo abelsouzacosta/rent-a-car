@@ -1,7 +1,14 @@
+import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 import { parse } from "csv-parse";
 import { createReadStream } from "fs";
 
 class ImportCategoryUseCase {
+  protected repository: ICategoryRepository;
+
+  constructor(repository: ICategoryRepository) {
+    this.repository = repository;
+  }
+
   execute(file: Express.Multer.File): void {
     const stream = createReadStream(file.path);
 
@@ -10,9 +17,9 @@ class ImportCategoryUseCase {
     stream.pipe(parseFile);
 
     parseFile.on("data", async (line) => {
-      const [marca, modelo, cor] = line;
+      const [name, description] = line;
 
-      console.log(`Marca: ${marca}, modelo: ${modelo} - ${cor}`);
+      this.repository.create({ name, description });
     });
   }
 }
