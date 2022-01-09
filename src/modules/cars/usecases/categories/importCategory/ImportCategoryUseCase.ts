@@ -1,6 +1,6 @@
 import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 import { parse } from "csv-parse";
-import { createReadStream } from "fs";
+import { createReadStream, promises } from "fs";
 
 interface IImportCategory {
   name: string;
@@ -32,6 +32,7 @@ class ImportCategoryUseCase {
           this.categories.push({ name, description });
         })
         .on("end", () => {
+          promises.unlink(file.path);
           resolve(this.categories);
         })
         .on("error", (err) => {
