@@ -219,6 +219,58 @@
           }
         }
       }
+    },
+    "/specifications/{id}": {
+      "put": {
+        "tags": ["Specifications"],
+        "summary": "Update an Specification",
+        "description": "Update the specification with the given id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Specification",
+                  "description":"Specification description"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Specification not found"
+          },
+          "400": {
+            "description": "Specification name already taken"
+          }
+        }
+      },
+      "delete": {
+        "tags":["Specifications"],
+        "summary": "Delete a specification",
+        "description": "Delete a specification with the given id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Specification not found"
+          }
+        }
+      }
     }
   }
 }
