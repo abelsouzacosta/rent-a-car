@@ -1,9 +1,29 @@
-version: "3.9"
+version: "3.7"
 services:
+  database: # nome do serviço do banco de dados da aplicação
+    image: postgres
+    container_name: main_database
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=localhost
+      - POSTGRES_DB=rentx
+    volumes:
+      - pgdata:/data/postgres
   app:
     build: .
     container_name: rentx
     ports:
       - 3333:3333
+      - 9229:9229 # Porta do debug da aplicação
     volumes:
       - .:/usr/app
+    links:
+      - database
+    depends_on:
+      - database
+volumes:
+  pgdata:
+    driver: local
