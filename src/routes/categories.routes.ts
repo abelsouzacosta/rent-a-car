@@ -1,8 +1,8 @@
-import update from "@cars/usecases/categories/updateCategory";
 import { CreateCategoryController } from "@modules/cars/usecases/categories/createCategory/CreateCategoryController";
 import { DeleteCategoryController } from "@modules/cars/usecases/categories/deleteCategory/DeleteCategoryController";
 import import_category from "@modules/cars/usecases/categories/importCategory";
 import { ListCategoryController } from "@modules/cars/usecases/categories/listCategory/ListCategoryController";
+import { UpdateCategoryController } from "@modules/cars/usecases/categories/updateCategory/UpdateCategoryController";
 import { Router } from "express";
 import multer from "multer";
 
@@ -14,15 +14,14 @@ const categoriesRoutes = Router();
 
 const create = new CreateCategoryController();
 const list = new ListCategoryController();
+const update = new UpdateCategoryController();
 const delete_category = new DeleteCategoryController();
 
 categoriesRoutes.post("/", create.handle);
 
 categoriesRoutes.get("/", list.handle);
 
-categoriesRoutes.put("/:id", (request, response) => {
-  update().handle(request, response);
-});
+categoriesRoutes.put("/:id", update.handle);
 
 categoriesRoutes.delete("/:id", delete_category.handle);
 
