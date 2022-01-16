@@ -3,10 +3,12 @@ import { SpecificationRepository } from "@modules/cars/repositories/implementati
 import { CreateSepcificationController } from "./CreateSpecificationController";
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
-const repository = SpecificationRepository.getInstance();
+export default (): CreateSepcificationController => {
+  const repository = new SpecificationRepository();
 
-const useCase = new CreateSpecificationUseCase(repository);
+  const useCase = new CreateSpecificationUseCase(repository);
 
-const create = new CreateSepcificationController(useCase);
+  const create = new CreateSepcificationController(useCase);
 
-export { create };
+  return create;
+};

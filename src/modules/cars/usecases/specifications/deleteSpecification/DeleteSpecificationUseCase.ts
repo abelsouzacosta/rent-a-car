@@ -10,8 +10,8 @@ class DeleteSpecificationUseCase {
     this.repository = repository;
   }
 
-  execute({ id }: IDeleteSpecificationDTO): void {
-    const specification = this.repository.findById(id);
+  async execute({ id }: IDeleteSpecificationDTO): Promise<void> {
+    const specification = await this.repository.findById(id);
 
     if (!specification) throw new Error("Specification not found");
 

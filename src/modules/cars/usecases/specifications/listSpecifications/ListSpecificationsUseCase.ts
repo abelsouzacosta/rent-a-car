@@ -1,4 +1,4 @@
-import { Specification } from "@cars/models/Specification";
+import { Specification } from "@cars/entities/Specification";
 import { ISpecificationRepository } from "@cars/repositories/specification/ISpecificationRepository";
 
 class ListSpecificationsUseCase {
@@ -8,8 +8,10 @@ class ListSpecificationsUseCase {
     this.repository = repository;
   }
 
-  execute(): Specification[] {
-    return this.repository.list();
+  async execute(): Promise<Specification[]> {
+    const specifications = await this.repository.list();
+
+    return specifications;
   }
 }
 

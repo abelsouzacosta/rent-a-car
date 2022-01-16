@@ -10,10 +10,14 @@ class UpdateSpecificationUseCase {
     this.repository = repository;
   }
 
-  execute({ id, name, description }: IUpdateSpecificationDTO): void {
-    const specification = this.repository.findById(id);
+  async execute({
+    id,
+    name,
+    description,
+  }: IUpdateSpecificationDTO): Promise<void> {
+    const specification = await this.repository.findById(id);
 
-    const foundSpecificationByName = this.repository.findByName(name);
+    const foundSpecificationByName = await this.repository.findByName(name);
 
     if (
       foundSpecificationByName &&

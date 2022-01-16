@@ -3,10 +3,12 @@ import { SpecificationRepository } from "@modules/cars/repositories/implementati
 import { DeleteSpecificationController } from "./DeleteSpecificationController";
 import { DeleteSpecificationUseCase } from "./DeleteSpecificationUseCase";
 
-const repository = SpecificationRepository.getInstance();
+export default (): DeleteSpecificationController => {
+  const repository = new SpecificationRepository();
 
-const useCase = new DeleteSpecificationUseCase(repository);
+  const useCase = new DeleteSpecificationUseCase(repository);
 
-const delete_specification = new DeleteSpecificationController(useCase);
+  const delete_specification = new DeleteSpecificationController(useCase);
 
-export { delete_specification };
+  return delete_specification;
+};
