@@ -2,11 +2,16 @@ import {
   ICategoryRepository,
   ICreateCategoryDTO,
 } from "@cars/repositories/category/ICategoryRepository";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 class CreateCategoryUseCase {
   protected repository: ICategoryRepository;
 
-  constructor(repository: ICategoryRepository) {
+  constructor(
+    @inject("CategoryRepository")
+    repository: ICategoryRepository
+  ) {
     this.repository = repository;
   }
 
