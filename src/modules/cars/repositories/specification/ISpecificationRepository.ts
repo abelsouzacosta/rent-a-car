@@ -16,17 +16,17 @@ interface IDeleteSpecificationDTO {
 }
 
 interface ISpecificationRepository {
-  findByName(name: string): Specification;
+  findByName(name: string): Promise<Specification>;
 
-  findById(id: string): Specification;
+  findById(id: string): Promise<Specification>;
 
-  list(): Specification[];
+  list(): Promise<Specification[]>;
 
-  create({ name, description }: ICreateSpecificationDTO): void;
+  create({ name, description }: ICreateSpecificationDTO): Promise<void>;
 
-  update({ id, name, description }: IUpdateSpecificationDTO): void;
+  update({ id, name, description }: IUpdateSpecificationDTO): Promise<void>;
 
-  delete(id: string): void;
+  delete(id: string): Promise<void>;
 }
 
 export {

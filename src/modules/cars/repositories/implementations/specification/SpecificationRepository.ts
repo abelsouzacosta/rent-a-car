@@ -1,4 +1,5 @@
 import { Specification } from "@cars/entities/Specification";
+import { getRepository, Repository } from "typeorm";
 
 import {
   ICreateSpecificationDTO,
@@ -7,59 +8,59 @@ import {
 } from "../../specification/ISpecificationRepository";
 
 class SpecificationRepository implements ISpecificationRepository {
-  private specifications: Specification[];
+  private repository: Repository<Specification>;
 
-  private static INSTANCE: SpecificationRepository;
-
-  private constructor() {
-    this.specifications = [];
+  constructor() {
+    this.repository = getRepository(Specification);
   }
 
-  public static getInstance(): SpecificationRepository {
-    if (!SpecificationRepository.INSTANCE)
-      SpecificationRepository.INSTANCE = new SpecificationRepository();
-
-    return SpecificationRepository.INSTANCE;
+  findByName(name: string): Promise<Specification> {
+    return this.repository.findOne({
+      where: {
+        name,
+      },
+    });
   }
 
-  findByName(name: string): Specification {
-    return this.specifications.find(
-      (specification) => specification.name === name
-    );
+  findById(id: string): Promise<Specification> {
+    return this.repository.findOne({
+      where: {
+        id,
+      },
+    });
   }
 
-  findById(id: string): Specification {
-    return this.specifications.find((specification) => specification.id === id);
+  list(): Promise<Specification[]> {
+    return this.repository.find();
   }
-  list(): Specification[] {
-    return this.specifications;
-  }
-  create({ name, description }: ICreateSpecificationDTO): void {
-    const specification = new Specification();
 
-    Object.assign(specification, {
+  async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+    const specification = this.repository.create({
       name,
       description,
-      createdAt: new Date(),
     });
 
-    this.specifications.push(specification);
+    await this.repository.save(specification);
   }
 
-  update({ id, name, description }: IUpdateSpecificationDTO): void {
-    const specification = this.findById(id);
+  async update({
+    id,
+    name,
+    description,
+  }: IUpdateSpecificationDTO): Promise<void> {
+    const specification = await this.findById(id);
 
     specification.name = name || specification.name;
     specification.description = description || specification.description;
-    specification.createdAt = new Date();
+    specification.created_at = new Date();
+
+    this.repository.save(specification);
   }
 
-  delete(id: string): void {
-    const specification = this.findById(id);
+  async delete(id: string): Promise<void> {
+    const specification = await this.findById(id);
 
-    const specificationIndex = this.specifications.indexOf(specification);
-
-    this.specifications.splice(specificationIndex, 1);
+    this.repository.remove(specification);
   }
 }
 
