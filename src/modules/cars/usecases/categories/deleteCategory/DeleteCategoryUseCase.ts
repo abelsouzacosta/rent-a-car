@@ -1,13 +1,18 @@
 import { ICategoryRepository } from "@cars/repositories/category/ICategoryRepository";
+import { inject, injectable } from "tsyringe";
 
 interface IDeleteCategoryDTO {
   id: string;
 }
 
+@injectable()
 class DeleteCategoryUseCase {
   protected repository: ICategoryRepository;
 
-  constructor(repository: ICategoryRepository) {
+  constructor(
+    @inject("CategoryRepository")
+    repository: ICategoryRepository
+  ) {
     this.repository = repository;
   }
 
