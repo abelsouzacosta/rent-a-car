@@ -1,10 +1,15 @@
 import { Category } from "@cars/entities/Category";
 import { ICategoryRepository } from "@cars/repositories/category/ICategoryRepository";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 class ListCategoryUseCase {
   protected repository: ICategoryRepository;
 
-  constructor(repository: ICategoryRepository) {
+  constructor(
+    @inject("CategoryRepository")
+    repository: ICategoryRepository
+  ) {
     this.repository = repository;
   }
 
