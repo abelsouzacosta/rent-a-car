@@ -3,10 +3,12 @@ import { CategoryRepository } from "@modules/cars/repositories/implementations/c
 import { UpdateCategoryController } from "./UpdateCategoryController";
 import { UdpateCategoryUseCase } from "./UpdateCategoryUseCase";
 
-const repository = CategoryRepository.getInstance();
+export default (): UpdateCategoryController => {
+  const repository = new CategoryRepository();
 
-const useCase = new UdpateCategoryUseCase(repository);
+  const useCase = new UdpateCategoryUseCase(repository);
 
-const update = new UpdateCategoryController(useCase);
+  const update = new UpdateCategoryController(useCase);
 
-export { update };
+  return update;
+};

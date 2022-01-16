@@ -10,10 +10,10 @@ class UdpateCategoryUseCase {
     this.repository = repository;
   }
 
-  execute({ id, name, description }: IUpdateCategoryDTO): void {
-    const category = this.repository.findById(id);
+  async execute({ id, name, description }: IUpdateCategoryDTO): Promise<void> {
+    const category = await this.repository.findById(id);
 
-    const foundCategoryByName = this.repository.findByName(name);
+    const foundCategoryByName = await this.repository.findByName(name);
 
     if (!category) throw new Error("Category not found");
 

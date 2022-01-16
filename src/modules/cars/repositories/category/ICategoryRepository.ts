@@ -12,17 +12,17 @@ interface IUpdateCategoryDTO {
 }
 
 interface ICategoryRepository {
-  findByName(name: string): Category;
+  findByName(name: string): Promise<Category>;
 
-  findById(id: string): Category;
+  findById(id: string): Promise<Category>;
 
-  list(): Category[];
+  list(): Promise<Category[]>;
 
-  create({ name, description }: ICreateCategoryDTO): void;
+  create({ name, description }: ICreateCategoryDTO): Promise<void>;
 
-  update({ id, name, description }: IUpdateCategoryDTO): void;
+  update({ id, name, description }: IUpdateCategoryDTO): Promise<void>;
 
-  delete(id: string): void;
+  delete(id: string): Promise<void>;
 }
 
 export { ICategoryRepository, ICreateCategoryDTO, IUpdateCategoryDTO };

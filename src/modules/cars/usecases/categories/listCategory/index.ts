@@ -3,10 +3,12 @@ import { CategoryRepository } from "@modules/cars/repositories/implementations/c
 import { ListCategoryController } from "./ListCategoryController";
 import { ListCategoryUseCase } from "./ListCategoryUseCase";
 
-const repository = CategoryRepository.getInstance();
+export default (): ListCategoryController => {
+  const repository = new CategoryRepository();
 
-const useCase = new ListCategoryUseCase(repository);
+  const useCase = new ListCategoryUseCase(repository);
 
-const list = new ListCategoryController(useCase);
+  const list = new ListCategoryController(useCase);
 
-export { list };
+  return list;
+};

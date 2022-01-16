@@ -3,9 +3,11 @@ import { CategoryRepository } from "@modules/cars/repositories/implementations/c
 import { ImportCategoryController } from "./ImportCategoryController";
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 
-const repository = CategoryRepository.getInstance();
+export default (): ImportCategoryController => {
+  const repository = new CategoryRepository();
 
-const useCase = new ImportCategoryUseCase(repository);
-const import_category = new ImportCategoryController(useCase);
+  const useCase = new ImportCategoryUseCase(repository);
+  const import_category = new ImportCategoryController(useCase);
 
-export { import_category };
+  return import_category;
+};

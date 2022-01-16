@@ -1,4 +1,5 @@
 import { Category } from "@cars/entities/Category";
+import { getRepository, Repository } from "typeorm";
 
 import {
   ICategoryRepository,
@@ -7,59 +8,55 @@ import {
 } from "../../category/ICategoryRepository";
 
 class CategoryRepository implements ICategoryRepository {
-  private static INSTANCE: CategoryRepository;
+  private repository: Repository<Category>;
 
-  private categories: Category[];
-
-  private constructor() {
-    this.categories = [];
+  constructor() {
+    this.repository = getRepository(Category);
   }
 
-  public static getInstance(): CategoryRepository {
-    if (!CategoryRepository.INSTANCE)
-      CategoryRepository.INSTANCE = new CategoryRepository();
-
-    return CategoryRepository.INSTANCE;
-  }
-
-  create({ name, description }: ICreateCategoryDTO): void {
-    const category = new Category();
-
-    Object.assign(category, {
+  async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+    const category = this.repository.create({
       name,
       description,
-      createdAt: new Date(),
     });
 
-    this.categories.push(category);
+    await this.repository.save(category);
   }
 
-  list(): Category[] {
-    return this.categories;
+  async list(): Promise<Category[]> {
+    return this.repository.find();
   }
 
-  findByName(name: string): Category {
-    return this.categories.find((category) => category.name === name);
+  findByName(name: string): Promise<Category> {
+    return this.repository.findOne({
+      where: {
+        name,
+      },
+    });
   }
 
-  findById(id: string): Category {
-    return this.categories.find((category) => category.id === id);
+  async findById(id: string): Promise<Category> {
+    return this.repository.findOne({
+      where: {
+        id,
+      },
+    });
   }
 
-  update({ id, name, description }: IUpdateCategoryDTO): void {
-    const category = this.findById(id);
+  async update({ id, name, description }: IUpdateCategoryDTO): Promise<void> {
+    const category = await this.findById(id);
 
     category.name = name || category.name;
     category.description = description || category.description;
-    category.createdAt = new Date();
+    category.created_at = new Date();
+
+    this.repository.save(category);
   }
 
-  delete(id: string): void {
-    const category = this.findById(id);
+  async delete(id: string): Promise<void> {
+    const category = await this.findById(id);
 
-    const categoryIndex = this.categories.indexOf(category);
-
-    this.categories.splice(categoryIndex, 1);
+    this.repository.remove(category);
   }
 }
 

@@ -3,10 +3,12 @@ import { CategoryRepository } from "@modules/cars/repositories/implementations/c
 import { DeleteCategoryController } from "./DeleteCategoryController";
 import { DeleteCategoryUseCase } from "./DeleteCategoryUseCase";
 
-const repository = CategoryRepository.getInstance();
+export default (): DeleteCategoryController => {
+  const repository = new CategoryRepository();
 
-const useCase = new DeleteCategoryUseCase(repository);
+  const useCase = new DeleteCategoryUseCase(repository);
 
-const delete_category = new DeleteCategoryController(useCase);
+  const delete_category = new DeleteCategoryController(useCase);
 
-export { delete_category };
+  return delete_category;
+};

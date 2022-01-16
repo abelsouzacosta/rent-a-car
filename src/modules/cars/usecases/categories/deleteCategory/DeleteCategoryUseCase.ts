@@ -11,8 +11,8 @@ class DeleteCategoryUseCase {
     this.repository = repository;
   }
 
-  execute({ id }: IDeleteCategoryDTO): void {
-    const category = this.repository.findById(id);
+  async execute({ id }: IDeleteCategoryDTO): Promise<void> {
+    const category = await this.repository.findById(id);
 
     if (!category) throw new Error("Category not found");
 
