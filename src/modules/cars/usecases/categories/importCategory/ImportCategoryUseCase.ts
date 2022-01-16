@@ -1,18 +1,23 @@
 import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 import { parse } from "csv-parse";
 import { createReadStream, promises } from "fs";
+import { inject, injectable } from "tsyringe";
 
 interface IImportCategory {
   name: string;
   description: string;
 }
 
+@injectable()
 class ImportCategoryUseCase {
   protected repository: ICategoryRepository;
 
   protected categories: IImportCategory[];
 
-  constructor(repository: ICategoryRepository) {
+  constructor(
+    @inject("CategoryRepository")
+    repository: ICategoryRepository
+  ) {
     this.repository = repository;
     this.categories = [];
   }
@@ -45,7 +50,7 @@ class ImportCategoryUseCase {
     const response = await this.load(file);
 
     response.map(async ({ name, description }) => {
-      const categoryAlreadyExists = this.repository.findByName(name);
+      const categoryAlreadyExists = await this.repository.findByName(name);
 
       if (!categoryAlreadyExists) this.repository.create({ name, description });
     });

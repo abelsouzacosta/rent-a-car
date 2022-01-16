@@ -1,6 +1,6 @@
 import { CreateCategoryController } from "@modules/cars/usecases/categories/createCategory/CreateCategoryController";
 import { DeleteCategoryController } from "@modules/cars/usecases/categories/deleteCategory/DeleteCategoryController";
-import import_category from "@modules/cars/usecases/categories/importCategory";
+import { ImportCategoryController } from "@modules/cars/usecases/categories/importCategory/ImportCategoryController";
 import { ListCategoryController } from "@modules/cars/usecases/categories/listCategory/ListCategoryController";
 import { UpdateCategoryController } from "@modules/cars/usecases/categories/updateCategory/UpdateCategoryController";
 import { Router } from "express";
@@ -16,6 +16,7 @@ const create = new CreateCategoryController();
 const list = new ListCategoryController();
 const update = new UpdateCategoryController();
 const delete_category = new DeleteCategoryController();
+const import_category = new ImportCategoryController();
 
 categoriesRoutes.post("/", create.handle);
 
@@ -25,8 +26,6 @@ categoriesRoutes.put("/:id", update.handle);
 
 categoriesRoutes.delete("/:id", delete_category.handle);
 
-categoriesRoutes.post("/import", upload.single("file"), (request, response) => {
-  import_category().handle(request, response);
-});
+categoriesRoutes.post("/import", upload.single("file"), import_category.handle);
 
 export { categoriesRoutes };
