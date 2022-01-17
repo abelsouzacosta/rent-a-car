@@ -2,11 +2,16 @@ import {
   ISpecificationRepository,
   IDeleteSpecificationDTO,
 } from "@modules/cars/repositories/specification/ISpecificationRepository";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 class DeleteSpecificationUseCase {
   protected repository: ISpecificationRepository;
 
-  constructor(repository: ISpecificationRepository) {
+  constructor(
+    @inject("SpecificationRepository")
+    repository: ISpecificationRepository
+  ) {
     this.repository = repository;
   }
 
