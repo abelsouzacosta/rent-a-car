@@ -1,4 +1,4 @@
-import create from "@cars/usecases/specifications/createSpecification";
+import { CreateSepcificationController } from "@cars/usecases/specifications/createSpecification/CreateSpecificationController";
 import delete_specification from "@cars/usecases/specifications/deleteSpecification";
 import list from "@cars/usecases/specifications/listSpecifications";
 import update from "@cars/usecases/specifications/updateSpecification";
@@ -6,9 +6,9 @@ import { Router } from "express";
 
 const specificationRouter = Router();
 
-specificationRouter.post("/", (request, response) => {
-  create().handle(request, response);
-});
+const create = new CreateSepcificationController();
+
+specificationRouter.post("/", create.handle);
 
 specificationRouter.get("/", (request, response) => {
   list().handle(request, response);
