@@ -50,13 +50,13 @@ class CategoryRepository implements ICategoryRepository {
     category.description = description || category.description;
     category.created_at = new Date();
 
-    this.repository.save(category);
+    await this.repository.save(category);
   }
 
   async delete(id: string): Promise<void> {
     const category = await this.findById(id);
 
-    this.repository.remove(category);
+    await this.repository.remove(category);
   }
 }
 
