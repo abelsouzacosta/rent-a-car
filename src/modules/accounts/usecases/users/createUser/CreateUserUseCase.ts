@@ -17,21 +17,16 @@ class CreateUserUseCase {
 
   async execute({
     name,
-    username,
     password,
     email,
     driver_license,
   }: ICreateUserDTO): Promise<void> {
-    const usernameAlreadyTaken = await this.repository.findByUsername(username);
     const emailAlreadyTaken = await this.repository.findByEmail(email);
-
-    if (usernameAlreadyTaken) throw new Error("Username already taken");
 
     if (emailAlreadyTaken) throw new Error("Email already taken");
 
     await this.repository.create({
       name,
-      username,
       password,
       email,
       driver_license,

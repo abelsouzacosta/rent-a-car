@@ -16,14 +16,12 @@ class UserRepository implements IUserRepository {
 
   async create({
     name,
-    username,
-    password,
     email,
+    password,
     driver_license,
   }: ICreateUserDTO): Promise<void> {
     const user = this.repository.create({
       name,
-      username,
       password,
       email,
       driver_license,
@@ -81,15 +79,13 @@ class UserRepository implements IUserRepository {
   async update({
     id,
     name,
-    username,
-    password,
     email,
+    password,
     driver_license,
   }: IUpdateUserDTO): Promise<void> {
     const user = await this.findById(id);
 
     user.name = name || user.name;
-    user.username = username || user.username;
     user.password = password || user.password;
     user.email = email || user.email;
     user.driver_license = driver_license || user.driver_license;
