@@ -1,5 +1,7 @@
 import { UserRepository } from "@modules/accounts/repositories/implementations/UserRepository";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
+import { PasswordHandler } from "@modules/accounts/utils/cryptography/implementations/PasswordHandler";
+import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
 import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 import { CategoryRepository } from "@modules/cars/repositories/implementations/category/CategoryRepository";
 import { SpecificationRepository } from "@modules/cars/repositories/implementations/specification/SpecificationRepository";
@@ -17,3 +19,8 @@ container.registerSingleton<ISpecificationRepository>(
 );
 
 container.registerSingleton<IUserRepository>("UserRepository", UserRepository);
+
+container.registerSingleton<IPasswordHandler>(
+  "PasswordHandler",
+  PasswordHandler
+);
