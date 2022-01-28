@@ -10,16 +10,13 @@ export default (
   next: NextFunction
 ) => {
   if (error instanceof ApplicationError) {
-    const file = error.fileName.slice(error.dirName.length + 1);
-
     return response.status(error.status).json({
       message: error.message,
-      at: file,
       status: "error",
     });
   }
 
   return response.status(500).json({
-    message: "Server error",
+    message: error.message,
   });
 };
