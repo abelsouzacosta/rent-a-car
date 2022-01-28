@@ -5,6 +5,7 @@ import { ListCategoryController } from "@modules/cars/usecases/categories/listCa
 import { UpdateCategoryController } from "@modules/cars/usecases/categories/updateCategory/UpdateCategoryController";
 import { Router } from "express";
 import multer from "multer";
+import { ensureAuthenticated } from "src/middlewares/ensureAuthenticated";
 
 const upload = multer({
   dest: "./tmp",
@@ -18,7 +19,7 @@ const update = new UpdateCategoryController();
 const delete_category = new DeleteCategoryController();
 const import_category = new ImportCategoryController();
 
-categoriesRoutes.post("/", create.handle);
+categoriesRoutes.post("/", ensureAuthenticated, create.handle);
 
 categoriesRoutes.get("/", list.handle);
 
