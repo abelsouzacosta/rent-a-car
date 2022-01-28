@@ -20,12 +20,7 @@ class DeleteSpecificationUseCase {
     const specification = await this.repository.findById(id);
 
     if (!specification)
-      throw new ApplicationError(
-        "Specification not found",
-        404,
-        __filename,
-        __dirname
-      );
+      throw new ApplicationError("Specification not found", 404);
 
     this.repository.delete(id);
   }

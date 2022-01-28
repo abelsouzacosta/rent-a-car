@@ -21,20 +21,12 @@ class UdpateCategoryUseCase {
 
     const foundCategoryByName = await this.repository.findByName(name);
 
-    if (!category)
-      throw new ApplicationError(
-        "Category not found",
-        404,
-        __filename,
-        __dirname
-      );
+    if (!category) throw new ApplicationError("Category not found", 404);
 
     if (foundCategoryByName && foundCategoryByName.id !== category.id)
       throw new ApplicationError(
         `There's already an category with the given name`,
-        409,
-        __filename,
-        __dirname
+        409
       );
 
     this.repository.update({ id, name, description });

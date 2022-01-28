@@ -32,12 +32,7 @@ class UpdateSpecificationUseCase {
       throw new Error(`There's already an specification with the given name`);
 
     if (!specification)
-      throw new ApplicationError(
-        "Specification not found",
-        404,
-        __filename,
-        __dirname
-      );
+      throw new ApplicationError("Specification not found", 404);
 
     this.repository.update({ id, name, description });
   }

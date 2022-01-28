@@ -37,13 +37,7 @@ class AuthenticateUserUseCase {
   async execute({ email, password }: IAuthenticateUserDTO): Promise<IResponse> {
     const user = await this.repository.findByEmail(email);
 
-    if (!user)
-      throw new ApplicationError(
-        "Email or password incorrect",
-        401,
-        __filename,
-        __dirname
-      );
+    if (!user) throw new ApplicationError("Email or password incorrect", 401);
 
     const passwordMatch = await this.passwordHandler.passwordCompare(
       password,
@@ -51,12 +45,7 @@ class AuthenticateUserUseCase {
     );
 
     if (!passwordMatch)
-      throw new ApplicationError(
-        "Email or password incorrect",
-        401,
-        __filename,
-        __dirname
-      );
+      throw new ApplicationError("Email or password incorrect", 401);
 
     const token = sign({}, "907e7177676d8efa02a19f29ceeaf81d", {
       subject: user.id,

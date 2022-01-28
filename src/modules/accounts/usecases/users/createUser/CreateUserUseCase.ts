@@ -30,12 +30,7 @@ class CreateUserUseCase {
     const emailAlreadyTaken = await this.repository.findByEmail(email);
 
     if (emailAlreadyTaken)
-      throw new ApplicationError(
-        "Email already taken",
-        409,
-        __filename,
-        __dirname
-      );
+      throw new ApplicationError("Email already taken", 409);
 
     const passwordHashed = await this.passwordHandler.passwordHash(password, 8);
 
