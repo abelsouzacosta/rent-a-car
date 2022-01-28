@@ -3,6 +3,7 @@ import { DeleteSpecificationController } from "@modules/cars/usecases/specificat
 import { ListSpecificationsController } from "@modules/cars/usecases/specifications/listSpecifications/ListSpecificationsController";
 import { UpdateSpecificationController } from "@modules/cars/usecases/specifications/updateSpecification/UpdateSpecificationController";
 import { Router } from "express";
+import { ensureAuthenticated } from "src/middlewares/ensureAuthenticated";
 
 const specificationRouter = Router();
 
@@ -10,6 +11,8 @@ const create = new CreateSepcificationController();
 const list = new ListSpecificationsController();
 const update = new UpdateSpecificationController();
 const delete_specification = new DeleteSpecificationController();
+
+specificationRouter.use(ensureAuthenticated);
 
 specificationRouter.post("/", create.handle);
 

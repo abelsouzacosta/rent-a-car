@@ -19,7 +19,9 @@ const update = new UpdateCategoryController();
 const delete_category = new DeleteCategoryController();
 const import_category = new ImportCategoryController();
 
-categoriesRoutes.post("/", ensureAuthenticated, create.handle);
+categoriesRoutes.use(ensureAuthenticated);
+
+categoriesRoutes.post("/", create.handle);
 
 categoriesRoutes.get("/", list.handle);
 
