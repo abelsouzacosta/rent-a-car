@@ -1,6 +1,7 @@
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
 import { sign } from "jsonwebtoken";
+import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 
 interface IAuthenticateUserDTO {
@@ -36,14 +37,26 @@ class AuthenticateUserUseCase {
   async execute({ email, password }: IAuthenticateUserDTO): Promise<IResponse> {
     const user = await this.repository.findByEmail(email);
 
-    if (!user) throw new Error("Email or password incorrect");
+    if (!user)
+      throw new ApplicationError(
+        "Email or password incorrect",
+        401,
+        __filename,
+        __dirname
+      );
 
     const passwordMatch = await this.passwordHandler.passwordCompare(
       password,
       user.password
     );
 
-    if (!passwordMatch) throw new Error("Email or password incorrect");
+    if (!passwordMatch)
+      throw new ApplicationError(
+        "Email or password incorrect",
+        401,
+        __filename,
+        __dirname
+      );
 
     const token = sign({}, "907e7177676d8efa02a19f29ceeaf81d", {
       subject: user.id,

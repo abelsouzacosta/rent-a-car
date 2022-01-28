@@ -3,6 +3,7 @@ import {
   ICreateUserDTO,
 } from "@modules/accounts/repositories/users/IUserRepository";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
+import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -28,7 +29,13 @@ class CreateUserUseCase {
   }: ICreateUserDTO): Promise<void> {
     const emailAlreadyTaken = await this.repository.findByEmail(email);
 
-    if (emailAlreadyTaken) throw new Error("Email already taken");
+    if (emailAlreadyTaken)
+      throw new ApplicationError(
+        "Email already taken",
+        409,
+        __filename,
+        __dirname
+      );
 
     const passwordHashed = await this.passwordHandler.passwordHash(password, 8);
 

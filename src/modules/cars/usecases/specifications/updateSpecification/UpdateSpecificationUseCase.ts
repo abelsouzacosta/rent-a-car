@@ -2,6 +2,7 @@ import {
   ISpecificationRepository,
   IUpdateSpecificationDTO,
 } from "@modules/cars/repositories/specification/ISpecificationRepository";
+import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -30,7 +31,13 @@ class UpdateSpecificationUseCase {
     )
       throw new Error(`There's already an specification with the given name`);
 
-    if (!specification) throw new Error("Specification not found");
+    if (!specification)
+      throw new ApplicationError(
+        "Specification not found",
+        404,
+        __filename,
+        __dirname
+      );
 
     this.repository.update({ id, name, description });
   }

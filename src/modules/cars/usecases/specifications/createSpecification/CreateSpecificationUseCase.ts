@@ -2,6 +2,7 @@ import {
   ISpecificationRepository,
   ICreateSpecificationDTO,
 } from "@cars/repositories/specification/ISpecificationRepository";
+import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -19,7 +20,12 @@ class CreateSpecificationUseCase {
     const specificationAlreadyExists = await this.repository.findByName(name);
 
     if (specificationAlreadyExists)
-      throw new Error("Specification already exists");
+      throw new ApplicationError(
+        "Specification already exists",
+        409,
+        __filename,
+        __dirname
+      );
 
     this.repository.create({ name, description });
   }
