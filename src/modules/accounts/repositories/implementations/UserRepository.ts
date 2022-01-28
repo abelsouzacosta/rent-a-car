@@ -5,6 +5,7 @@ import {
   IUserRepository,
   ICreateUserDTO,
   IUpdateUserDTO,
+  IUpdateUserAvatarDTO,
 } from "../users/IUserRepository";
 
 class UserRepository implements IUserRepository {
@@ -91,6 +92,14 @@ class UserRepository implements IUserRepository {
     user.driver_license = driver_license || user.driver_license;
 
     await this.repository.save(user);
+  }
+
+  async updateAvatar({ id, avatar }: IUpdateUserAvatarDTO): Promise<void> {
+    const user = await this.findById(id);
+
+    user.avatar = avatar;
+
+    this.repository.save(user);
   }
 
   async delete(id: string): Promise<void> {

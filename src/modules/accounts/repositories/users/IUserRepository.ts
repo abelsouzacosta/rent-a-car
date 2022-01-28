@@ -11,6 +11,11 @@ interface IUpdateUserDTO extends ICreateUserDTO {
   id: string;
 }
 
+interface IUpdateUserAvatarDTO {
+  id: string;
+  avatar: string;
+}
+
 interface IUserRepository {
   findByName(name: string): Promise<User | undefined>;
 
@@ -35,7 +40,14 @@ interface IUserRepository {
     driver_license,
   }: IUpdateUserDTO): Promise<void>;
 
+  updateAvatar({ id, avatar }: IUpdateUserAvatarDTO): Promise<void>;
+
   delete(id: string): Promise<void>;
 }
 
-export { IUserRepository, ICreateUserDTO, IUpdateUserDTO };
+export {
+  IUserRepository,
+  ICreateUserDTO,
+  IUpdateUserDTO,
+  IUpdateUserAvatarDTO,
+};

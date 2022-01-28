@@ -1,6 +1,7 @@
 import { UserRepository } from "@modules/accounts/repositories/implementations/UserRepository";
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import { ApplicationError } from "src/errors/ApplicationError";
 
 interface IPayload {
   sub: string;
@@ -13,11 +14,11 @@ export async function ensureAuthenticated(
 ) {
   const authHeader = request.headers.authorization;
 
-  if (!authHeader) throw new Error("Token not provided");
+  if (!authHeader) throw new ApplicationError("Token not provided", 401);
 
   const token = authHeader.split(" ");
 
-  if (token.length !== 2) throw new Error("Token malformatted");
+  if (token.length !== 2) throw new ApplicationError("Token malformatted", 401);
 
   const [, serial] = token;
 
@@ -29,12 +30,16 @@ export async function ensureAuthenticated(
 
     const userRepository = new UserRepository();
 
-    const user = userRepository.findById(user_id);
+    const user = await userRepository.findById(user_id);
 
-    if (!user) throw new Error("User not exists!");
+    if (!user) throw new ApplicationError("User not exists!", 401);
+
+    request.user = {
+      id: user.id,
+    };
 
     next();
   } catch (error) {
-    throw new Error("Invalid Token");
+    throw new ApplicationError("Invalid Token", 401);
   }
 }
