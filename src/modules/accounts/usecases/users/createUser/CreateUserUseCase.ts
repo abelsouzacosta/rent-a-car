@@ -1,7 +1,5 @@
-import {
-  IUserRepository,
-  ICreateUserDTO,
-} from "@modules/accounts/repositories/users/IUserRepository";
+import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
+import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
 import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";

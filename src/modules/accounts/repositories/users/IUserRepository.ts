@@ -1,20 +1,8 @@
 import { User } from "@modules/accounts/entities/User";
 
-interface ICreateUserDTO {
-  name: string;
-  email: string;
-  password: string;
-  driver_license: string;
-}
-
-interface IUpdateUserDTO extends ICreateUserDTO {
-  id: string;
-}
-
-interface IUpdateUserAvatarDTO {
-  id: string;
-  avatar: string;
-}
+import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
+import { IUpdateUserAvatarDTO } from "../../dtos/IUpdateUserAvatarDTO";
+import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
 
 interface IUserRepository {
   findByName(name: string): Promise<User | undefined>;
@@ -45,9 +33,4 @@ interface IUserRepository {
   delete(id: string): Promise<void>;
 }
 
-export {
-  IUserRepository,
-  ICreateUserDTO,
-  IUpdateUserDTO,
-  IUpdateUserAvatarDTO,
-};
+export { IUserRepository };

@@ -1,23 +1,10 @@
+import { IAuthenticateUserDTO } from "@modules/accounts/dtos/IAuthenticateUserDTO";
+import { IResponseAuthenticationDTO } from "@modules/accounts/dtos/IResponseAuthenticationDTO";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
 import { sign } from "jsonwebtoken";
 import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
-
-interface IAuthenticateUserDTO {
-  email: string;
-  password: string;
-}
-
-interface IUserDTO {
-  name: string;
-  email: string;
-}
-
-interface IResponse {
-  user: IUserDTO;
-  token: string;
-}
 
 @injectable()
 class AuthenticateUserUseCase {
@@ -34,7 +21,10 @@ class AuthenticateUserUseCase {
     this.passwordHandler = passwordHandler;
   }
 
-  async execute({ email, password }: IAuthenticateUserDTO): Promise<IResponse> {
+  async execute({
+    email,
+    password,
+  }: IAuthenticateUserDTO): Promise<IResponseAuthenticationDTO> {
     const user = await this.repository.findByEmail(email);
 
     if (!user) throw new ApplicationError("Email or password incorrect", 401);
@@ -52,7 +42,7 @@ class AuthenticateUserUseCase {
       expiresIn: 86400,
     });
 
-    const response: IResponse = {
+    const response: IResponseAuthenticationDTO = {
       user: {
         name: user.name,
         email: user.email,

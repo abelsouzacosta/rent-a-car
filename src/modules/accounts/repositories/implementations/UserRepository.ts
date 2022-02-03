@@ -1,12 +1,10 @@
 import { User } from "@modules/accounts/entities/User";
 import { getRepository, Repository } from "typeorm";
 
-import {
-  IUserRepository,
-  ICreateUserDTO,
-  IUpdateUserDTO,
-  IUpdateUserAvatarDTO,
-} from "../users/IUserRepository";
+import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
+import { IUpdateUserAvatarDTO } from "../../dtos/IUpdateUserAvatarDTO";
+import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
+import { IUserRepository } from "../users/IUserRepository";
 
 class UserRepository implements IUserRepository {
   private repository: Repository<User>;
