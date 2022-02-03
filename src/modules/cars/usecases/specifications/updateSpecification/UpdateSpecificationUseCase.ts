@@ -1,7 +1,5 @@
-import {
-  ISpecificationRepository,
-  IUpdateSpecificationDTO,
-} from "@modules/cars/repositories/specification/ISpecificationRepository";
+import { IUpdateSpecificationDTO } from "@modules/cars/dtos/specifications/IUpdateSpecificationDTO";
+import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
 import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 

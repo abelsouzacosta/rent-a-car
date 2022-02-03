@@ -1,7 +1,5 @@
-import {
-  ISpecificationRepository,
-  ICreateSpecificationDTO,
-} from "@cars/repositories/specification/ISpecificationRepository";
+import { ISpecificationRepository } from "@cars/repositories/specification/ISpecificationRepository";
+import { ICreateSpecificationDTO } from "@modules/cars/dtos/specifications/ICreateSpecificationDTO";
 import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 

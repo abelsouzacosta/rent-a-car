@@ -1,7 +1,5 @@
-import {
-  ICategoryRepository,
-  IUpdateCategoryDTO,
-} from "@cars/repositories/category/ICategoryRepository";
+import { ICategoryRepository } from "@cars/repositories/category/ICategoryRepository";
+import { IUpdateCategoryDTO } from "@modules/cars/dtos/categories/IUpdateCategoryDTO";
 import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 

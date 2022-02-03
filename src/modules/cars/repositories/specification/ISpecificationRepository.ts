@@ -1,19 +1,7 @@
 import { Specification } from "@cars/entities/Specification";
-
-interface ICreateSpecificationDTO {
-  name: string;
-  description: string;
-}
-
-interface IUpdateSpecificationDTO {
-  id: string;
-  name?: string;
-  description?: string;
-}
-
-interface IDeleteSpecificationDTO {
-  id: string;
-}
+import { ICreateSpecificationDTO } from "@modules/cars/dtos/specifications/ICreateSpecificationDTO";
+import { IDeleteSpecificationDTO } from "@modules/cars/dtos/specifications/IDeleteSpecificationDTO";
+import { IUpdateSpecificationDTO } from "@modules/cars/dtos/specifications/IUpdateSpecificationDTO";
 
 interface ISpecificationRepository {
   findByName(name: string): Promise<Specification>;
@@ -26,12 +14,7 @@ interface ISpecificationRepository {
 
   update({ id, name, description }: IUpdateSpecificationDTO): Promise<void>;
 
-  delete(id: string): Promise<void>;
+  delete({ id }: IDeleteSpecificationDTO): Promise<void>;
 }
 
-export {
-  ISpecificationRepository,
-  ICreateSpecificationDTO,
-  IUpdateSpecificationDTO,
-  IDeleteSpecificationDTO,
-};
+export { ISpecificationRepository };

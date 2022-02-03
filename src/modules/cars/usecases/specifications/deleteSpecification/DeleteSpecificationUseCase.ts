@@ -1,7 +1,5 @@
-import {
-  ISpecificationRepository,
-  IDeleteSpecificationDTO,
-} from "@modules/cars/repositories/specification/ISpecificationRepository";
+import { IDeleteSpecificationDTO } from "@modules/cars/dtos/specifications/IDeleteSpecificationDTO";
+import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
 import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 
@@ -22,7 +20,7 @@ class DeleteSpecificationUseCase {
     if (!specification)
       throw new ApplicationError("Specification not found", 404);
 
-    this.repository.delete(id);
+    this.repository.delete({ id });
   }
 }
 

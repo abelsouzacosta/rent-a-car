@@ -1,15 +1,6 @@
 import { Category } from "@cars/entities/Category";
-
-interface ICreateCategoryDTO {
-  name: string;
-  description: string;
-}
-
-interface IUpdateCategoryDTO {
-  id: string;
-  name?: string;
-  description?: string;
-}
+import { ICreateCategoryDTO } from "@modules/cars/dtos/categories/ICreateCategoryDTO";
+import { IUpdateCategoryDTO } from "@modules/cars/dtos/categories/IUpdateCategoryDTO";
 
 interface ICategoryRepository {
   findByName(name: string): Promise<Category>;
@@ -25,4 +16,4 @@ interface ICategoryRepository {
   delete(id: string): Promise<void>;
 }
 
-export { ICategoryRepository, ICreateCategoryDTO, IUpdateCategoryDTO };
+export { ICategoryRepository };

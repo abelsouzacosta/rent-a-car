@@ -1,10 +1,7 @@
 import { ICategoryRepository } from "@cars/repositories/category/ICategoryRepository";
+import { IDeleteCategoryDTO } from "@modules/cars/dtos/categories/IDeleteCategoryDTO";
 import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
-
-interface IDeleteCategoryDTO {
-  id: string;
-}
 
 @injectable()
 class DeleteCategoryUseCase {
