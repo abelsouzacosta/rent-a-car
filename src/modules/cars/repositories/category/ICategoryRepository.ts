@@ -3,9 +3,9 @@ import { ICreateCategoryDTO } from "@modules/cars/dtos/categories/ICreateCategor
 import { IUpdateCategoryDTO } from "@modules/cars/dtos/categories/IUpdateCategoryDTO";
 
 interface ICategoryRepository {
-  findByName(name: string): Promise<Category>;
+  findByName(name: string): Promise<Category | undefined>;
 
-  findById(id: string): Promise<Category>;
+  findById(id: string): Promise<Category | undefined>;
 
   list(): Promise<Category[]>;
 

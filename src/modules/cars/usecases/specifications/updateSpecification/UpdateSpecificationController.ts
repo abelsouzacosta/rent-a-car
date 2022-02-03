@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { IController } from "../../IController";
 import { UpdateSpecificationUseCase } from "./UpdateSpecificationUseCase";
 
-class UpdateSpecificationController implements IController {
-  handle(request: Request, response: Response): Response {
+class UpdateSpecificationController {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const { name, description } = request.body;
 
@@ -13,7 +12,7 @@ class UpdateSpecificationController implements IController {
       UpdateSpecificationUseCase
     );
 
-    updateSpecificationUseCase.execute({ id, name, description });
+    await updateSpecificationUseCase.execute({ id, name, description });
 
     return response.status(200).send();
   }

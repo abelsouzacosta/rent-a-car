@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { IController } from "../../IController";
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 
-class ImportCategoryController implements IController {
+class ImportCategoryController {
   handle(request: Request, response: Response): Response {
     const { file } = request;
 

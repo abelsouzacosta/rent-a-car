@@ -4,9 +4,9 @@ import { IDeleteSpecificationDTO } from "@modules/cars/dtos/specifications/IDele
 import { IUpdateSpecificationDTO } from "@modules/cars/dtos/specifications/IUpdateSpecificationDTO";
 
 interface ISpecificationRepository {
-  findByName(name: string): Promise<Specification>;
+  findByName(name: string): Promise<Specification | undefined>;
 
-  findById(id: string): Promise<Specification>;
+  findById(id: string): Promise<Specification | undefined>;
 
   list(): Promise<Specification[]>;
 

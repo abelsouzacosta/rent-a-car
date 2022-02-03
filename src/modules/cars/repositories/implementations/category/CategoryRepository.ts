@@ -25,7 +25,7 @@ class CategoryRepository implements ICategoryRepository {
     return this.repository.find();
   }
 
-  findByName(name: string): Promise<Category> {
+  findByName(name: string): Promise<Category | undefined> {
     return this.repository.findOne({
       where: {
         name,
@@ -33,7 +33,7 @@ class CategoryRepository implements ICategoryRepository {
     });
   }
 
-  async findById(id: string): Promise<Category> {
+  async findById(id: string): Promise<Category | undefined> {
     return this.repository.findOne({
       where: {
         id,
