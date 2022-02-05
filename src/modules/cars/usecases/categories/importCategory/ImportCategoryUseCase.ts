@@ -1,7 +1,8 @@
-import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 import { parse } from "csv-parse";
 import { createReadStream, promises } from "fs";
 import { inject, injectable } from "tsyringe";
+
+import { ICategoryRepository } from "../../../repositories/category/ICategoryRepository";
 
 interface IImportCategory {
   name: string;

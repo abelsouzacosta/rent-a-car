@@ -53,7 +53,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "dev": "tsnd --inspect --transpile-only --ignore-watch node_modules --respawn -r tsconfig-paths/register src/server.ts",
+    "dev": "tsnd --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "typeorm": "tsnd ./node_modules/typeorm/cli",
     "test": "jest"
   }
