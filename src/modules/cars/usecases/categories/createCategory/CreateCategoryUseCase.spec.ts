@@ -1,3 +1,4 @@
+import { ApplicationError } from "../../../../../errors/ApplicationError";
 import { CategoryRepositoryInMemory } from "../../../repositories/category/in-memory/CategoryRepositoryInMemory";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
@@ -23,8 +24,25 @@ describe("Create Category", () => {
 
     const created = await repository.findByName(category.name);
 
-    console.log(created);
-
     expect(created).toHaveProperty("id");
+  });
+
+  it("should not be able to create an category with a name already taken", async () => {
+    expect(async () => {
+      const category = {
+        name: "Test category",
+        description: "Test description",
+      };
+
+      await create.execute({
+        name: category.name,
+        description: category.description,
+      });
+
+      await create.execute({
+        name: category.name,
+        description: category.description,
+      });
+    }).rejects.toBeInstanceOf(ApplicationError);
   });
 });
