@@ -1,9 +1,9 @@
-import { IUpdateUserAvatarDTO } from "@modules/accounts/dtos/IUpdateUserAvatarDTO";
-import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
-import { ApplicationError } from "src/errors/ApplicationError";
 import { inject, injectable } from "tsyringe";
 
+import { ApplicationError } from "../../../../../errors/ApplicationError";
 import { deleteFile } from "../../../../../utils/file";
+import { IUpdateUserAvatarDTO } from "../../../dtos/IUpdateUserAvatarDTO";
+import { IUserRepository } from "../../../repositories/users/IUserRepository";
 
 @injectable()
 class UpdateUserAvatarUseCase {

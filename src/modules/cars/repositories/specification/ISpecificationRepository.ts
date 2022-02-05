@@ -1,7 +1,7 @@
-import { Specification } from "@cars/entities/Specification";
-import { ICreateSpecificationDTO } from "@modules/cars/dtos/specifications/ICreateSpecificationDTO";
-import { IDeleteSpecificationDTO } from "@modules/cars/dtos/specifications/IDeleteSpecificationDTO";
-import { IUpdateSpecificationDTO } from "@modules/cars/dtos/specifications/IUpdateSpecificationDTO";
+import { ICreateSpecificationDTO } from "../../dtos/specifications/ICreateSpecificationDTO";
+import { IDeleteSpecificationDTO } from "../../dtos/specifications/IDeleteSpecificationDTO";
+import { IUpdateSpecificationDTO } from "../../dtos/specifications/IUpdateSpecificationDTO";
+import { Specification } from "../../entities/Specification";
 
 interface ISpecificationRepository {
   findByName(name: string): Promise<Specification | undefined>;

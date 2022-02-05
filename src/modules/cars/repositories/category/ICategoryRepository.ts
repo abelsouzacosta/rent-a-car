@@ -1,6 +1,6 @@
-import { Category } from "@cars/entities/Category";
-import { ICreateCategoryDTO } from "@modules/cars/dtos/categories/ICreateCategoryDTO";
-import { IUpdateCategoryDTO } from "@modules/cars/dtos/categories/IUpdateCategoryDTO";
+import { ICreateCategoryDTO } from "../../dtos/categories/ICreateCategoryDTO";
+import { IUpdateCategoryDTO } from "../../dtos/categories/IUpdateCategoryDTO";
+import { Category } from "../../entities/Category";
 
 interface ICategoryRepository {
   findByName(name: string): Promise<Category | undefined>;

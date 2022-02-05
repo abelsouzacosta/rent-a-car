@@ -1,9 +1,9 @@
-import { User } from "@modules/accounts/entities/User";
 import { getRepository, Repository } from "typeorm";
 
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUpdateUserAvatarDTO } from "../../dtos/IUpdateUserAvatarDTO";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
+import { User } from "../../entities/User";
 import { IUserRepository } from "../users/IUserRepository";
 
 class UserRepository implements IUserRepository {

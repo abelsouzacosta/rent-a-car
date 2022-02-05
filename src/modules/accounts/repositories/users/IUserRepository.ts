@@ -1,8 +1,7 @@
-import { User } from "@modules/accounts/entities/User";
-
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUpdateUserAvatarDTO } from "../../dtos/IUpdateUserAvatarDTO";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
+import { User } from "../../entities/User";
 
 interface IUserRepository {
   findByName(name: string): Promise<User | undefined>;

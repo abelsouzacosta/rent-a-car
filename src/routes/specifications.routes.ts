@@ -1,9 +1,10 @@
-import { CreateSepcificationController } from "@cars/usecases/specifications/createSpecification/CreateSpecificationController";
-import { DeleteSpecificationController } from "@modules/cars/usecases/specifications/deleteSpecification/DeleteSpecificationController";
-import { ListSpecificationsController } from "@modules/cars/usecases/specifications/listSpecifications/ListSpecificationsController";
-import { UpdateSpecificationController } from "@modules/cars/usecases/specifications/updateSpecification/UpdateSpecificationController";
 import { Router } from "express";
-import { ensureAuthenticated } from "src/middlewares/ensureAuthenticated";
+
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import { CreateSepcificationController } from "../modules/cars/usecases/specifications/createSpecification/CreateSpecificationController";
+import { DeleteSpecificationController } from "../modules/cars/usecases/specifications/deleteSpecification/DeleteSpecificationController";
+import { ListSpecificationsController } from "../modules/cars/usecases/specifications/listSpecifications/ListSpecificationsController";
+import { UpdateSpecificationController } from "../modules/cars/usecases/specifications/updateSpecification/UpdateSpecificationController";
 
 const specificationRouter = Router();
 

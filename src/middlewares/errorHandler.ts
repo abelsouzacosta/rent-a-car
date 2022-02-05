@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { ApplicationError } from "src/errors/ApplicationError";
+
+import { ApplicationError } from "../errors/ApplicationError";
 
 import "express-async-errors";
 
