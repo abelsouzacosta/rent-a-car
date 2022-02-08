@@ -30,6 +30,17 @@ describe("Authenticate User Use Case", () => {
     );
   });
 
+  it("Should throw an execption if an password is not provided", async () => {
+    const result = auth.execute({
+      email: "abelsouzacosta@gmail.com",
+      password: "",
+    });
+
+    await expect(result).rejects.toThrowError(
+      new ApplicationError("Password not provided", 400)
+    );
+  });
+
   it("Should be able to authenticate an user in the application", async () => {
     const user: ICreateUserDTO = {
       name: "Abel",
