@@ -58,4 +58,24 @@ describe("Authenticate User Use Case", () => {
 
     expect(result).toHaveProperty("token");
   });
+
+  it("Should not be able to authenticate the user if the password is incorrect", async () => {
+    const user: ICreateUserDTO = {
+      name: "Abel",
+      email: "abelsouzacosta@gmail.com",
+      password: "123456",
+      driver_license: "909090",
+    };
+
+    await create.execute(user);
+
+    const result = auth.execute({
+      email: "another@mail.com",
+      password: user.password,
+    });
+
+    await expect(result).rejects.toThrowError(
+      new ApplicationError("Email or password incorrect", 401)
+    );
+  });
 });
