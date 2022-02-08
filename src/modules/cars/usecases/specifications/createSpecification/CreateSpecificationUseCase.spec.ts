@@ -1,3 +1,4 @@
+import { ApplicationError } from "../../../../../errors/ApplicationError";
 import { SpecificationRepositoryInMemory } from "../../../repositories/specification/in-memory/SpecificationRepositoryInMemory";
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
@@ -24,5 +25,24 @@ describe("Create Specification", () => {
     const created = await repository.findByName(specification.name);
 
     expect(created).toHaveProperty("id");
+  });
+
+  it("should not be able to create an category specification with a name already taken", async () => {
+    expect(async () => {
+      const specification = {
+        name: "Test Specification",
+        description: "Test description specification",
+      };
+
+      await create.execute({
+        name: specification.name,
+        description: specification.description,
+      });
+
+      await create.execute({
+        name: specification.name,
+        description: specification.description,
+      });
+    }).rejects.toBeInstanceOf(ApplicationError);
   });
 });
