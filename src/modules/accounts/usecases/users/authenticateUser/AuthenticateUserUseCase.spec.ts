@@ -19,6 +19,17 @@ describe("Authenticate User Use Case", () => {
     auth = new AuthenticateUserUseCase(repository, handler);
   });
 
+  it("Should throw an exception if an email is not provided", async () => {
+    const result = auth.execute({
+      email: "",
+      password: "123456",
+    });
+
+    await expect(result).rejects.toThrowError(
+      new ApplicationError("Email not provided", 400)
+    );
+  });
+
   it("Should be able to authenticate an user in the application", async () => {
     const user: ICreateUserDTO = {
       name: "Abel",

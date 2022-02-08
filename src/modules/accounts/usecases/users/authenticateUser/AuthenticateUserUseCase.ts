@@ -26,6 +26,8 @@ class AuthenticateUserUseCase {
     email,
     password,
   }: IAuthenticateUserDTO): Promise<IResponseAuthenticationDTO> {
+    if (!email) throw new ApplicationError("Email not provided", 400);
+
     const user = await this.repository.findByEmail(email);
 
     if (!user) throw new ApplicationError("Email or password incorrect", 401);
