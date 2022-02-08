@@ -1,6 +1,5 @@
 import { ApplicationError } from "../../../../../errors/ApplicationError";
 import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO";
-import { User } from "../../../entities/User";
 import { UserRepositoryInMemory } from "../../../repositories/users/in-memory/UserRepositoryInMemory";
 import { PasswordHandler } from "../../../utils/cryptography/implementations/PasswordHandler";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
