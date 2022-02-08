@@ -1,8 +1,7 @@
-import { ICreateSpecificationDTO } from "src/modules/cars/dtos/specifications/ICreateSpecificationDTO";
-import { IDeleteSpecificationDTO } from "src/modules/cars/dtos/specifications/IDeleteSpecificationDTO";
-import { IUpdateSpecificationDTO } from "src/modules/cars/dtos/specifications/IUpdateSpecificationDTO";
-import { Specification } from "src/modules/cars/entities/Specification";
-
+import { ICreateSpecificationDTO } from "../../../dtos/specifications/ICreateSpecificationDTO";
+import { IDeleteSpecificationDTO } from "../../../dtos/specifications/IDeleteSpecificationDTO";
+import { IUpdateSpecificationDTO } from "../../../dtos/specifications/IUpdateSpecificationDTO";
+import { Specification } from "../../../entities/Specification";
 import { ISpecificationRepository } from "../ISpecificationRepository";
 
 class SpecificationRepositoryInMemory implements ISpecificationRepository {
