@@ -59,3 +59,5 @@ class SpecificationRepositoryInMemory implements ISpecificationRepository {
     this.specifications.splice(index, 1);
   }
 }
+
+export { SpecificationRepositoryInMemory };
