@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { Specification } from "../../../entities/Specification";
-import { ISpecificationRepository } from "../../../repositories/specification/ISpecificationRepository";
+import { Specification } from "@modules/cars/entities/Specification";
+import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
 
 @injectable()
 class ListSpecificationsUseCase {
