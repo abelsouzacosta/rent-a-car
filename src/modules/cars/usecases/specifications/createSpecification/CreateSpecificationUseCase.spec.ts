@@ -1,5 +1,6 @@
-import { ApplicationError } from "../../../../../errors/ApplicationError";
-import { SpecificationRepositoryInMemory } from "../../../repositories/specification/in-memory/SpecificationRepositoryInMemory";
+import { ApplicationError } from "@errors/ApplicationError";
+import { SpecificationRepositoryInMemory } from "@modules/cars/repositories/specification/in-memory/SpecificationRepositoryInMemory";
+
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
 
 let create: CreateSpecificationUseCase;

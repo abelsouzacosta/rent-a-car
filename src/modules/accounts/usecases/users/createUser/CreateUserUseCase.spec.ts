@@ -1,6 +1,7 @@
-import { ApplicationError } from "../../../../../errors/ApplicationError";
-import { UserRepositoryInMemory } from "../../../repositories/users/in-memory/UserRepositoryInMemory";
-import { PasswordHandler } from "../../../utils/cryptography/implementations/PasswordHandler";
+import { ApplicationError } from "@errors/ApplicationError";
+import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
+import { PasswordHandler } from "@modules/accounts/utils/cryptography/implementations/PasswordHandler";
+
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
 let create: CreateUserUseCase;

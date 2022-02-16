@@ -1,7 +1,8 @@
-import { ApplicationError } from "../../../../../errors/ApplicationError";
-import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO";
-import { UserRepositoryInMemory } from "../../../repositories/users/in-memory/UserRepositoryInMemory";
-import { PasswordHandler } from "../../../utils/cryptography/implementations/PasswordHandler";
+import { ApplicationError } from "@errors/ApplicationError";
+import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
+import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
+import { PasswordHandler } from "@modules/accounts/utils/cryptography/implementations/PasswordHandler";
+
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
