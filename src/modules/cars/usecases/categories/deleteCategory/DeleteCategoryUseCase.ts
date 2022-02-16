@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
-import { ApplicationError } from "../../../../../errors/ApplicationError";
-import { IDeleteCategoryDTO } from "../../../dtos/categories/IDeleteCategoryDTO";
-import { ICategoryRepository } from "../../../repositories/category/ICategoryRepository";
+import { ApplicationError } from "@errors/ApplicationError";
+import { IDeleteCategoryDTO } from "@modules/cars/dtos/categories/IDeleteCategoryDTO";
+import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 
 @injectable()
 class DeleteCategoryUseCase {

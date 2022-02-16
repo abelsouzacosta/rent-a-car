@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
-import { ApplicationError } from "../../../../../errors/ApplicationError";
-import { IUpdateCategoryDTO } from "../../../dtos/categories/IUpdateCategoryDTO";
-import { ICategoryRepository } from "../../../repositories/category/ICategoryRepository";
+import { ApplicationError } from "@errors/ApplicationError";
+import { IUpdateCategoryDTO } from "@modules/cars/dtos/categories/IUpdateCategoryDTO";
+import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 
 @injectable()
 class UdpateCategoryUseCase {
