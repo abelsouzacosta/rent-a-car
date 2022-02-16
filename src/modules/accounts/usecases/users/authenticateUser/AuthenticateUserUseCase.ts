@@ -1,11 +1,11 @@
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
-import { ApplicationError } from "../../../../../errors/ApplicationError";
-import { IAuthenticateUserDTO } from "../../../dtos/IAuthenticateUserDTO";
-import { IResponseAuthenticationDTO } from "../../../dtos/IResponseAuthenticationDTO";
-import { IUserRepository } from "../../../repositories/users/IUserRepository";
-import { IPasswordHandler } from "../../../utils/cryptography/password/IPasswordHandler";
+import { ApplicationError } from "@errors/ApplicationError";
+import { IAuthenticateUserDTO } from "@modules/accounts/dtos/IAuthenticateUserDTO";
+import { IResponseAuthenticationDTO } from "@modules/accounts/dtos/IResponseAuthenticationDTO";
+import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
+import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
 
 @injectable()
 class AuthenticateUserUseCase {
