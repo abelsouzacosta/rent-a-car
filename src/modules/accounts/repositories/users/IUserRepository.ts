@@ -1,7 +1,7 @@
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { IUpdateUserAvatarDTO } from "../../dtos/IUpdateUserAvatarDTO";
 import { IUpdateUserDTO } from "../../dtos/IUpdateUserDTO";
-import { User } from "../../entities/User";
+import { User } from "../../infra/typeorm/entities/User";
 
 interface IUserRepository {
   findByName(name: string): Promise<User | undefined>;
