@@ -1,6 +1,6 @@
-import { ApplicationError } from "@shared/errors/ApplicationError";
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
 import { PasswordHandler } from "@modules/accounts/utils/cryptography/implementations/PasswordHandler";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 
 import { CreateUserUseCase } from "./CreateUserUseCase";
 

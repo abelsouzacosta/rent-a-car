@@ -1,7 +1,7 @@
 import { ICreateSpecificationDTO } from "../../../dtos/specifications/ICreateSpecificationDTO";
 import { IDeleteSpecificationDTO } from "../../../dtos/specifications/IDeleteSpecificationDTO";
 import { IUpdateSpecificationDTO } from "../../../dtos/specifications/IUpdateSpecificationDTO";
-import { Specification } from "../../../entities/Specification";
+import { Specification } from "../../../infra/typeorm/entities/Specification";
 import { ISpecificationRepository } from "../ISpecificationRepository";
 
 class SpecificationRepositoryInMemory implements ISpecificationRepository {
