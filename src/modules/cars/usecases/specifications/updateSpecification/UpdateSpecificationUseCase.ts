@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { ApplicationError } from "@errors/ApplicationError";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 import { IUpdateSpecificationDTO } from "@modules/cars/dtos/specifications/IUpdateSpecificationDTO";
 import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
 

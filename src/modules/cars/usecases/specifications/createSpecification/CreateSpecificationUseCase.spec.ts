@@ -1,4 +1,4 @@
-import { ApplicationError } from "@errors/ApplicationError";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 import { SpecificationRepositoryInMemory } from "@modules/cars/repositories/specification/in-memory/SpecificationRepositoryInMemory";
 
 import { CreateSpecificationUseCase } from "./CreateSpecificationUseCase";
