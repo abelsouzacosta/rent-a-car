@@ -1,12 +1,12 @@
 import { Router } from "express";
 import multer from "multer";
 
-import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
-import { CreateCategoryController } from "../modules/cars/usecases/categories/createCategory/CreateCategoryController";
-import { DeleteCategoryController } from "../modules/cars/usecases/categories/deleteCategory/DeleteCategoryController";
-import { ImportCategoryController } from "../modules/cars/usecases/categories/importCategory/ImportCategoryController";
-import { ListCategoryController } from "../modules/cars/usecases/categories/listCategory/ListCategoryController";
-import { UpdateCategoryController } from "../modules/cars/usecases/categories/updateCategory/UpdateCategoryController";
+import { CreateCategoryController } from "@modules/cars/usecases/categories/createCategory/CreateCategoryController";
+import { DeleteCategoryController } from "@modules/cars/usecases/categories/deleteCategory/DeleteCategoryController";
+import { ImportCategoryController } from "@modules/cars/usecases/categories/importCategory/ImportCategoryController";
+import { ListCategoryController } from "@modules/cars/usecases/categories/listCategory/ListCategoryController";
+import { UpdateCategoryController } from "@modules/cars/usecases/categories/updateCategory/UpdateCategoryController";
+import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
 
 const upload = multer({
   dest: "./tmp",
