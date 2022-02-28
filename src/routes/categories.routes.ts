@@ -1,7 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 
-import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
+
 import { CreateCategoryController } from "../modules/cars/usecases/categories/createCategory/CreateCategoryController";
 import { DeleteCategoryController } from "../modules/cars/usecases/categories/deleteCategory/DeleteCategoryController";
 import { ImportCategoryController } from "../modules/cars/usecases/categories/importCategory/ImportCategoryController";
