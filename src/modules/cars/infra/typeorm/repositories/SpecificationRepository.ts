@@ -1,10 +1,11 @@
 import { getRepository, Repository } from "typeorm";
 
-import { ICreateSpecificationDTO } from "../../../dtos/specifications/ICreateSpecificationDTO";
-import { IDeleteSpecificationDTO } from "../../../dtos/specifications/IDeleteSpecificationDTO";
-import { IUpdateSpecificationDTO } from "../../../dtos/specifications/IUpdateSpecificationDTO";
-import { Specification } from "../../../entities/Specification";
-import { ISpecificationRepository } from "../../specification/ISpecificationRepository";
+import { ICreateSpecificationDTO } from "@modules/cars/dtos/specifications/ICreateSpecificationDTO";
+import { IDeleteSpecificationDTO } from "@modules/cars/dtos/specifications/IDeleteSpecificationDTO";
+import { IUpdateSpecificationDTO } from "@modules/cars/dtos/specifications/IUpdateSpecificationDTO";
+import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
+
+import { Specification } from "../entities/Specification";
 
 class SpecificationRepository implements ISpecificationRepository {
   private repository: Repository<Specification>;
