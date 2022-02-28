@@ -7,7 +7,7 @@ import "./database";
 import "@shared/container";
 import errorHandler from "@shared/infra/http/middlewares/errorHandler";
 
-import { router } from "./routes";
+import { router } from "./shared/infra/http/routes";
 import swaggerFile from "./swagger.json";
 
 const app = express();

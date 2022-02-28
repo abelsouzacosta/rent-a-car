@@ -1,11 +1,10 @@
 import { Router } from "express";
 
+import { CreateSepcificationController } from "@modules/cars/usecases/specifications/createSpecification/CreateSpecificationController";
+import { DeleteSpecificationController } from "@modules/cars/usecases/specifications/deleteSpecification/DeleteSpecificationController";
+import { ListSpecificationsController } from "@modules/cars/usecases/specifications/listSpecifications/ListSpecificationsController";
+import { UpdateSpecificationController } from "@modules/cars/usecases/specifications/updateSpecification/UpdateSpecificationController";
 import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
-
-import { CreateSepcificationController } from "../modules/cars/usecases/specifications/createSpecification/CreateSpecificationController";
-import { DeleteSpecificationController } from "../modules/cars/usecases/specifications/deleteSpecification/DeleteSpecificationController";
-import { ListSpecificationsController } from "../modules/cars/usecases/specifications/listSpecifications/ListSpecificationsController";
-import { UpdateSpecificationController } from "../modules/cars/usecases/specifications/updateSpecification/UpdateSpecificationController";
 
 const specificationRouter = Router();
 
