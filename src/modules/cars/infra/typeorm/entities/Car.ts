@@ -1,4 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 
 import { Category } from "./Category";
 
@@ -35,7 +43,12 @@ class Car {
   @JoinColumn({ name: "category_id" })
   category: Category;
 
+  @CreateDateColumn()
   created_at: Date;
+
+  constructor() {
+    this.id = this.id ? this.id : uuidv4();
+  }
 }
 
 export { Car };
