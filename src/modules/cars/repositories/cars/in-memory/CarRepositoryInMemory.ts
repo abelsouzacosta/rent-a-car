@@ -34,7 +34,7 @@ class CarRepositoryInMemory implements ICarRepository {
     name,
     description,
     daily_rate,
-    available,
+    avaliable,
     license_plate,
     fine_amount,
     brand,
@@ -46,7 +46,7 @@ class CarRepositoryInMemory implements ICarRepository {
       name,
       description,
       daily_rate,
-      available,
+      avaliable,
       license_plate,
       fine_amount,
       brand,
@@ -60,7 +60,7 @@ class CarRepositoryInMemory implements ICarRepository {
     id,
     description,
     daily_rate,
-    available,
+    avaliable,
     fine_amount,
     category_id,
   }: IUpdateCarDTO): Promise<void> {
@@ -68,7 +68,7 @@ class CarRepositoryInMemory implements ICarRepository {
 
     car.description = description;
     car.daily_rate = daily_rate;
-    car.avaliable = available;
+    car.avaliable = avaliable;
     car.fine_amount = fine_amount;
     car.category_id = category_id;
   }

@@ -14,7 +14,7 @@ interface ICarRepository {
     name,
     description,
     daily_rate,
-    available,
+    avaliable,
     license_plate,
     fine_amount,
     brand,
@@ -25,7 +25,7 @@ interface ICarRepository {
     id,
     description,
     daily_rate,
-    available,
+    avaliable,
     fine_amount,
     category_id,
   }: IUpdateCarDTO): Promise<void>;
