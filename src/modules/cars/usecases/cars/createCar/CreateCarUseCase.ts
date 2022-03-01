@@ -35,7 +35,7 @@ class CreateCarUseCase {
         400
       );
 
-    if (fine_amount <= 0)
+    if (fine_amount <= 0 || fine_amount > 1500)
       throw new ApplicationError(
         "Fine amount must be a value greater than zero",
         400
