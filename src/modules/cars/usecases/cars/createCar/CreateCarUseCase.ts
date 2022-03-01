@@ -35,6 +35,12 @@ class CreateCarUseCase {
         400
       );
 
+    if (fine_amount <= 0)
+      throw new ApplicationError(
+        "Fine amount must be a value greater than zero",
+        400
+      );
+
     await this.repository.create({
       name,
       description,
