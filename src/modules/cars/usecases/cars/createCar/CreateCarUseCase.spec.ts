@@ -90,4 +90,20 @@ describe("Create Car Use Case", () => {
       await createCarUseCase.execute(car);
     }).rejects.toBeInstanceOf(ApplicationError);
   });
+
+  it("should not be able to create a car instance with fine_amount equal or lower to zero", () => {
+    expect(async () => {
+      const car = {
+        name: "EcoSport",
+        description: "Suv de Entrada",
+        daily_rate: 300,
+        license_plate: "KMO76VA",
+        fine_amount: -100,
+        brand: "Ford",
+        category_id: "c2007a85-db2c-4391-96ee-0b9460e75fd2",
+      };
+
+      await createCarUseCase.execute(car);
+    }).rejects.toBeInstanceOf(ApplicationError);
+  });
 });
