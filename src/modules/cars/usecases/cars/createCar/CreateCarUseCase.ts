@@ -29,6 +29,12 @@ class CreateCarUseCase {
     if (plateAlreadyTaken)
       throw new ApplicationError("Plate already taken", 409);
 
+    if (daily_rate <= 0)
+      throw new ApplicationError(
+        "Daily rate must be a value greater than zero",
+        400
+      );
+
     await this.repository.create({
       name,
       description,
