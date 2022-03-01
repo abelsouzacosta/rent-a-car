@@ -3,7 +3,7 @@ interface IUpdateCarDTO {
   description: string;
   daily_rate: number;
   available: boolean;
-  fine_amount: string;
+  fine_amount: number;
   category_id: string;
 }
 
