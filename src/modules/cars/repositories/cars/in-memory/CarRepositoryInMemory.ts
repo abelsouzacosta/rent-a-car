@@ -34,7 +34,6 @@ class CarRepositoryInMemory implements ICarRepository {
     name,
     description,
     daily_rate,
-    avaliable,
     license_plate,
     fine_amount,
     brand,
@@ -42,11 +41,12 @@ class CarRepositoryInMemory implements ICarRepository {
   }: ICreateCarDTO): Promise<void> {
     const car = new Car();
 
+    car.avaliable = true;
+
     Object.assign(car, {
       name,
       description,
       daily_rate,
-      avaliable,
       license_plate,
       fine_amount,
       brand,

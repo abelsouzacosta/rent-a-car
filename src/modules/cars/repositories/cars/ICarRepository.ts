@@ -14,7 +14,6 @@ interface ICarRepository {
     name,
     description,
     daily_rate,
-    avaliable,
     license_plate,
     fine_amount,
     brand,
