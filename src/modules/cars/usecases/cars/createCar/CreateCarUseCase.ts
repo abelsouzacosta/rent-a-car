@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { ICreateCarDTO } from "@modules/cars/dtos/cars/ICreateCarDTO";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 
 @injectable()
 class CreateCarUseCase {
@@ -23,6 +24,11 @@ class CreateCarUseCase {
     brand,
     category_id,
   }: ICreateCarDTO): Promise<void> {
+    const plateAlreadyTaken = await this.repository.findByPlate(license_plate);
+
+    if (plateAlreadyTaken)
+      throw new ApplicationError("Plate already taken", 409);
+
     this.repository.create({
       name,
       description,

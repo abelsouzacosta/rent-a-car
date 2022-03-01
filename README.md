@@ -34,7 +34,7 @@ Ex:
 * Regras de negócio:
   * Não deve ser possível cadastrar um carro com uma placa já cadastrada
   * O carro, por padrão deve estar disponível ao ser cadastrado
-  * O usuário responsável ppelo cadastro dedve ser yum usuário administrador
+  * O usuário responsável pelo cadastro dedve ser um usuário administrador
 
 #### Listagem de carros
 
@@ -50,7 +50,7 @@ Ex:
 #### Atualização de carro
 
 * Requisitos funcionais:
-  * Dev ser possível atualizar informações de um determinado carro
+  * Deve ser possível atualizar informações de um determinado carro
 
 * Regras de negócio:
   * Não deve ser possível alterar a placa de um carro já cadastrado
