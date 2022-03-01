@@ -34,7 +34,10 @@ Ex:
 * Regras de negócio:
   * Não deve ser possível cadastrar um carro com uma placa já cadastrada
   * O carro, por padrão deve estar disponível ao ser cadastrado
-  * O usuário responsável pelo cadastro dedve ser um usuário administrador
+  * Um carro não pode ser cadastrado com o preço de diária igual ou menor que zero
+  * Um carro não pode ser cadastrado com um valor de multa igual ou menor que zero
+  * Um carro não pode ser cadastrado com um valor de multa maior que 1500
+  * O usuário responsável pelo cadastro deve ser um usuário administrador
 
 #### Listagem de carros
 

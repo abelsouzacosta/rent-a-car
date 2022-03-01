@@ -74,4 +74,20 @@ describe("Create Car Use Case", () => {
 
     expect(created.avaliable).toBe(true);
   });
+
+  it("should not be able to create an car with the daily_rate equal or lower than zero", () => {
+    expect(async () => {
+      const car = {
+        name: "EcoSport",
+        description: "Suv de Entrada",
+        daily_rate: -300,
+        license_plate: "KMO76VA",
+        fine_amount: 1230.9,
+        brand: "Ford",
+        category_id: "c2007a85-db2c-4391-96ee-0b9460e75fd2",
+      };
+
+      await createCarUseCase.execute(car);
+    }).rejects.toBeInstanceOf(ApplicationError);
+  });
 });
