@@ -29,7 +29,7 @@ class CreateCarUseCase {
     if (plateAlreadyTaken)
       throw new ApplicationError("Plate already taken", 409);
 
-    this.repository.create({
+    await this.repository.create({
       name,
       description,
       daily_rate,
