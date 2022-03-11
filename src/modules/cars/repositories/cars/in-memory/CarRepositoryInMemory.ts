@@ -12,6 +12,12 @@ class CarRepositoryInMemory implements ICarRepository {
     this.cars = [];
   }
 
+  async listAvaliables(): Promise<Car[] | undefined> {
+    const avaliableCars = this.cars.filter((car) => car.avaliable);
+
+    return avaliableCars;
+  }
+
   async findById(id: string): Promise<Car> {
     const car = this.cars.find((car) => car.id === id);
 
@@ -79,6 +85,12 @@ class CarRepositoryInMemory implements ICarRepository {
     const index = this.cars.indexOf(car);
 
     this.cars.splice(index, 1);
+  }
+
+  async rentCarWithPlate(license_plate: string): Promise<void> {
+    const car = await this.findByPlate(license_plate);
+
+    car.avaliable = false;
   }
 }
 
