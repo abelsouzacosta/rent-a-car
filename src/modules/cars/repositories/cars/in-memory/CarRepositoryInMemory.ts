@@ -12,8 +12,26 @@ class CarRepositoryInMemory implements ICarRepository {
     this.cars = [];
   }
 
-  async listAvaliables(): Promise<Car[] | undefined> {
-    const avaliableCars = this.cars.filter((car) => car.avaliable);
+  async listAvaliables(
+    name?: string,
+    brand?: string,
+    category_id?: string
+  ): Promise<Car[] | undefined> {
+    const avaliableCars = this.cars.filter((car) => {
+      if (
+        (name && car.name === name) ||
+        (brand && car.brand === brand) ||
+        (category_id && car.category_id === category_id)
+      ) {
+        return car;
+      }
+
+      if (!name && !brand && !category_id && car.avaliable) {
+        return car;
+      }
+
+      return null;
+    });
 
     return avaliableCars;
   }

@@ -1,14 +1,14 @@
 import { Router } from "express";
 
 import { CreateCarController } from "@modules/cars/usecases/cars/createCar/CreateCarController";
-import { ListCarsController } from "@modules/cars/usecases/cars/listCars/ListCarsController";
+import { ListAvaliableCarsController } from "@modules/cars/usecases/cars/listAvaliableCars/ListCarsController";
 import { isAdminMiddleware } from "@shared/infra/http/middlewares/isAdminMiddleware";
 
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 const carRouter = Router();
 const create = new CreateCarController();
-const list = new ListCarsController();
+const list = new ListAvaliableCarsController();
 
 carRouter.use(ensureAuthenticated);
 

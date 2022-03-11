@@ -1,10 +1,11 @@
 import { inject, injectable } from "tsyringe";
 
+import { IListAvaliableCarsDTO } from "@modules/cars/dtos/cars/IListAvaliableCarsDTO";
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 
 @injectable()
-class ListCarsUseCase {
+class ListAvaliableCarsUseCase {
   private repository: ICarRepository;
 
   constructor(
@@ -14,11 +15,19 @@ class ListCarsUseCase {
     Object.assign(this, { repository });
   }
 
-  async execute(): Promise<Car[]> {
-    const avaliables = await this.repository.listAvaliables();
+  async execute({
+    name,
+    brand,
+    category_id,
+  }: IListAvaliableCarsDTO): Promise<Car[]> {
+    const avaliables = await this.repository.listAvaliables(
+      name,
+      brand,
+      category_id
+    );
 
     return avaliables;
   }
 }
 
-export { ListCarsUseCase };
+export { ListAvaliableCarsUseCase };
