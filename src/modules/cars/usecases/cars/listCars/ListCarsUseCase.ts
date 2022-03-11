@@ -1,8 +1,9 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 
+@injectable()
 class ListCarsUseCase {
   private repository: ICarRepository;
 
