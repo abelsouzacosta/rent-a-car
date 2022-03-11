@@ -10,6 +10,14 @@ interface ICarRepository {
 
   findByPlate(license_plate: string): Promise<Car | undefined>;
 
+  listAvaliables(
+    name?: string,
+    brand?: string,
+    category_id?: string
+  ): Promise<Car[] | undefined>;
+
+  rentCarWithPlate(license_plate: string): Promise<void>;
+
   create({
     name,
     description,

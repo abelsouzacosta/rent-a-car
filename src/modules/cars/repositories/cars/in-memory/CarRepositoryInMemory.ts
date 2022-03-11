@@ -12,6 +12,30 @@ class CarRepositoryInMemory implements ICarRepository {
     this.cars = [];
   }
 
+  async listAvaliables(
+    name?: string,
+    brand?: string,
+    category_id?: string
+  ): Promise<Car[] | undefined> {
+    const avaliableCars = this.cars.filter((car) => {
+      if (
+        (name && car.name === name) ||
+        (brand && car.brand === brand) ||
+        (category_id && car.category_id === category_id)
+      ) {
+        return car;
+      }
+
+      if (!name && !brand && !category_id && car.avaliable) {
+        return car;
+      }
+
+      return null;
+    });
+
+    return avaliableCars;
+  }
+
   async findById(id: string): Promise<Car> {
     const car = this.cars.find((car) => car.id === id);
 
@@ -79,6 +103,12 @@ class CarRepositoryInMemory implements ICarRepository {
     const index = this.cars.indexOf(car);
 
     this.cars.splice(index, 1);
+  }
+
+  async rentCarWithPlate(license_plate: string): Promise<void> {
+    const car = await this.findByPlate(license_plate);
+
+    car.avaliable = false;
   }
 }
 

@@ -14,6 +14,27 @@ class CarRepository implements ICarRepository {
     this.repository = getRepository(Car);
   }
 
+  async listAvaliables(
+    name?: string,
+    brand?: string,
+    category_id?: string
+  ): Promise<Car[] | undefined> {
+    const carsQuery = await this.repository
+      .createQueryBuilder("c")
+      .where("avaliable = :avaliable", { avaliable: true });
+
+    if (brand) carsQuery.andWhere("c.brand = :brand", { brand });
+
+    if (name) carsQuery.andWhere("c.name = :name", { name });
+
+    if (category_id)
+      carsQuery.andWhere("c.category_id = :category_id", { category_id });
+
+    const cars = await carsQuery.getMany();
+
+    return cars;
+  }
+
   async findById(id: string): Promise<Car | undefined> {
     const car = await this.repository.findOne({
       where: {
@@ -81,6 +102,14 @@ class CarRepository implements ICarRepository {
     car.avaliable = avaliable || car.avaliable;
     car.fine_amount = fine_amount || car.fine_amount;
     car.category_id = category_id || car.category_id;
+
+    await this.repository.save(car);
+  }
+
+  async rentCarWithPlate(license_plate: string): Promise<void> {
+    const car = await this.findByPlate(license_plate);
+
+    car.avaliable = false;
 
     await this.repository.save(car);
   }
