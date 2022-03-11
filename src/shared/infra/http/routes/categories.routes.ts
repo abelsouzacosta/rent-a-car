@@ -8,6 +8,8 @@ import { ListCategoryController } from "@modules/cars/usecases/categories/listCa
 import { UpdateCategoryController } from "@modules/cars/usecases/categories/updateCategory/UpdateCategoryController";
 import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
 
+import { isAdminMiddleware } from "../middlewares/isAdminMiddleware";
+
 const upload = multer({
   dest: "./tmp",
 });
@@ -22,14 +24,19 @@ const import_category = new ImportCategoryController();
 
 categoriesRoutes.use(ensureAuthenticated);
 
-categoriesRoutes.post("/", create.handle);
+categoriesRoutes.post("/", isAdminMiddleware, create.handle);
 
 categoriesRoutes.get("/", list.handle);
 
-categoriesRoutes.put("/:id", update.handle);
+categoriesRoutes.put("/:id", isAdminMiddleware, update.handle);
 
-categoriesRoutes.delete("/:id", delete_category.handle);
+categoriesRoutes.delete("/:id", isAdminMiddleware, delete_category.handle);
 
-categoriesRoutes.post("/import", upload.single("file"), import_category.handle);
+categoriesRoutes.post(
+  "/import",
+  isAdminMiddleware,
+  upload.single("file"),
+  import_category.handle
+);
 
 export { categoriesRoutes };

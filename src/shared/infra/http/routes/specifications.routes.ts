@@ -6,6 +6,8 @@ import { ListSpecificationsController } from "@modules/cars/usecases/specificati
 import { UpdateSpecificationController } from "@modules/cars/usecases/specifications/updateSpecification/UpdateSpecificationController";
 import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
 
+import { isAdminMiddleware } from "../middlewares/isAdminMiddleware";
+
 const specificationRouter = Router();
 
 const create = new CreateSepcificationController();
@@ -15,12 +17,16 @@ const delete_specification = new DeleteSpecificationController();
 
 specificationRouter.use(ensureAuthenticated);
 
-specificationRouter.post("/", create.handle);
+specificationRouter.post("/", isAdminMiddleware, create.handle);
 
 specificationRouter.get("/", list.handle);
 
-specificationRouter.put("/:id", update.handle);
+specificationRouter.put("/:id", isAdminMiddleware, update.handle);
 
-specificationRouter.delete("/:id", delete_specification.handle);
+specificationRouter.delete(
+  "/:id",
+  isAdminMiddleware,
+  delete_specification.handle
+);
 
 export { specificationRouter };
