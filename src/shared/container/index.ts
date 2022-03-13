@@ -7,9 +7,11 @@ import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/
 import { CarRepository } from "@modules/cars/infra/typeorm/repositories/CarRepository";
 import { CategoryRepository } from "@modules/cars/infra/typeorm/repositories/CategoryRepository";
 import { SpecificationRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationRepository";
+import { SpecificationsCarsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsCarsRepository";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
+import { ISpecificationsCarsRepository } from "@modules/cars/repositories/specifications_cars/ISpecificationsCarsRepository";
 
 container.registerSingleton<ICategoryRepository>(
   "CategoryRepository",
@@ -29,3 +31,8 @@ container.registerSingleton<IPasswordHandler>(
 );
 
 container.registerSingleton<ICarRepository>("CarRepository", CarRepository);
+
+container.registerSingleton<ISpecificationsCarsRepository>(
+  "SpecificationsCarsRepository",
+  SpecificationsCarsRepository
+);

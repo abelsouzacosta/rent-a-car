@@ -4,11 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
 } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 
 import { Category } from "./Category";
+import { SpecificationsCars } from "./SpecificationsCars";
 
 @Entity("cars")
 class Car {
@@ -42,6 +44,12 @@ class Car {
   @ManyToOne(() => Category, (category) => category.cars)
   @JoinColumn({ name: "category_id" })
   category: Category;
+
+  @OneToMany(
+    () => SpecificationsCars,
+    (specifications_cars) => specifications_cars.car
+  )
+  specifications_cars: SpecificationsCars[];
 
   @CreateDateColumn()
   created_at: Date;
