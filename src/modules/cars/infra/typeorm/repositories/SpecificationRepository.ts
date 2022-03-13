@@ -30,6 +30,10 @@ class SpecificationRepository implements ISpecificationRepository {
     });
   }
 
+  findByIds(ids: string[]): Promise<Specification[]> {
+    return this.repository.findByIds(ids);
+  }
+
   list(): Promise<Specification[]> {
     return this.repository.find();
   }
