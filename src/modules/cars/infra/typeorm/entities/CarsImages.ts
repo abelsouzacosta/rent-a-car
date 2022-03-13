@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
 } from "typeorm";
@@ -21,6 +22,7 @@ class CarsImages {
   image_name: string;
 
   @ManyToOne(() => Car, (car) => car.cars_images)
+  @JoinColumn({ name: "car_id" })
   car: Car;
 
   @CreateDateColumn()
