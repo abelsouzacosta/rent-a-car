@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 
+import { CarsImages } from "./CarsImages";
 import { Category } from "./Category";
 import { SpecificationsCars } from "./SpecificationsCars";
 
@@ -50,6 +51,9 @@ class Car {
     (specifications_cars) => specifications_cars.car
   )
   specifications_cars: SpecificationsCars[];
+
+  @OneToMany(() => CarsImages, (cars_images) => cars_images.car)
+  cars_images: CarsImages[];
 
   @CreateDateColumn()
   created_at: Date;
