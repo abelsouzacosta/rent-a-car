@@ -1,6 +1,7 @@
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
 import { CarRepositoryInMemory } from "@modules/cars/repositories/cars/in-memory/CarRepositoryInMemory";
 import { RentalRepositoryInMemory } from "@modules/rentals/repositories/rentals/in-memory/RentalRepositoryInMemory";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
@@ -57,5 +58,18 @@ describe("Car Rental Use Case", () => {
     const list = await repository.list();
 
     expect(list.length).toBe(1);
+  });
+
+  it("Should not be able to create an rental for a non existent car", () => {
+    expect(async () => {
+      await createRentalUseCase.execute({
+        start_date: new Date(),
+        end_date: new Date(),
+        expected_return_date: new Date(),
+        total: 1500,
+        car_id: "123456",
+        user_id: "123456",
+      });
+    }).rejects.toBeInstanceOf(ApplicationError);
   });
 });

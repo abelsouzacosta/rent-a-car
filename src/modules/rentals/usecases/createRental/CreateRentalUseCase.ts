@@ -4,6 +4,7 @@ import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepos
 import { ICreateRentalDTO } from "@modules/cars/dtos/rentals/ICreateRentalDTO";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 
 @injectable()
 class CreateRentalUseCase {
@@ -30,6 +31,10 @@ class CreateRentalUseCase {
     car_id,
     user_id,
   }: ICreateRentalDTO): Promise<void> {
+    const car = await this.carRepository.findById(car_id);
+
+    if (!car) throw new ApplicationError("Car not found", 404);
+
     this.repository.create({
       start_date,
       end_date,
