@@ -38,6 +38,15 @@ class CreateRentalUseCase {
     if (!car.avaliable)
       throw new ApplicationError("Car is not available for rent", 409);
 
+    const userHasAnAlreadyOpenRentalOperation =
+      await this.repository.findRentalByUserId(user_id);
+
+    if (userHasAnAlreadyOpenRentalOperation)
+      throw new ApplicationError(
+        "User has an already open rental operation",
+        409
+      );
+
     this.repository.create({
       start_date: new Date(),
       end_date: new Date(),
