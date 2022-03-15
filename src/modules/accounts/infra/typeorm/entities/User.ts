@@ -1,5 +1,13 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { v4 as uuidv4 } from "uuid";
+
+import { Rental } from "@modules/cars/infra/typeorm/entities/Rental";
 
 @Entity("users")
 class User {
@@ -26,6 +34,9 @@ class User {
 
   @CreateDateColumn()
   created_at: Date;
+
+  @OneToMany(() => Rental, (rental) => rental.user)
+  rentals: Rental[];
 
   constructor() {
     this.id = this.id ? this.id : uuidv4();

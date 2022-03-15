@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { CarsImages } from "./CarsImages";
 import { Category } from "./Category";
+import { Rental } from "./Rental";
 import { SpecificationsCars } from "./SpecificationsCars";
 
 @Entity("cars")
@@ -54,6 +55,9 @@ class Car {
 
   @OneToMany(() => CarsImages, (cars_images) => cars_images.car)
   cars_images: CarsImages[];
+
+  @OneToMany(() => Rental, (rental) => rental.car)
+  rentals: Rental[];
 
   @CreateDateColumn()
   created_at: Date;
