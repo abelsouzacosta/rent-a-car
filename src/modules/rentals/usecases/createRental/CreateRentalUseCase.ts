@@ -32,6 +32,9 @@ class CreateRentalUseCase {
     user_id,
   }: ICreateRentalDTO): Promise<void> {
     const car = await this.carRepository.findById(car_id);
+    const user = await this.userRepository.findById(user_id);
+
+    if (!user) throw new ApplicationError("User not found", 404);
 
     if (!car) throw new ApplicationError("Car not found", 404);
 
