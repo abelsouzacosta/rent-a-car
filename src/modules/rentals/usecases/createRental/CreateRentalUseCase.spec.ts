@@ -62,13 +62,24 @@ describe("Car Rental Use Case", () => {
 
   it("Should not be able to create an rental for a non existent car", () => {
     expect(async () => {
+      const user = {
+        name: "Abel Souza Costa Junior",
+        email: "abel@junior.com",
+        password: "123456",
+        driver_license: "nagata",
+      };
+
+      userRepository.create(user);
+
+      const { id: user_id } = await userRepository.findByEmail(user.email);
+
       await createRentalUseCase.execute({
         start_date: new Date(),
         end_date: new Date(),
         expected_return_date: new Date(),
         total: 1500,
         car_id: "123456",
-        user_id: "123456",
+        user_id,
       });
     }).rejects.toBeInstanceOf(ApplicationError);
   });
