@@ -9,9 +9,10 @@ import {
 } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 
+import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
+
 import { CarsImages } from "./CarsImages";
 import { Category } from "./Category";
-import { Rental } from "./Rental";
 import { SpecificationsCars } from "./SpecificationsCars";
 
 @Entity("cars")

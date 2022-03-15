@@ -16,6 +16,10 @@ class RentalRepositoryInMemory implements IRentalRepository {
     return rental;
   }
 
+  async list(): Promise<Rental[]> {
+    return this.rentals;
+  }
+
   async create({
     start_date,
     end_date,
