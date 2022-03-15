@@ -40,8 +40,8 @@ describe("Car Rental Use Case", () => {
       driver_license: "nagata",
     };
 
-    carRepository.create(car);
-    userRepository.create(user);
+    await carRepository.create(car);
+    await userRepository.create(user);
 
     const { id: user_id } = await userRepository.findByEmail(user.email);
     const { id: car_id } = await carRepository.findByName(car.name);
@@ -80,6 +80,33 @@ describe("Car Rental Use Case", () => {
         total: 1500,
         car_id: "123456",
         user_id,
+      });
+    }).rejects.toBeInstanceOf(ApplicationError);
+  });
+
+  it("Should not be able to create an rental for a user that not exists", () => {
+    expect(async () => {
+      const car = {
+        name: "Supra",
+        description: "Is That a Supraaaa?",
+        fine_amount: 1998.91,
+        daily_rate: 900,
+        brand: "Toyota",
+        license_plate: "nagata",
+        category_id: "123",
+      };
+
+      await carRepository.create(car);
+
+      const { id: car_id } = await carRepository.findByName(car.name);
+
+      await createRentalUseCase.execute({
+        start_date: new Date(),
+        end_date: new Date(),
+        expected_return_date: new Date(),
+        total: 1500,
+        car_id,
+        user_id: "123456",
       });
     }).rejects.toBeInstanceOf(ApplicationError);
   });
