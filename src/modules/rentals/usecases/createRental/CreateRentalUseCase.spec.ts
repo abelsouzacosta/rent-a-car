@@ -47,10 +47,7 @@ describe("Car Rental Use Case", () => {
     const { id: car_id } = await carRepository.findByName(car.name);
 
     await createRentalUseCase.execute({
-      start_date: new Date(),
-      end_date: new Date(),
       expected_return_date: new Date(),
-      total: 1500,
       car_id,
       user_id,
     });
@@ -74,10 +71,7 @@ describe("Car Rental Use Case", () => {
       const { id: user_id } = await userRepository.findByEmail(user.email);
 
       await createRentalUseCase.execute({
-        start_date: new Date(),
-        end_date: new Date(),
         expected_return_date: new Date(),
-        total: 1500,
         car_id: "123456",
         user_id,
       });
@@ -101,10 +95,7 @@ describe("Car Rental Use Case", () => {
       const { id: car_id } = await carRepository.findByName(car.name);
 
       await createRentalUseCase.execute({
-        start_date: new Date(),
-        end_date: new Date(),
         expected_return_date: new Date(),
-        total: 1500,
         car_id,
         user_id: "123456",
       });

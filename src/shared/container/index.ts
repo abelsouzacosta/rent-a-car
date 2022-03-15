@@ -14,7 +14,6 @@ import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { ICategoryRepository } from "@modules/cars/repositories/category/ICategoryRepository";
 import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
 import { ISpecificationsCarsRepository } from "@modules/cars/repositories/specifications_cars/ISpecificationsCarsRepository";
-import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 
 container.registerSingleton<ICategoryRepository>(
   "CategoryRepository",

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
-import { ICreateRentalDTO } from "@modules/cars/dtos/rentals/ICreateRentalDTO";
+import { IRequestRentalDTO } from "@modules/cars/dtos/rentals/IRequestRentalDTO";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 import { ApplicationError } from "@shared/errors/ApplicationError";
@@ -24,13 +24,10 @@ class CreateRentalUseCase {
   }
 
   async execute({
-    start_date,
-    end_date,
     expected_return_date,
-    total,
     car_id,
     user_id,
-  }: ICreateRentalDTO): Promise<void> {
+  }: IRequestRentalDTO): Promise<void> {
     const car = await this.carRepository.findById(car_id);
     const user = await this.userRepository.findById(user_id);
 
@@ -39,10 +36,10 @@ class CreateRentalUseCase {
     if (!car) throw new ApplicationError("Car not found", 404);
 
     this.repository.create({
-      start_date,
-      end_date,
+      start_date: new Date(),
+      end_date: new Date(),
       expected_return_date,
-      total,
+      total: 1000,
       car_id,
       user_id,
     });
