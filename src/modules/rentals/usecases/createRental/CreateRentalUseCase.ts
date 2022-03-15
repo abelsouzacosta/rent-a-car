@@ -35,6 +35,9 @@ class CreateRentalUseCase {
 
     if (!car) throw new ApplicationError("Car not found", 404);
 
+    if (!car.avaliable)
+      throw new ApplicationError("Car is not available for rent", 409);
+
     this.repository.create({
       start_date: new Date(),
       end_date: new Date(),
