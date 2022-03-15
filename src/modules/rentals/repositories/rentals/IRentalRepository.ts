@@ -13,6 +13,8 @@ interface IRentalRepository {
 
   findById(id: string): Promise<Rental | undefined>;
 
+  findRentalByUserId(user_id: string): Promise<Rental | undefined>;
+
   list(): Promise<Rental[]>;
 }
 

@@ -136,4 +136,55 @@ describe("Car Rental Use Case", () => {
       });
     }).rejects.toBeInstanceOf(ApplicationError);
   });
+
+  it("Should not be able to create an rental for a user who already open rental operation", () => {
+    expect(async () => {
+      const car = {
+        name: "Supra",
+        description: "Is That a Supraaaa?",
+        fine_amount: 1998.91,
+        daily_rate: 900,
+        brand: "Toyota",
+        license_plate: "nagata",
+        category_id: "123",
+      };
+
+      const car2 = {
+        name: "Supra",
+        description: "Is That a Supraaaa?",
+        fine_amount: 1998.91,
+        daily_rate: 900,
+        brand: "Toyota",
+        license_plate: "nagata",
+        category_id: "123",
+      };
+
+      const user = {
+        name: "Abel Souza Costa Junior",
+        email: "abel@junior.com",
+        password: "123456",
+        driver_license: "nagata",
+      };
+
+      await carRepository.create(car);
+      await carRepository.create(car2);
+      await userRepository.create(user);
+
+      const { id: user_id } = await userRepository.findByEmail(user.email);
+      const { id: car_id } = await carRepository.findByName(car.name);
+      const { id: carId } = await carRepository.findByName(car2.name);
+
+      await createRentalUseCase.execute({
+        expected_return_date: new Date(),
+        car_id,
+        user_id,
+      });
+
+      await createRentalUseCase.execute({
+        expected_return_date: new Date(),
+        car_id: carId,
+        user_id,
+      });
+    }).rejects.toBeInstanceOf(ApplicationError);
+  });
 });
