@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
 import { CarRepositoryInMemory } from "@modules/cars/repositories/cars/in-memory/CarRepositoryInMemory";
 import { RentalRepositoryInMemory } from "@modules/rentals/repositories/rentals/in-memory/RentalRepositoryInMemory";
@@ -11,6 +13,7 @@ let carRepository: CarRepositoryInMemory;
 let createRentalUseCase: CreateRentalUseCase;
 
 describe("Car Rental Use Case", () => {
+  const add24HoursToDay = dayjs().add(24, "hours").toDate();
   beforeEach(() => {
     repository = new RentalRepositoryInMemory();
     userRepository = new UserRepositoryInMemory();
@@ -47,7 +50,7 @@ describe("Car Rental Use Case", () => {
     const { id: car_id } = await carRepository.findByName(car.name);
 
     await createRentalUseCase.execute({
-      expected_return_date: new Date(),
+      expected_return_date: add24HoursToDay,
       car_id,
       user_id,
     });
@@ -71,7 +74,7 @@ describe("Car Rental Use Case", () => {
       const { id: user_id } = await userRepository.findByEmail(user.email);
 
       await createRentalUseCase.execute({
-        expected_return_date: new Date(),
+        expected_return_date: add24HoursToDay,
         car_id: "123456",
         user_id,
       });
@@ -95,7 +98,7 @@ describe("Car Rental Use Case", () => {
       const { id: car_id } = await carRepository.findByName(car.name);
 
       await createRentalUseCase.execute({
-        expected_return_date: new Date(),
+        expected_return_date: add24HoursToDay,
         car_id,
         user_id: "123456",
       });
@@ -130,7 +133,7 @@ describe("Car Rental Use Case", () => {
       const { id: car_id } = await carRepository.findByName(car.name);
 
       await createRentalUseCase.execute({
-        expected_return_date: new Date(),
+        expected_return_date: add24HoursToDay,
         car_id,
         user_id,
       });
@@ -175,13 +178,13 @@ describe("Car Rental Use Case", () => {
       const { id: carId } = await carRepository.findByName(car2.name);
 
       await createRentalUseCase.execute({
-        expected_return_date: new Date(),
+        expected_return_date: add24HoursToDay,
         car_id,
         user_id,
       });
 
       await createRentalUseCase.execute({
-        expected_return_date: new Date(),
+        expected_return_date: add24HoursToDay,
         car_id: carId,
         user_id,
       });
@@ -214,7 +217,7 @@ describe("Car Rental Use Case", () => {
     const { id: car_id } = await carRepository.findByName(car.name);
 
     await createRentalUseCase.execute({
-      expected_return_date: new Date(),
+      expected_return_date: add24HoursToDay,
       car_id,
       user_id,
     });
@@ -222,5 +225,39 @@ describe("Car Rental Use Case", () => {
     const rentedCar = await carRepository.findByName(car.name);
 
     expect(rentedCar.avaliable).toBeFalsy();
+  });
+
+  it("Should not create an rental with duration less than 24 hours ", () => {
+    expect(async () => {
+      const add23HoursToDay = dayjs().add(23, "hours").toDate();
+      const car = {
+        name: "Supra",
+        description: "Is That a Supraaaa?",
+        fine_amount: 1998.91,
+        daily_rate: 900,
+        brand: "Toyota",
+        license_plate: "nagata",
+        category_id: "123",
+      };
+
+      const user = {
+        name: "Abel Souza Costa Junior",
+        email: "abel@junior.com",
+        password: "123456",
+        driver_license: "nagata",
+      };
+
+      await carRepository.create(car);
+      await userRepository.create(user);
+
+      const { id: user_id } = await userRepository.findByEmail(user.email);
+      const { id: car_id } = await carRepository.findByName(car.name);
+
+      await createRentalUseCase.execute({
+        expected_return_date: add23HoursToDay,
+        car_id,
+        user_id,
+      });
+    }).rejects.toBeInstanceOf(ApplicationError);
   });
 });

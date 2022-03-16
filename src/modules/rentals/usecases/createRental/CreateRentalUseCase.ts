@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
@@ -5,6 +7,8 @@ import { IRequestRentalDTO } from "@modules/cars/dtos/rentals/IRequestRentalDTO"
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 import { ApplicationError } from "@shared/errors/ApplicationError";
+
+dayjs.extend(utc);
 
 @injectable()
 class CreateRentalUseCase {
@@ -30,6 +34,7 @@ class CreateRentalUseCase {
   }: IRequestRentalDTO): Promise<void> {
     const car = await this.carRepository.findById(car_id);
     const user = await this.userRepository.findById(user_id);
+    const minimalRentalHOursLength = 24;
 
     if (!user) throw new ApplicationError("User not found", 404);
 
