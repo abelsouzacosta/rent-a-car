@@ -52,6 +52,23 @@ class CreateRentalUseCase {
         409
       );
 
+    const dateNow = new Date();
+
+    const dateNowFormated = dayjs(dateNow).utc().local().format();
+
+    const expectedReturnDateFormated = dayjs(expected_return_date)
+      .utc()
+      .local()
+      .format();
+
+    const hourComparation = dayjs(expectedReturnDateFormated).diff(
+      dateNowFormated,
+      "hours"
+    );
+
+    if (hourComparation < 24)
+      throw new ApplicationError("24 hours rental length required", 400);
+
     await this.carRepository.rentCarWithPlate(car.license_plate);
 
     this.repository.create({
