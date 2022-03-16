@@ -39,6 +39,7 @@
     }
   },
   "dependencies": {
+    "@types/supertest": "^2.0.11",
     "bcrypt": "^5.0.1",
     "csv-parse": "^5.0.4",
     "dayjs": "^1.11.0",
@@ -48,13 +49,14 @@
     "multer": "^1.4.4",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
+    "supertest": "^6.2.2",
     "swagger-ui-express": "^4.3.0",
     "tsyringe": "^4.6.0",
     "typeorm": "^0.2.41",
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "dev": "tsnd --inspect --transpile-only --ignore-watch node_modules --respawn -r tsconfig-paths/register src/server.ts",
+    "dev": "tsnd --inspect --transpile-only --ignore-watch node_modules --respawn -r tsconfig-paths/register src/shared/infra/http/server.ts",
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "test": "jest",
     "seed:admin": "tsnd src//shared/infra/typeorm/seed/admin.ts"
