@@ -34,7 +34,7 @@ class CreateRentalUseCase {
   }: IRequestRentalDTO): Promise<void> {
     const car = await this.carRepository.findById(car_id);
     const user = await this.userRepository.findById(user_id);
-    const minimalRentalHOursLength = 24;
+    const minimalRentalHoursLength = 24;
 
     if (!user) throw new ApplicationError("User not found", 404);
 
@@ -66,7 +66,7 @@ class CreateRentalUseCase {
       "hours"
     );
 
-    if (hourComparation < 24)
+    if (hourComparation < minimalRentalHoursLength)
       throw new ApplicationError("24 hours rental length required", 400);
 
     await this.carRepository.rentCarWithPlate(car.license_plate);
