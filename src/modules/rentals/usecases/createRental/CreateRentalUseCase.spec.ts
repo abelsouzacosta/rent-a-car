@@ -187,4 +187,40 @@ describe("Car Rental Use Case", () => {
       });
     }).rejects.toBeInstanceOf(ApplicationError);
   });
+
+  it("Should change the available status of the car requested by the user to false", async () => {
+    const car = {
+      name: "Supra",
+      description: "Is That a Supraaaa?",
+      fine_amount: 1998.91,
+      daily_rate: 900,
+      brand: "Toyota",
+      license_plate: "nagata",
+      category_id: "123",
+    };
+
+    await carRepository.create(car);
+
+    const user = {
+      name: "Abel Souza Costa Junior",
+      email: "abel@junior.com",
+      password: "123456",
+      driver_license: "nagata",
+    };
+
+    await userRepository.create(user);
+
+    const { id: user_id } = await userRepository.findByEmail(user.email);
+    const { id: car_id } = await carRepository.findByName(car.name);
+
+    await createRentalUseCase.execute({
+      expected_return_date: new Date(),
+      car_id,
+      user_id,
+    });
+
+    const rentedCar = await carRepository.findByName(car.name);
+
+    expect(rentedCar.avaliable).toBeFalsy();
+  });
 });
