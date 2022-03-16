@@ -6,6 +6,7 @@ import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepos
 import { IRequestRentalDTO } from "@modules/cars/dtos/rentals/IRequestRentalDTO";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
 dayjs.extend(utc);
@@ -15,6 +16,7 @@ class CreateRentalUseCase {
   private repository: IRentalRepository;
   private userRepository: IUserRepository;
   private carRepository: ICarRepository;
+  private dateProvider: IDateProvider;
 
   constructor(
     @inject("RentalRepository")
@@ -22,9 +24,16 @@ class CreateRentalUseCase {
     @inject("UserRepository")
     userRepository: IUserRepository,
     @inject("CarRepository")
-    carRepository: ICarRepository
+    carRepository: ICarRepository,
+    @inject("DateProvider")
+    dateProvider: IDateProvider
   ) {
-    Object.assign(this, { repository, userRepository, carRepository });
+    Object.assign(this, {
+      repository,
+      userRepository,
+      carRepository,
+      dateProvider,
+    });
   }
 
   async execute({
@@ -52,18 +61,11 @@ class CreateRentalUseCase {
         409
       );
 
-    const dateNow = new Date();
+    const dateNow = this.dateProvider.dateNow();
 
-    const dateNowFormated = dayjs(dateNow).utc().local().format();
-
-    const expectedReturnDateFormated = dayjs(expected_return_date)
-      .utc()
-      .local()
-      .format();
-
-    const hourComparation = dayjs(expectedReturnDateFormated).diff(
-      dateNowFormated,
-      "hours"
+    const hourComparation = this.dateProvider.compareInHours(
+      expected_return_date,
+      dateNow
     );
 
     if (hourComparation < minimalRentalHoursLength)

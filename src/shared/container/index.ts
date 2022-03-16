@@ -15,6 +15,9 @@ import { ICategoryRepository } from "@modules/cars/repositories/category/ICatego
 import { ISpecificationRepository } from "@modules/cars/repositories/specification/ISpecificationRepository";
 import { ISpecificationsCarsRepository } from "@modules/cars/repositories/specifications_cars/ISpecificationsCarsRepository";
 
+import { IDateProvider } from "./providers/DateProvider/IDateProvider";
+import { DayJsDateProvider } from "./providers/DateProvider/implementations/DayJsDateProvider";
+
 container.registerSingleton<ICategoryRepository>(
   "CategoryRepository",
   CategoryRepository
@@ -43,3 +46,5 @@ container.registerSingleton<ICarsImagesRepository>(
   "CarsImagesRepository",
   CarsImagesRepository
 );
+
+container.registerSingleton<IDateProvider>("DateProvider", DayJsDateProvider);
