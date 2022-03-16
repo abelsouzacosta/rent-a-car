@@ -3,8 +3,8 @@ import utc from "dayjs/plugin/utc";
 import { inject, injectable } from "tsyringe";
 
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
-import { IRequestRentalDTO } from "@modules/cars/dtos/rentals/IRequestRentalDTO";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
+import { IRequestRentalDTO } from "@modules/rentals/dtos/rentals/IRequestRentalDTO";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
@@ -74,8 +74,7 @@ class CreateRentalUseCase {
     await this.carRepository.rentCarWithPlate(car.license_plate);
 
     this.repository.create({
-      start_date: new Date(),
-      end_date: new Date(),
+      start_date: dateNow,
       expected_return_date,
       total: 1000,
       car_id,

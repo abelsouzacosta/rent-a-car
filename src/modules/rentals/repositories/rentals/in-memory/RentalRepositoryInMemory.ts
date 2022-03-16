@@ -1,4 +1,4 @@
-import { IRequestRentalDTO } from "@modules/cars/dtos/rentals/IRequestRentalDTO";
+import { IRequestRentalDTO } from "@modules/rentals/dtos/rentals/IRequestRentalDTO";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 
 import { IRentalRepository } from "../IRentalRepository";
