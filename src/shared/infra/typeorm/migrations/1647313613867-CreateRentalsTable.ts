@@ -27,6 +27,7 @@ export class CreateRentalsTable1647313613867 implements MigrationInterface {
           {
             name: "total",
             type: "numeric",
+            isNullable: true,
           },
           {
             name: "created_at",
