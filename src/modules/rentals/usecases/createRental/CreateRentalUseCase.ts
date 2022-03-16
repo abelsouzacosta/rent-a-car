@@ -76,7 +76,6 @@ class CreateRentalUseCase {
     this.repository.create({
       start_date: dateNow,
       expected_return_date,
-      total: 1000,
       car_id,
       user_id,
     });
