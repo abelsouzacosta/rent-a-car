@@ -13,8 +13,6 @@ import { router } from "./routes";
 createConnection();
 const app = express();
 
-const PORT = 3333;
-
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
@@ -23,4 +21,4 @@ app.use(router);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server listen on port ${PORT}`));
+export { app };
