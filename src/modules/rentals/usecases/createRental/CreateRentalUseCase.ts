@@ -47,6 +47,8 @@ class CreateRentalUseCase {
         409
       );
 
+    await this.carRepository.rentCarWithPlate(car.license_plate);
+
     this.repository.create({
       start_date: new Date(),
       end_date: new Date(),
