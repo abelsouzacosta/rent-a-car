@@ -3,7 +3,6 @@ import request from "supertest";
 import { Connection } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 
-import { ApplicationError } from "@shared/errors/ApplicationError";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm";
 
