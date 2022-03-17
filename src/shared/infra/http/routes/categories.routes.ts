@@ -22,11 +22,11 @@ const update = new UpdateCategoryController();
 const delete_category = new DeleteCategoryController();
 const import_category = new ImportCategoryController();
 
+categoriesRoutes.get("/", list.handle);
+
 categoriesRoutes.use(ensureAuthenticated);
 
 categoriesRoutes.post("/", isAdminMiddleware, create.handle);
-
-categoriesRoutes.get("/", list.handle);
 
 categoriesRoutes.put("/:id", isAdminMiddleware, update.handle);
 

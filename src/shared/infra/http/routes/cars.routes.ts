@@ -19,11 +19,11 @@ const list = new ListAvaliableCarsController();
 const createSpecification = new CreateCarSpecificationController();
 const uploadCarImages = new UploadCarImagesController();
 
+carRouter.get("/", list.handle);
+
 carRouter.use(ensureAuthenticated);
 
 carRouter.post("/", isAdminMiddleware, create.handle);
-
-carRouter.get("/", list.handle);
 
 carRouter.post("/assign", createSpecification.handle);
 

@@ -7,13 +7,11 @@ import errorHandler from "@shared/infra/http/middlewares/errorHandler";
 import createConnection from "@shared/infra/typeorm";
 import "@shared/container";
 
-import { router } from "./shared/infra/http/routes";
-import swaggerFile from "./swagger.json";
+import swaggerFile from "../../../swagger.json";
+import { router } from "./routes";
 
 createConnection();
 const app = express();
-
-const PORT = 3333;
 
 app.use(express.json());
 
@@ -23,4 +21,4 @@ app.use(router);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server listen on port ${PORT}`));
+export { app };
