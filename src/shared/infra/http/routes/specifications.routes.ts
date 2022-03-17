@@ -15,11 +15,11 @@ const list = new ListSpecificationsController();
 const update = new UpdateSpecificationController();
 const delete_specification = new DeleteSpecificationController();
 
+specificationRouter.get("/", list.handle);
+
 specificationRouter.use(ensureAuthenticated);
 
 specificationRouter.post("/", isAdminMiddleware, create.handle);
-
-specificationRouter.get("/", list.handle);
 
 specificationRouter.put("/:id", isAdminMiddleware, update.handle);
 
