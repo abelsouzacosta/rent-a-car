@@ -17,7 +17,7 @@ let createRentalUseCase: CreateRentalUseCase;
 let devolution: DevolutionRentalUseCase;
 
 describe("Devolution Rental use Case", () => {
-  const add24HoursToDay = dayjs().add(24, "hours").toDate();
+  const addsOneDay = dayjs().add(1, "day").toDate();
 
   beforeEach(() => {
     repository = new RentalRepositoryInMemory();
@@ -42,7 +42,7 @@ describe("Devolution Rental use Case", () => {
       name: "Supra",
       description: "Is That a Supraaaa?",
       fine_amount: 100,
-      daily_rate: 10,
+      daily_rate: 100,
       brand: "Toyota",
       license_plate: "nagata",
       category_id: "123",
@@ -62,7 +62,7 @@ describe("Devolution Rental use Case", () => {
     const { id: car_id } = await carRepository.findByName(car.name);
 
     await createRentalUseCase.execute({
-      expected_return_date: add24HoursToDay,
+      expected_return_date: addsOneDay,
       car_id,
       user_id,
     });
@@ -100,7 +100,7 @@ describe("Devolution Rental use Case", () => {
       const { id: car_id } = await carRepository.findByName(car.name);
 
       await createRentalUseCase.execute({
-        expected_return_date: add24HoursToDay,
+        expected_return_date: addsOneDay,
         car_id,
         user_id,
       });
@@ -135,7 +135,7 @@ describe("Devolution Rental use Case", () => {
       const { id: car_id } = await carRepository.findByName(car.name);
 
       await createRentalUseCase.execute({
-        expected_return_date: add24HoursToDay,
+        expected_return_date: addsOneDay,
         car_id,
         user_id,
       });
@@ -195,13 +195,13 @@ describe("Devolution Rental use Case", () => {
       const { id: carId } = await carRepository.findByName(toyota.name);
 
       await createRentalUseCase.execute({
-        expected_return_date: add24HoursToDay,
+        expected_return_date: addsOneDay,
         car_id,
         user_id,
       });
 
       await createRentalUseCase.execute({
-        expected_return_date: add24HoursToDay,
+        expected_return_date: addsOneDay,
         car_id: carId,
         user_id: anotherUserId,
       });

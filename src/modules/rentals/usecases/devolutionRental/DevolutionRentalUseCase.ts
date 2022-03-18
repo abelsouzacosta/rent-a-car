@@ -25,8 +25,11 @@ class DevolutionRentalUseCase {
   async execute({ id, user_id }: IRequestDevolutionRentalDTO): Promise<void> {
     const rental = await this.repository.findById(id);
     const foundRentalByUser = await this.repository.findRentalByUserId(user_id);
+    const minimalDaily = 1;
 
     if (!rental) throw new ApplicationError("Rental not found", 404);
+
+    const rentedCar = await this.carRepository.findById(rental.car_id);
 
     if (!foundRentalByUser)
       throw new ApplicationError("There's not renal for the user", 404);
@@ -37,10 +40,27 @@ class DevolutionRentalUseCase {
         401
       );
 
+    const dateNow = this.dateProvider.dateNow();
+
+    let daily = this.dateProvider.compareInDays(rental.start_date, dateNow);
+
+    if (daily <= 0) daily = minimalDaily;
+
+    const delay = this.dateProvider.compareInDays(
+      dateNow,
+      rental.expected_return_date
+    );
+
+    const totalFine = delay > 1 ? delay * rentedCar.fine_amount : 0;
+
+    const totalDaily = daily * rentedCar.daily_rate;
+
+    const total = totalDaily + totalFine;
+
     this.repository.doDevolution({
       id,
-      end_date: new Date(),
-      total: 0,
+      end_date: dateNow,
+      total,
     });
   }
 }
