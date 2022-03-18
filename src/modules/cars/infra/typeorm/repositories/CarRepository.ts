@@ -114,6 +114,14 @@ class CarRepository implements ICarRepository {
     await this.repository.save(car);
   }
 
+  async returnCarWithId(id: string): Promise<void> {
+    const car = await this.findById(id);
+
+    car.avaliable = true;
+
+    await this.repository.save(car);
+  }
+
   async delete({ id }: IDeleteCarDTO): Promise<void> {
     const car = await this.findById(id);
 

@@ -1,4 +1,5 @@
 import { ICreateRentalDTO } from "@modules/rentals/dtos/rentals/ICreateRentalDTO";
+import { IDevolutionRentalDTO } from "@modules/rentals/dtos/rentals/IDevolutionRentalDTO";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 
 interface IRentalRepository {
@@ -14,6 +15,8 @@ interface IRentalRepository {
   findById(id: string): Promise<Rental | undefined>;
 
   findRentalByUserId(user_id: string): Promise<Rental | undefined>;
+
+  doDevolution({ id, end_date, total }: IDevolutionRentalDTO): Promise<void>;
 
   list(): Promise<Rental[]>;
 }
