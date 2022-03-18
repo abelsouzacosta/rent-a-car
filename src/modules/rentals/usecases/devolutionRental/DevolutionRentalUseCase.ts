@@ -59,6 +59,8 @@ class DevolutionRentalUseCase {
 
     const total = totalDaily + totalFine;
 
+    await this.carRepository.returnCarWithId(rentedCar.id);
+
     await this.repository.doDevolution({
       id,
       end_date: dateNow,
