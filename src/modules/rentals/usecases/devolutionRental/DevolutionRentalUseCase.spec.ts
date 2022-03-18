@@ -104,4 +104,70 @@ describe("Devolution Rental use Case", () => {
       await devolution.execute({ id, user_id: "9087234-ans" });
     }).rejects.toBeInstanceOf(ApplicationError);
   });
+
+  it("Should throws an exception if the user are trying to do a devolution for a rental that does not belongs to the requester", () => {
+    expect(async () => {
+      const car = {
+        name: "Supra",
+        description: "Is That a Supraaaa?",
+        fine_amount: 1998.91,
+        daily_rate: 900,
+        brand: "Toyota",
+        license_plate: "nagata",
+        category_id: "123",
+      };
+
+      const toyota = {
+        name: "Corolla",
+        description: "Olds man car",
+        fine_amount: 1998.91,
+        daily_rate: 900,
+        brand: "Toyota",
+        license_plate: "granny",
+        category_id: "123",
+      };
+
+      const user = {
+        name: "Abel Souza Costa Junior",
+        email: "abel@junior.com",
+        password: "123456",
+        driver_license: "nagata",
+      };
+
+      const another = {
+        name: "Another User",
+        email: "another@mail.com",
+        password: "1234356",
+        driver_license: "another",
+      };
+
+      await carRepository.create(car);
+      await carRepository.create(toyota);
+      await userRepository.create(user);
+      await userRepository.create(another);
+
+      const { id: user_id } = await userRepository.findByEmail(user.email);
+      const { id: anotherUserId } = await userRepository.findByEmail(
+        another.email
+      );
+      const { id: car_id } = await carRepository.findByName(car.name);
+      const { id: carId } = await carRepository.findByName(toyota.name);
+
+      await createRentalUseCase.execute({
+        expected_return_date: add24HoursToDay,
+        car_id,
+        user_id,
+      });
+
+      await createRentalUseCase.execute({
+        expected_return_date: add24HoursToDay,
+        car_id: carId,
+        user_id: anotherUserId,
+      });
+
+      const { id } = await repository.findRentalByUserId(user_id);
+
+      await devolution.execute({ id, user_id: anotherUserId });
+    }).rejects.toBeInstanceOf(ApplicationError);
+  });
 });
