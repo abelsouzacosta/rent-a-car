@@ -43,7 +43,7 @@ class RentalRepositoryInMemory implements IRentalRepository {
     this.rentals.push(rental);
   }
 
-  async makeDevolution({
+  async doDevolution({
     id,
     end_date,
     total,

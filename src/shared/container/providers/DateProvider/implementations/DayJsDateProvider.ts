@@ -16,8 +16,8 @@ class DayJsDateProvider implements IDateProvider {
     const startDateFormatted = this.convertoToUTC(start_date);
     const endDateFormatted = this.convertoToUTC(end_date);
 
-    const comparation = dayjs(startDateFormatted).diff(
-      endDateFormatted,
+    const comparation = dayjs(endDateFormatted).diff(
+      startDateFormatted,
       "hours"
     );
 
@@ -26,6 +26,18 @@ class DayJsDateProvider implements IDateProvider {
 
   dateNow(): Date {
     return dayjs().toDate();
+  }
+
+  compareInDays(start_date: Date, end_date: Date): number {
+    const startDateFormatted = this.convertoToUTC(start_date);
+    const endDateFormatted = this.convertoToUTC(end_date);
+
+    const comparation = dayjs(endDateFormatted).diff(
+      startDateFormatted,
+      "days"
+    );
+
+    return comparation;
   }
 }
 

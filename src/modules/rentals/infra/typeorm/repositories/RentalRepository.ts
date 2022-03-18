@@ -59,7 +59,7 @@ class RentalRepository implements IRentalRepository {
     await this.repository.save(rental);
   }
 
-  async makeDevolution({
+  async doDevolution({
     id,
     end_date,
     total,

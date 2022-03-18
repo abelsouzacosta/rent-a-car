@@ -30,7 +30,48 @@ describe("Devolution Rental use Case", () => {
       carRepository,
       dateProvider
     );
-    devolution = new DevolutionRentalUseCase(repository, carRepository);
+    devolution = new DevolutionRentalUseCase(
+      repository,
+      carRepository,
+      dateProvider
+    );
+  });
+
+  it("Shuold be able to do a devolution to an valid rental", async () => {
+    const car = {
+      name: "Supra",
+      description: "Is That a Supraaaa?",
+      fine_amount: 100,
+      daily_rate: 10,
+      brand: "Toyota",
+      license_plate: "nagata",
+      category_id: "123",
+    };
+
+    const user = {
+      name: "Abel Souza Costa Junior",
+      email: "abel@junior.com",
+      password: "123456",
+      driver_license: "nagata",
+    };
+
+    await carRepository.create(car);
+    await userRepository.create(user);
+
+    const { id: user_id } = await userRepository.findByEmail(user.email);
+    const { id: car_id } = await carRepository.findByName(car.name);
+
+    await createRentalUseCase.execute({
+      expected_return_date: add24HoursToDay,
+      car_id,
+      user_id,
+    });
+
+    const rental = await repository.findRentalByUserId(user_id);
+
+    await devolution.execute({ id: rental.id, user_id });
+
+    expect(rental.total).toBe(100);
   });
 
   it("Should throws an exception when theres no rental for the given id", () => {
