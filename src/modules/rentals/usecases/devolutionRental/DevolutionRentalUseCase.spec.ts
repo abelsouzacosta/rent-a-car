@@ -104,11 +104,11 @@ describe("Devolution Rental use Case", () => {
       user_id,
     });
 
-    const { avaliable } = await carRepository.findByName(car.name);
-
     const rental = await repository.findRentalByUserId(user_id);
 
     await devolution.execute({ id: rental.id, user_id });
+
+    const { avaliable } = await carRepository.findByName(car.name);
 
     expect(avaliable).toBeTruthy();
   });
