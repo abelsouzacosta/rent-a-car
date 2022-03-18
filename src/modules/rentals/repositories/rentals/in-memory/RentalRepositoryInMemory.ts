@@ -1,3 +1,4 @@
+import { IDevolutionRentalDTO } from "@modules/rentals/dtos/rentals/IDevolutionRentalDTO";
 import { IRequestRentalDTO } from "@modules/rentals/dtos/rentals/IRequestRentalDTO";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 
@@ -40,6 +41,17 @@ class RentalRepositoryInMemory implements IRentalRepository {
     });
 
     this.rentals.push(rental);
+  }
+
+  async makeDevolution({
+    id,
+    end_date,
+    total,
+  }: IDevolutionRentalDTO): Promise<void> {
+    const rental = await this.findById(id);
+
+    rental.end_date = end_date;
+    rental.total = total;
   }
 }
 
