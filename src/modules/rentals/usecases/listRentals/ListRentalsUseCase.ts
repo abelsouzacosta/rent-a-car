@@ -14,7 +14,7 @@ class ListRentalsUseCase {
   }
 
   async execute(): Promise<Rental[]> {
-    const rentals: Rental[] = [];
+    const rentals = await this.repository.list();
 
     return rentals;
   }
