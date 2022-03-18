@@ -16,6 +16,8 @@ interface IRentalRepository {
 
   findRentalByUserId(user_id: string): Promise<Rental | undefined>;
 
+  findRentalsByUserId(user_id: string): Promise<Rental[] | undefined>;
+
   doDevolution({ id, end_date, total }: IDevolutionRentalDTO): Promise<void>;
 
   list(): Promise<Rental[]>;

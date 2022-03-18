@@ -1,0 +1,73 @@
+import dayjs from "dayjs";
+
+import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
+import { CarRepositoryInMemory } from "@modules/cars/repositories/cars/in-memory/CarRepositoryInMemory";
+import { RentalRepositoryInMemory } from "@modules/rentals/repositories/rentals/in-memory/RentalRepositoryInMemory";
+import { DayJsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
+import { ApplicationError } from "@shared/errors/ApplicationError";
+
+import { CreateRentalUseCase } from "../createRental/CreateRentalUseCase";
+import { GetUserRentalsUseCase } from "./GetUserRentalsUseCase";
+
+let repository: RentalRepositoryInMemory;
+let userRepository: UserRepositoryInMemory;
+let getUserRentalsUseCase: GetUserRentalsUseCase;
+let carRepository: CarRepositoryInMemory;
+let dateProvider: DayJsDateProvider;
+let createRentalUseCase: CreateRentalUseCase;
+
+describe("Get User Rentals Use Case", () => {
+  const addsOneDay = dayjs().add(1, "day").toDate();
+
+  beforeEach(() => {
+    repository = new RentalRepositoryInMemory();
+    carRepository = new CarRepositoryInMemory();
+    userRepository = new UserRepositoryInMemory();
+    dateProvider = new DayJsDateProvider();
+    createRentalUseCase = new CreateRentalUseCase(
+      repository,
+      userRepository,
+      carRepository,
+      dateProvider
+    );
+    getUserRentalsUseCase = new GetUserRentalsUseCase(
+      repository,
+      userRepository
+    );
+  });
+
+  it("Should throw an exception if there's no user with the id given", () => {
+    expect(async () => {
+      const car = {
+        name: "Supra",
+        description: "Is That a Supraaaa?",
+        fine_amount: 100,
+        daily_rate: 100,
+        brand: "Toyota",
+        license_plate: "nagata",
+        category_id: "123",
+      };
+
+      const user = {
+        name: "Abel Souza Costa Junior",
+        email: "abel@junior.com",
+        password: "123456",
+        driver_license: "nagata",
+      };
+
+      await carRepository.create(car);
+      await userRepository.create(user);
+
+      const { id: user_id } = await userRepository.findByEmail(user.email);
+      const { id: car_id } = await carRepository.findByName(car.name);
+
+      await createRentalUseCase.execute({
+        expected_return_date: addsOneDay,
+        car_id,
+        user_id,
+      });
+
+      await getUserRentalsUseCase.execute("lkjasdf-9872134");
+    }).rejects.toBeInstanceOf(ApplicationError);
+  });
+});
