@@ -18,7 +18,11 @@ class DevolutionRentalUseCase {
     Object.assign(this, { repository, carRepository });
   }
 
-  async execute({ id, user_id }: IRequestDevolutionRentalDTO): Promise<void> {}
+  async execute({ id, user_id }: IRequestDevolutionRentalDTO): Promise<void> {
+    const rental = await this.repository.findById(id);
+
+    if (!rental) throw new ApplicationError("Rental not found", 404);
+  }
 }
 
 export { DevolutionRentalUseCase };
