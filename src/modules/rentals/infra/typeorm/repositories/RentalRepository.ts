@@ -56,7 +56,7 @@ class RentalRepository implements IRentalRepository {
     total,
     car_id,
     user_id,
-  }: ICreateRentalDTO): Promise<void> {
+  }: ICreateRentalDTO): Promise<Rental> {
     const rental = this.repository.create({
       start_date,
       end_date,
@@ -67,6 +67,8 @@ class RentalRepository implements IRentalRepository {
     });
 
     await this.repository.save(rental);
+
+    return rental;
   }
 
   async doDevolution({

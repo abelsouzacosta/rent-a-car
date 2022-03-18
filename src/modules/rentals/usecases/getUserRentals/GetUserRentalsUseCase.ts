@@ -1,6 +1,7 @@
 import { inject } from "tsyringe";
 
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
+import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 

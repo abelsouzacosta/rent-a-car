@@ -7,6 +7,7 @@ import { DayJsDateProvider } from "@shared/container/providers/DateProvider/impl
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
 import { CreateRentalUseCase } from "../createRental/CreateRentalUseCase";
+import { DevolutionRentalUseCase } from "../devolutionRental/DevolutionRentalUseCase";
 import { GetUserRentalsUseCase } from "./GetUserRentalsUseCase";
 
 let repository: RentalRepositoryInMemory;
@@ -15,6 +16,7 @@ let getUserRentalsUseCase: GetUserRentalsUseCase;
 let carRepository: CarRepositoryInMemory;
 let dateProvider: DayJsDateProvider;
 let createRentalUseCase: CreateRentalUseCase;
+let devolution: DevolutionRentalUseCase;
 
 describe("Get User Rentals Use Case", () => {
   const addsOneDay = dayjs().add(1, "day").toDate();
@@ -33,6 +35,11 @@ describe("Get User Rentals Use Case", () => {
     getUserRentalsUseCase = new GetUserRentalsUseCase(
       repository,
       userRepository
+    );
+    devolution = new DevolutionRentalUseCase(
+      repository,
+      carRepository,
+      dateProvider
     );
   });
 
@@ -69,5 +76,50 @@ describe("Get User Rentals Use Case", () => {
 
       await getUserRentalsUseCase.execute("lkjasdf-9872134");
     }).rejects.toBeInstanceOf(ApplicationError);
+  });
+
+  it("Should be able to list all user's rentals", async () => {
+    const car = {
+      name: "Supra",
+      description: "Is That a Supraaaa?",
+      fine_amount: 100,
+      daily_rate: 100,
+      brand: "Toyota",
+      license_plate: "nagata",
+      category_id: "123",
+    };
+
+    const user = {
+      name: "Abel Souza Costa Junior",
+      email: "abel@junior.com",
+      password: "123456",
+      driver_license: "nagata",
+    };
+
+    await carRepository.create(car);
+    await userRepository.create(user);
+
+    const { id: user_id } = await userRepository.findByEmail(user.email);
+    const { id: car_id } = await carRepository.findByName(car.name);
+
+    const rental = await createRentalUseCase.execute({
+      expected_return_date: addsOneDay,
+      car_id,
+      user_id,
+    });
+
+    await devolution.execute({ id: rental.id, user_id });
+
+    const newRental = await createRentalUseCase.execute({
+      expected_return_date: addsOneDay,
+      car_id,
+      user_id,
+    });
+
+    await devolution.execute({ id: newRental.id, user_id });
+
+    const rentals = await getUserRentalsUseCase.execute(user_id);
+
+    expect(rentals).toHaveLength(1);
   });
 });

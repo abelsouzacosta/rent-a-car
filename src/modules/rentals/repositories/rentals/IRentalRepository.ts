@@ -10,7 +10,7 @@ interface IRentalRepository {
     total,
     car_id,
     user_id,
-  }: ICreateRentalDTO): Promise<void>;
+  }: ICreateRentalDTO): Promise<Rental>;
 
   findById(id: string): Promise<Rental | undefined>;
 

@@ -37,7 +37,7 @@ class RentalRepositoryInMemory implements IRentalRepository {
     car_id,
     user_id,
     expected_return_date,
-  }: IRequestRentalDTO): Promise<void> {
+  }: IRequestRentalDTO): Promise<Rental> {
     const rental = new Rental();
 
     Object.assign(rental, {
@@ -47,6 +47,8 @@ class RentalRepositoryInMemory implements IRentalRepository {
     });
 
     this.rentals.push(rental);
+
+    return rental;
   }
 
   async doDevolution({
