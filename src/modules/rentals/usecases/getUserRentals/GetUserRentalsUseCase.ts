@@ -22,6 +22,10 @@ class GetUserRentalsUseCase {
     const user = await this.userRepository.findById(user_id);
 
     if (!user) throw new ApplicationError("User not found", 404);
+
+    const rentals = await this.repository.findRentalsByUserId(user_id);
+
+    return rentals;
   }
 }
 
