@@ -5,6 +5,7 @@ import { inject, injectable } from "tsyringe";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { IRequestRentalDTO } from "@modules/rentals/dtos/rentals/IRequestRentalDTO";
+import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
@@ -40,7 +41,7 @@ class CreateRentalUseCase {
     expected_return_date,
     car_id,
     user_id,
-  }: IRequestRentalDTO): Promise<void> {
+  }: IRequestRentalDTO): Promise<Rental> {
     const car = await this.carRepository.findById(car_id);
     const user = await this.userRepository.findById(user_id);
     const minimalRentalHoursLength = 24;
@@ -76,12 +77,14 @@ class CreateRentalUseCase {
 
     await this.carRepository.rentCarWithPlate(car.license_plate);
 
-    this.repository.create({
+    const rental = await this.repository.create({
       start_date: dateNow,
       expected_return_date,
       car_id,
       user_id,
     });
+
+    return rental;
   }
 }
 

@@ -37,7 +37,7 @@ class DevolutionRentalUseCase {
     const rentedCar = await this.carRepository.findById(rental.car_id);
 
     if (!foundRentalByUser)
-      throw new ApplicationError("There's not renal for the user", 404);
+      throw new ApplicationError("There's not rental for the user", 404);
 
     if (rental.user_id !== foundRentalByUser.user_id)
       throw new ApplicationError(

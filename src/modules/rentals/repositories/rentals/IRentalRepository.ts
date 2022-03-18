@@ -10,11 +10,13 @@ interface IRentalRepository {
     total,
     car_id,
     user_id,
-  }: ICreateRentalDTO): Promise<void>;
+  }: ICreateRentalDTO): Promise<Rental>;
 
   findById(id: string): Promise<Rental | undefined>;
 
   findRentalByUserId(user_id: string): Promise<Rental | undefined>;
+
+  findRentalsByUserId(user_id: string): Promise<Rental[] | undefined>;
 
   doDevolution({ id, end_date, total }: IDevolutionRentalDTO): Promise<void>;
 

@@ -23,6 +23,12 @@ class RentalRepositoryInMemory implements IRentalRepository {
     return rental;
   }
 
+  async findRentalsByUserId(user_id: string): Promise<Rental[] | undefined> {
+    const rental = this.rentals.filter((rental) => rental.user_id === user_id);
+
+    return rental;
+  }
+
   async list(): Promise<Rental[]> {
     return this.rentals;
   }
@@ -31,7 +37,7 @@ class RentalRepositoryInMemory implements IRentalRepository {
     car_id,
     user_id,
     expected_return_date,
-  }: IRequestRentalDTO): Promise<void> {
+  }: IRequestRentalDTO): Promise<Rental> {
     const rental = new Rental();
 
     Object.assign(rental, {
@@ -41,6 +47,8 @@ class RentalRepositoryInMemory implements IRentalRepository {
     });
 
     this.rentals.push(rental);
+
+    return rental;
   }
 
   async doDevolution({
