@@ -1,11 +1,13 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { ICarRepository } from "@modules/cars/repositories/cars/ICarRepository";
 import { IRequestDevolutionRentalDTO } from "@modules/rentals/dtos/rentals/IRequestDevolutionRentalDTO";
+import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
+@injectable()
 class DevolutionRentalUseCase {
   private repository: IRentalRepository;
   private carRepository: ICarRepository;
@@ -22,7 +24,7 @@ class DevolutionRentalUseCase {
     Object.assign(this, { repository, carRepository, dateProvider });
   }
 
-  async execute({ id, user_id }: IRequestDevolutionRentalDTO): Promise<void> {
+  async execute({ id, user_id }: IRequestDevolutionRentalDTO): Promise<Rental> {
     const rental = await this.repository.findById(id);
     const foundRentalByUser = await this.repository.findRentalByUserId(user_id);
     const minimalDaily = 1;
@@ -57,11 +59,15 @@ class DevolutionRentalUseCase {
 
     const total = totalDaily + totalFine;
 
-    this.repository.doDevolution({
+    await this.repository.doDevolution({
       id,
       end_date: dateNow,
       total,
     });
+
+    const updatedRental = await this.repository.findById(rental.id);
+
+    return updatedRental;
   }
 }
 
