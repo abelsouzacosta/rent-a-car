@@ -55,7 +55,10 @@ class CreateRentalUseCase {
     const userHasAnAlreadyOpenRentalOperation =
       await this.repository.findRentalByUserId(user_id);
 
-    if (userHasAnAlreadyOpenRentalOperation)
+    if (
+      userHasAnAlreadyOpenRentalOperation &&
+      !userHasAnAlreadyOpenRentalOperation.end_date
+    )
       throw new ApplicationError(
         "User has an already open rental operation",
         409
