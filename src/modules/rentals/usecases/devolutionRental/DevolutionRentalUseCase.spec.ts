@@ -74,6 +74,45 @@ describe("Devolution Rental use Case", () => {
     expect(rental.total).toBe(100);
   });
 
+  it("Car should be setted as available again to a new rental operation", async () => {
+    const car = {
+      name: "Supra",
+      description: "Is That a Supraaaa?",
+      fine_amount: 100,
+      daily_rate: 100,
+      brand: "Toyota",
+      license_plate: "nagata",
+      category_id: "123",
+    };
+
+    const user = {
+      name: "Abel Souza Costa Junior",
+      email: "abel@junior.com",
+      password: "123456",
+      driver_license: "nagata",
+    };
+
+    await carRepository.create(car);
+    await userRepository.create(user);
+
+    const { id: user_id } = await userRepository.findByEmail(user.email);
+    const { id: car_id } = await carRepository.findByName(car.name);
+
+    await createRentalUseCase.execute({
+      expected_return_date: addsOneDay,
+      car_id,
+      user_id,
+    });
+
+    const rental = await repository.findRentalByUserId(user_id);
+
+    await devolution.execute({ id: rental.id, user_id });
+
+    const { avaliable } = await carRepository.findByName(car.name);
+
+    expect(avaliable).toBeTruthy();
+  });
+
   it("Should throws an exception when theres no rental for the given id", () => {
     expect(async () => {
       const car = {
@@ -209,6 +248,44 @@ describe("Devolution Rental use Case", () => {
       const { id } = await repository.findRentalByUserId(user_id);
 
       await devolution.execute({ id, user_id: anotherUserId });
+    }).rejects.toBeInstanceOf(ApplicationError);
+  });
+
+  it("Should not be able to close the same rental", () => {
+    expect(async () => {
+      const car = {
+        name: "Supra",
+        description: "Is That a Supraaaa?",
+        fine_amount: 100,
+        daily_rate: 100,
+        brand: "Toyota",
+        license_plate: "nagata",
+        category_id: "123",
+      };
+
+      const user = {
+        name: "Abel Souza Costa Junior",
+        email: "abel@junior.com",
+        password: "123456",
+        driver_license: "nagata",
+      };
+
+      await carRepository.create(car);
+      await userRepository.create(user);
+
+      const { id: user_id } = await userRepository.findByEmail(user.email);
+      const { id: car_id } = await carRepository.findByName(car.name);
+
+      await createRentalUseCase.execute({
+        expected_return_date: addsOneDay,
+        car_id,
+        user_id,
+      });
+
+      const rental = await repository.findRentalByUserId(user_id);
+
+      await devolution.execute({ id: rental.id, user_id });
+      await devolution.execute({ id: rental.id, user_id });
     }).rejects.toBeInstanceOf(ApplicationError);
   });
 });

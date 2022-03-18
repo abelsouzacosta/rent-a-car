@@ -31,6 +31,9 @@ class DevolutionRentalUseCase {
 
     if (!rental) throw new ApplicationError("Rental not found", 404);
 
+    if (rental.end_date)
+      throw new ApplicationError("This devolution area already done", 409);
+
     const rentedCar = await this.carRepository.findById(rental.car_id);
 
     if (!foundRentalByUser)
@@ -58,6 +61,8 @@ class DevolutionRentalUseCase {
     const totalDaily = daily * rentedCar.daily_rate;
 
     const total = totalDaily + totalFine;
+
+    await this.carRepository.returnCarWithId(rentedCar.id);
 
     await this.repository.doDevolution({
       id,
