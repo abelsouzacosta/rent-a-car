@@ -2,6 +2,7 @@ import { inject } from "tsyringe";
 
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 
 class GetUserRentalsUseCase {
   private repository: IRentalRepository;
@@ -16,7 +17,11 @@ class GetUserRentalsUseCase {
     Object.assign(this, { repository, userRepository });
   }
 
-  async execute(user_id: string): Promise<Rental[]> {}
+  async execute(user_id: string): Promise<Rental[]> {
+    const user = await this.userRepository.findById(user_id);
+
+    if (!user) throw new ApplicationError("User not found", 404);
+  }
 }
 
 export { GetUserRentalsUseCase };
