@@ -20,8 +20,12 @@ class DevolutionRentalUseCase {
 
   async execute({ id, user_id }: IRequestDevolutionRentalDTO): Promise<void> {
     const rental = await this.repository.findById(id);
+    const foundRentalByUser = await this.repository.findRentalByUserId(user_id);
 
     if (!rental) throw new ApplicationError("Rental not found", 404);
+
+    if (!foundRentalByUser)
+      throw new ApplicationError("There's not renal for the user", 404);
   }
 }
 

@@ -99,11 +99,7 @@ describe("Devolution Rental use Case", () => {
         user_id,
       });
 
-      const { id, user_id: createUserId } = await repository.findRentalByUserId(
-        user_id
-      );
-
-      console.log(createUserId === user_id);
+      const { id } = await repository.findRentalByUserId(user_id);
 
       await devolution.execute({ id, user_id: "9087234-ans" });
     }).rejects.toBeInstanceOf(ApplicationError);
