@@ -26,6 +26,12 @@ class DevolutionRentalUseCase {
 
     if (!foundRentalByUser)
       throw new ApplicationError("There's not renal for the user", 404);
+
+    if (rental.user_id !== foundRentalByUser.user_id)
+      throw new ApplicationError(
+        "The user cannot do a devolution that does not belongs to them",
+        401
+      );
   }
 }
 
