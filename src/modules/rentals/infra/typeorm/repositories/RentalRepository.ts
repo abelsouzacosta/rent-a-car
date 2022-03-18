@@ -1,6 +1,7 @@
 import { getRepository, Repository } from "typeorm";
 
 import { ICreateRentalDTO } from "@modules/rentals/dtos/rentals/ICreateRentalDTO";
+import { IDevolutionRentalDTO } from "@modules/rentals/dtos/rentals/IDevolutionRentalDTO";
 import { IRentalRepository } from "@modules/rentals/repositories/rentals/IRentalRepository";
 
 import { Rental } from "../entities/Rental";
@@ -54,6 +55,19 @@ class RentalRepository implements IRentalRepository {
       car_id,
       user_id,
     });
+
+    await this.repository.save(rental);
+  }
+
+  async makeDevolution({
+    id,
+    end_date,
+    total,
+  }: IDevolutionRentalDTO): Promise<void> {
+    const rental = await this.findById(id);
+
+    rental.end_date = end_date;
+    rental.total = total;
 
     await this.repository.save(rental);
   }

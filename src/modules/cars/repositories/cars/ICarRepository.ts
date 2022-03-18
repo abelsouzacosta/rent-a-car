@@ -18,6 +18,8 @@ interface ICarRepository {
 
   rentCarWithPlate(license_plate: string): Promise<void>;
 
+  returnCarWithId(id: string): Promise<void>;
+
   create({
     name,
     description,

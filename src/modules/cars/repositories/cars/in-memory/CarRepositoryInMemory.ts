@@ -110,6 +110,12 @@ class CarRepositoryInMemory implements ICarRepository {
 
     car.avaliable = false;
   }
+
+  async returnCarWithId(id: string): Promise<void> {
+    const car = await this.findById(id);
+
+    car.avaliable = true;
+  }
 }
 
 export { CarRepositoryInMemory };
