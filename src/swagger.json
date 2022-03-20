@@ -81,6 +81,9 @@
         "tags":["Category"],
         "summary": "Update an Category",
         "description": "Update an category with the given id",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -137,6 +140,9 @@
         "tags": ["Category"],
         "summary": "Delete a category",
         "description": "Delete the category with the given id",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -174,6 +180,9 @@
         "tags": ["Specifications"],
         "summary": "Create a new Specification",
         "description": "Create a new Specification",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -246,6 +255,9 @@
         "tags": ["Specifications"],
         "summary": "Update an Specification",
         "description": "Update the specification with the given id",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -292,6 +304,9 @@
         "tags":["Specifications"],
         "summary": "Delete a specification",
         "description": "Delete a specification with the given id",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "parameters": [
           {
             "name": "id",
