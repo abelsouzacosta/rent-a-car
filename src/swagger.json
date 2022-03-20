@@ -341,7 +341,8 @@
                     "type": "string"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "password"
                   }
                 },
                 "example": {
@@ -654,6 +655,85 @@
           },
           "201": {
             "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Rentals"],
+        "summary": "List All Rentals",
+        "description": "Returns all rentals in the database",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "expected_return_date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "total": {
+                        "type": "string",
+                        "format": "number"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "car_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
