@@ -17,11 +17,19 @@ const delete_specification = new DeleteSpecificationController();
 
 specificationRouter.get("/", list.handle);
 
-specificationRouter.use(ensureAuthenticated);
+specificationRouter.post(
+  "/",
+  ensureAuthenticated,
+  isAdminMiddleware,
+  create.handle
+);
 
-specificationRouter.post("/", isAdminMiddleware, create.handle);
-
-specificationRouter.put("/:id", isAdminMiddleware, update.handle);
+specificationRouter.put(
+  "/:id",
+  ensureAuthenticated,
+  isAdminMiddleware,
+  update.handle
+);
 
 specificationRouter.delete(
   "/:id",

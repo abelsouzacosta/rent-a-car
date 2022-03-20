@@ -1,25 +1,38 @@
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import auth from "@config/auth";
 import { IAuthenticateUserDTO } from "@modules/accounts/dtos/IAuthenticateUserDTO";
 import { IResponseAuthenticationDTO } from "@modules/accounts/dtos/IResponseAuthenticationDTO";
+import { IUserTokenRepository } from "@modules/accounts/repositories/users_tokens/IUserTokenRepository";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
 @injectable()
 class AuthenticateUserUseCase {
   private repository: IUserRepository;
+  private userTokenRepository: IUserTokenRepository;
   private passwordHandler: IPasswordHandler;
+  private dateProvider: IDateProvider;
 
   constructor(
     @inject("UserRepository")
     repository: IUserRepository,
     @inject("PasswordHandler")
-    passwordHandler: IPasswordHandler
+    passwordHandler: IPasswordHandler,
+    @inject("UserTokenRepository")
+    userTokenRepository: IUserTokenRepository,
+    @inject("DateProvider")
+    dateProvider: IDateProvider
   ) {
-    this.repository = repository;
-    this.passwordHandler = passwordHandler;
+    Object.assign(this, {
+      repository,
+      passwordHandler,
+      userTokenRepository,
+      dateProvider,
+    });
   }
 
   async execute({
@@ -42,9 +55,24 @@ class AuthenticateUserUseCase {
     if (!passwordMatch)
       throw new ApplicationError("Email or password incorrect", 401);
 
-    const token = sign({}, "907e7177676d8efa02a19f29ceeaf81d", {
+    const token = sign({}, auth.secret_token, {
       subject: user.id,
-      expiresIn: 86400,
+      expiresIn: auth.expires_in_token,
+    });
+
+    const refresh_token = sign({ email }, auth.secret_refresh_token, {
+      subject: user.id,
+      expiresIn: auth.expires_in_refresh_token,
+    });
+
+    const refresh_token_expires_date = this.dateProvider.addDays(
+      auth.expires_refresh_token_days
+    );
+
+    await this.userTokenRepository.create({
+      user_id: user.id,
+      refresh_token,
+      expires_date: refresh_token_expires_date,
     });
 
     const response: IResponseAuthenticationDTO = {
@@ -53,6 +81,7 @@ class AuthenticateUserUseCase {
         email: user.email,
       },
       token,
+      refresh_token,
     };
 
     return response;
