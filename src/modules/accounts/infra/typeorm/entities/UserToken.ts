@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryColumn,
 } from "typeorm";
+import { v4 as uuidv4 } from "uuid";
 
 import { User } from "./User";
 
@@ -29,6 +30,10 @@ class UserToken {
   @ManyToOne(() => User, (user) => user.token)
   @JoinColumn({ name: "user_id" })
   user: User;
+
+  constructor() {
+    this.id = this.id ? this.id : uuidv4();
+  }
 }
 
 export { UserToken };
