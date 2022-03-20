@@ -1,8 +1,10 @@
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import auth from "@config/auth";
 import { IAuthenticateUserDTO } from "@modules/accounts/dtos/IAuthenticateUserDTO";
 import { IResponseAuthenticationDTO } from "@modules/accounts/dtos/IResponseAuthenticationDTO";
+import { IUserTokenRepository } from "@modules/accounts/repositories/users_tokens/IUserTokenRepository";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
 import { ApplicationError } from "@shared/errors/ApplicationError";
@@ -10,16 +12,18 @@ import { ApplicationError } from "@shared/errors/ApplicationError";
 @injectable()
 class AuthenticateUserUseCase {
   private repository: IUserRepository;
+  private userTokenRepository: IUserTokenRepository;
   private passwordHandler: IPasswordHandler;
 
   constructor(
     @inject("UserRepository")
     repository: IUserRepository,
     @inject("PasswordHandler")
-    passwordHandler: IPasswordHandler
+    passwordHandler: IPasswordHandler,
+    @inject("UserTokenRepository")
+    userTokenRepository: IUserTokenRepository
   ) {
-    this.repository = repository;
-    this.passwordHandler = passwordHandler;
+    Object.assign(this, { repository, passwordHandler, userTokenRepository });
   }
 
   async execute({
@@ -42,9 +46,9 @@ class AuthenticateUserUseCase {
     if (!passwordMatch)
       throw new ApplicationError("Email or password incorrect", 401);
 
-    const token = sign({}, "907e7177676d8efa02a19f29ceeaf81d", {
+    const token = sign({}, auth.secret_token, {
       subject: user.id,
-      expiresIn: 86400,
+      expiresIn: auth.expires_in_token,
     });
 
     const response: IResponseAuthenticationDTO = {

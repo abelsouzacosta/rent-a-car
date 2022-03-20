@@ -1,6 +1,8 @@
 import { container } from "tsyringe";
 
 import { UserRepository } from "@modules/accounts/infra/typeorm/repositories/UserRepository";
+import { UserTokenRepository } from "@modules/accounts/infra/typeorm/repositories/UserTokenRepository";
+import { IUserTokenRepository } from "@modules/accounts/repositories/users_tokens/IUserTokenRepository";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { PasswordHandler } from "@modules/accounts/utils/cryptography/implementations/PasswordHandler";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
@@ -54,4 +56,9 @@ container.registerSingleton<IDateProvider>("DateProvider", DayJsDateProvider);
 container.registerSingleton<IRentalRepository>(
   "RentalRepository",
   RentalRepository
+);
+
+container.registerSingleton<IUserTokenRepository>(
+  "UserTokenRepository",
+  UserTokenRepository
 );
