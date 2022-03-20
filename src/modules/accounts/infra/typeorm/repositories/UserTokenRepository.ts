@@ -22,6 +22,20 @@ class UserTokenRepository implements IUserTokenRepository {
     return token;
   }
 
+  async findByUserIdAndRefreshToken(
+    user_id: string,
+    refresh_token: string
+  ): Promise<UserToken> {
+    const token = await this.repository.findOne({
+      where: {
+        user_id,
+        refresh_token,
+      },
+    });
+
+    return token;
+  }
+
   async create({
     refresh_token,
     user_id,
@@ -36,6 +50,16 @@ class UserTokenRepository implements IUserTokenRepository {
     await this.repository.save(token);
 
     return token;
+  }
+
+  async delete(id: string): Promise<void> {
+    const refresh_token = await this.repository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    await this.repository.remove(refresh_token);
   }
 }
 

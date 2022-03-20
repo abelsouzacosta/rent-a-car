@@ -7,6 +7,7 @@ import { IResponseAuthenticationDTO } from "@modules/accounts/dtos/IResponseAuth
 import { IUserTokenRepository } from "@modules/accounts/repositories/users_tokens/IUserTokenRepository";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IPasswordHandler } from "@modules/accounts/utils/cryptography/password/IPasswordHandler";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
 @injectable()
@@ -14,6 +15,7 @@ class AuthenticateUserUseCase {
   private repository: IUserRepository;
   private userTokenRepository: IUserTokenRepository;
   private passwordHandler: IPasswordHandler;
+  private dateProvider: IDateProvider;
 
   constructor(
     @inject("UserRepository")
@@ -21,9 +23,16 @@ class AuthenticateUserUseCase {
     @inject("PasswordHandler")
     passwordHandler: IPasswordHandler,
     @inject("UserTokenRepository")
-    userTokenRepository: IUserTokenRepository
+    userTokenRepository: IUserTokenRepository,
+    @inject("DateProvider")
+    dateProvider: IDateProvider
   ) {
-    Object.assign(this, { repository, passwordHandler, userTokenRepository });
+    Object.assign(this, {
+      repository,
+      passwordHandler,
+      userTokenRepository,
+      dateProvider,
+    });
   }
 
   async execute({
@@ -51,12 +60,28 @@ class AuthenticateUserUseCase {
       expiresIn: auth.expires_in_token,
     });
 
+    const refresh_token = sign({ email }, auth.secret_refresh_token, {
+      subject: user.id,
+      expiresIn: auth.expires_in_refresh_token,
+    });
+
+    const refresh_token_expires_date = this.dateProvider.addDays(
+      auth.expires_refresh_token_days
+    );
+
+    await this.userTokenRepository.create({
+      user_id: user.id,
+      refresh_token,
+      expires_date: refresh_token_expires_date,
+    });
+
     const response: IResponseAuthenticationDTO = {
       user: {
         name: user.name,
         email: user.email,
       },
       token,
+      refresh_token,
     };
 
     return response;
