@@ -617,7 +617,7 @@
         }
       }
     },
-    "rentals": {
+    "/rentals": {
       "post": {
         "tags": ["Rentals"],
         "summary": "Creates a new rental instance",
@@ -654,6 +654,50 @@
           },
           "201": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Creates an user",
+        "description": "Creates an user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "driver_license": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Abel Souza Costa Junior",
+	                "email": "abelsouzacosta@gmail.com",
+	                "password": "123456",
+	                "driver_license": "90909090"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "409": {
+            "description": "Already taken"
+          },
+          "201": {
+            "description": "Success"
           }
         }
       }
