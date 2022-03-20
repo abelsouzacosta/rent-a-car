@@ -483,6 +483,180 @@
           }
         }
       }
+    },
+    "/cars/{id}": {
+      "put": {
+        "tags": ["Cars"],
+        "summary": "Updates the information of a car",
+        "description": "Update the information of the car with the given id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description":"The id of the car",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "daily_rate": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "license_plate": {
+                    "type": "string"
+                  },
+                  "fine_amount": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "brand": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
+          },
+          "409": {
+            "description": "Already taken"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cars"],
+        "summary": "Updates the information of a car",
+        "description": "Update the information of the car with the given id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description":"The id of the car",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "responses": {
+          "404": {
+            "description": "Car not found"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cars/assign": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Assign specifications to a car",
+        "descripton": "Assign specifications to a car",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "car_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "specifications_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "example": {
+                  "car_id": "0c64a2ee-fc29-4e43-af17-9f647760b47e",
+                  "specifications_id": [
+                    "4fa1e792-90fc-4517-b17c-a268eb14cc2b"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Some specification was not found"
+          }
+        }
+      }
+    },
+    "rentals": {
+      "post": {
+        "tags": ["Rentals"],
+        "summary": "Creates a new rental instance",
+        "description": "Creates a new rental for the car with the id given",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expected_return_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "car_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "example": {
+                  "expected_return_date": "2022-03-20T07:36:33",
+                  "car_id": "0c64a2ee-fc29-4e43-af17-9f647760b47e"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Car not found"
+          },
+          "201": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
