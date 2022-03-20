@@ -328,7 +328,7 @@
     },
     "/sessions": {
       "post": {
-        "tags": ["Authenticate"],
+        "tags": ["Authorization"],
         "summary": "Authentication user",
         "description": "Authentication user",
         "requestBody": {
@@ -614,6 +614,49 @@
           },
           "404": {
             "description": "Some specification was not found"
+          }
+        }
+      }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Uploads the image of a car",
+        "description": "Uploads the image of a car",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description":"The id of the car",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
           }
         }
       }
