@@ -738,6 +738,87 @@
         }
       }
     },
+    "/rentals/all": {
+      "get": {
+        "tags": ["Rentals"],
+        "summary": "Gets all rentals of the user",
+        "description": "Returns a list of all rentals of a user",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "expected_return_date": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "total": {
+                        "type": "string",
+                        "format": "number"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "car_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "post": {
         "tags": ["Users"],
