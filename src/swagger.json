@@ -361,6 +361,128 @@
           }
         }
       }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Creates a car instance",
+        "description": "Creates a car",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "daily_rate": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "license_plate": {
+                    "type": "string"
+                  },
+                  "fine_amount": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "brand": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "example": {
+                  "name": "Voyage",
+                  "description": "Seda de entrada",
+                  "daily_rate": 250.44,
+                  "license_plate": "KLI89J76",
+                  "fine_amount": 1000,
+                  "brand": "Volkswagen",
+                  "category_id": "6b5a68b9-4111-469f-b709-5b1b26f1eadf"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Category not found"
+          },
+          "201": {
+            "description": "Created"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Cars"],
+        "summary": "All cars",
+        "description": "Return a list of all cars in the database",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "daily_rate": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "avaliable": {
+                        "type": "boolean"
+                      },
+                      "license_plate": {
+                        "type": "string"
+                      },
+                      "fine_amount": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "brand": {
+                        "type": "string"
+                      },
+                      "category_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
