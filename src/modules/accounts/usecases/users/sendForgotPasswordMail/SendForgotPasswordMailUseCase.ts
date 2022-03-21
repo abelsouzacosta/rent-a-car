@@ -5,6 +5,7 @@ import { ISendForgotPasswordDTO } from "@modules/accounts/dtos/ISendForgotPasswo
 import { IUserTokenRepository } from "@modules/accounts/repositories/users_tokens/IUserTokenRepository";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
+import { IMailProvider } from "@shared/container/providers/MailProvider/IMailProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
 @injectable()
@@ -12,6 +13,7 @@ class SendForgotPasswordMailUseCase {
   private repository: IUserRepository;
   private userTokenRepository: IUserTokenRepository;
   private dateProvider: IDateProvider;
+  private mailProvider: IMailProvider;
 
   constructor(
     @inject("UserRepository")
@@ -19,9 +21,16 @@ class SendForgotPasswordMailUseCase {
     @inject("UserTokenRepository")
     userTokenRepository: IUserTokenRepository,
     @inject("DateProvider")
-    dateProvider: IDateProvider
+    dateProvider: IDateProvider,
+    @inject("MailProvider")
+    mailProvider: IMailProvider
   ) {
-    Object.assign(this, { repository, userTokenRepository, dateProvider });
+    Object.assign(this, {
+      repository,
+      userTokenRepository,
+      dateProvider,
+      mailProvider,
+    });
   }
 
   async execute({ email }: ISendForgotPasswordDTO): Promise<void> {
@@ -38,6 +47,12 @@ class SendForgotPasswordMailUseCase {
       user_id: user.id,
       expires_date,
     });
+
+    await this.mailProvider.sendMail(
+      email,
+      "Recuperação de senha",
+      `O link para a recuperação de senha é ${token}`
+    );
   }
 }
 
