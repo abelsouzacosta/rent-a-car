@@ -9,6 +9,8 @@ interface IUserTokenRepository {
     refresh_token: string
   ): Promise<UserToken>;
 
+  findByToken(token: string): Promise<UserToken>;
+
   create({
     refresh_token,
     user_id,

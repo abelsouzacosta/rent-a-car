@@ -3,6 +3,7 @@ import { getRepository, Repository } from "typeorm";
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { IUpdateUserAvatarDTO } from "@modules/accounts/dtos/IUpdateUserAvatarDTO";
 import { IUpdateUserDTO } from "@modules/accounts/dtos/IUpdateUserDTO";
+import { IUserPasswordResetDTO } from "@modules/accounts/dtos/IUserPasswordResetDTO";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 
 import { User } from "../entities/User";
@@ -98,7 +99,15 @@ class UserRepository implements IUserRepository {
 
     user.avatar = avatar;
 
-    this.repository.save(user);
+    await this.repository.save(user);
+  }
+
+  async updatePassword({ id, password }: IUserPasswordResetDTO): Promise<void> {
+    const user = await this.findById(id);
+
+    user.password = password;
+
+    await this.repository.save(user);
   }
 
   async delete(id: string): Promise<void> {
