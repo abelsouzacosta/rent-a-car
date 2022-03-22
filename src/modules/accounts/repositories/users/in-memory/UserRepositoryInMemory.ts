@@ -1,3 +1,5 @@
+import { IUserPasswordResetDTO } from "@modules/accounts/dtos/IUserPasswordResetDTO";
+
 import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO";
 import { IUpdateUserAvatarDTO } from "../../../dtos/IUpdateUserAvatarDTO";
 import { IUpdateUserDTO } from "../../../dtos/IUpdateUserDTO";
@@ -73,6 +75,12 @@ class UserRepositoryInMemory implements IUserRepository {
     const user = await this.findById(id);
 
     user.avatar = avatar;
+  }
+
+  async updatePassword({ id, password }: IUserPasswordResetDTO): Promise<void> {
+    const user = await this.findById(id);
+
+    user.password = password;
   }
 }
 
