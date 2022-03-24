@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import { CreateRentalController } from "@modules/rentals/usecases/createRental/CreateRentalController";
-import { DevolutionRentalController } from "@modules/rentals/usecases/devolutionRental/DevolutionRentalController";
-import { GetUserRentalsControler } from "@modules/rentals/usecases/getUserRentals/GetUserRentalsController";
-import { ListRentalsController } from "@modules/rentals/usecases/listRentals/ListRentalsController";
+import { CreateRentalController } from "@modules/rentals/usecases/rentals/createRental/CreateRentalController";
+import { DevolutionRentalController } from "@modules/rentals/usecases/rentals/devolutionRental/DevolutionRentalController";
+import { GetUserRentalsControler } from "@modules/rentals/usecases/rentals/getUserRentals/GetUserRentalsController";
+import { ListRentalsController } from "@modules/rentals/usecases/rentals/listRentals/ListRentalsController";
 
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { isAdminMiddleware } from "../middlewares/isAdminMiddleware";
