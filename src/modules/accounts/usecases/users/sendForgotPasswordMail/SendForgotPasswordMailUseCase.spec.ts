@@ -41,6 +41,21 @@ describe("Send forgot password mail use case", () => {
     expect(sendMail).toHaveBeenCalledTimes(1);
   });
 
+  it("Should be able to create a new users token", async () => {
+    const createToken = jest.spyOn(userTokenRepository, "create");
+
+    await repository.create({
+      name: "Mason Simpson",
+      email: "op@sovovil.ee",
+      password: "1553",
+      driver_license: "23932",
+    });
+
+    await sendForgotPasswordMailUseCase.execute({ email: "op@sovovil.ee" });
+
+    expect(createToken).toHaveBeenCalledTimes(1);
+  });
+
   it("Should throw an error if the user provided does not exists", () => {
     expect(async () => {
       await sendForgotPasswordMailUseCase.execute({ email: "noki@ka.vu" });
