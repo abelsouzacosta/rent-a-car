@@ -25,6 +25,15 @@ describe("Send forgot password mail use case", () => {
     );
   });
   it("Should be able to sent a forgot password mail to user", async () => {
-    expect(1).toBe(1);
+    const sendMail = jest.spyOn(mailProvider, "sendMail");
+
+    await repository.create({
+      name: "Mason Simpson",
+      email: "op@sovovil.ee",
+      password: "1553",
+      driver_license: "23932",
+    });
+
+    expect(sendMail).toHaveBeenCalled();
   });
 });
