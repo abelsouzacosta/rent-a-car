@@ -2,6 +2,7 @@ import { UserTokenRepositoryInMemory } from "@modules/accounts/repositories/user
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
 import { DayJsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
 import { MailProviderInMemory } from "@shared/container/providers/MailProvider/in-memory/MailProviderInMemory";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 
 import { SendForgotPasswordMailUseCase } from "./SendForgotPasswordMailUseCase";
 
@@ -24,6 +25,7 @@ describe("Send forgot password mail use case", () => {
       mailProvider
     );
   });
+
   it("Should be able to sent a forgot password mail to user", async () => {
     const sendMail = jest.spyOn(mailProvider, "sendMail");
 
@@ -37,5 +39,11 @@ describe("Send forgot password mail use case", () => {
     await sendForgotPasswordMailUseCase.execute({ email: "op@sovovil.ee" });
 
     expect(sendMail).toHaveBeenCalled();
+  });
+
+  it("Should throw an error if the user provided does not exists", () => {
+    expect(async () => {
+      await sendForgotPasswordMailUseCase.execute({ email: "noki@ka.vu" });
+    }).rejects.toThrow(ApplicationError);
   });
 });
