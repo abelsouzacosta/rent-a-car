@@ -34,6 +34,8 @@ describe("Send forgot password mail use case", () => {
       driver_license: "23932",
     });
 
+    await sendForgotPasswordMailUseCase.execute({ email: "op@sovovil.ee" });
+
     expect(sendMail).toHaveBeenCalled();
   });
 });

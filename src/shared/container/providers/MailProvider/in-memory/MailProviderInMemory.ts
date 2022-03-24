@@ -11,7 +11,7 @@ class MailProviderInMemory implements IMailProvider {
       Mensagem Enviada para: ${to},
       Assunto: ${subject},
       Corpo: ${variables},
-      Templte: ${path}
+      Template: ${path}
     `);
   }
 }
