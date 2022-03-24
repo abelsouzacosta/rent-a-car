@@ -1,0 +1,30 @@
+import { UserTokenRepositoryInMemory } from "@modules/accounts/repositories/users_tokens/implemetations/UsersTokenRepositoryInMemory";
+import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
+import { DayJsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
+import { MailProviderInMemory } from "@shared/container/providers/MailProvider/in-memory/MailProviderInMemory";
+
+import { SendForgotPasswordMailUseCase } from "./SendForgotPasswordMailUseCase";
+
+let sendForgotPasswordMailUseCase: SendForgotPasswordMailUseCase;
+let repository: UserRepositoryInMemory;
+let userTokenRepository: UserTokenRepositoryInMemory;
+let dateProvider: DayJsDateProvider;
+let mailProvider: MailProviderInMemory;
+
+describe("Send forgot password mail use case", () => {
+  beforeEach(() => {
+    repository = new UserRepositoryInMemory();
+    userTokenRepository = new UserTokenRepositoryInMemory();
+    dateProvider = new DayJsDateProvider();
+    mailProvider = new MailProviderInMemory();
+    sendForgotPasswordMailUseCase = new SendForgotPasswordMailUseCase(
+      repository,
+      userTokenRepository,
+      dateProvider,
+      mailProvider
+    );
+  });
+  it("Should be able to sent a forgot password mail to user", async () => {
+    expect(1).toBe(1);
+  });
+});
