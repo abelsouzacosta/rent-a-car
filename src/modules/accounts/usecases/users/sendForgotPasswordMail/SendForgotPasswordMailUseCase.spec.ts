@@ -38,7 +38,7 @@ describe("Send forgot password mail use case", () => {
 
     await sendForgotPasswordMailUseCase.execute({ email: "op@sovovil.ee" });
 
-    expect(sendMail).toHaveBeenCalled();
+    expect(sendMail).toHaveBeenCalledTimes(1);
   });
 
   it("Should throw an error if the user provided does not exists", () => {
