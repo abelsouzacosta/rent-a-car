@@ -1,6 +1,8 @@
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
+import { UserTokenRepositoryInMemory } from "@modules/accounts/repositories/users_tokens/implemetations/UsersTokenRepositoryInMemory";
 import { UserRepositoryInMemory } from "@modules/accounts/repositories/users/in-memory/UserRepositoryInMemory";
 import { PasswordHandler } from "@modules/accounts/utils/cryptography/implementations/PasswordHandler";
+import { DayJsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayJsDateProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
@@ -10,13 +12,22 @@ let repository: UserRepositoryInMemory;
 let handler: PasswordHandler;
 let auth: AuthenticateUserUseCase;
 let create: CreateUserUseCase;
+let userTokenRepository: UserTokenRepositoryInMemory;
+let dateProvider: DayJsDateProvider;
 
 describe("Authenticate User Use Case", () => {
   beforeEach(() => {
     repository = new UserRepositoryInMemory();
     handler = new PasswordHandler();
     create = new CreateUserUseCase(repository, handler);
-    auth = new AuthenticateUserUseCase(repository, handler);
+    userTokenRepository = new UserTokenRepositoryInMemory();
+    dateProvider = new DayJsDateProvider();
+    auth = new AuthenticateUserUseCase(
+      repository,
+      handler,
+      userTokenRepository,
+      dateProvider
+    );
   });
 
   it("Should throw an exception if an email is not provided", async () => {
