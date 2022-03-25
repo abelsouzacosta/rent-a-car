@@ -68,9 +68,14 @@ container.registerSingleton<IUserTokenRepository>(
   UserTokenRepository
 );
 
+const diskstorage = {
+  local: LocalStorageProvider,
+  s3: S3StorageProvider,
+};
+
 container.registerSingleton<IStorageProvider>(
   "StorageProvider",
-  S3StorageProvider
+  diskstorage[process.env.disk]
 );
 
 container.registerInstance<IMailProvider>(
