@@ -17,10 +17,7 @@ class S3StorageProvider implements IStorageProvider {
   }
 
   async save(file: string, folder: string): Promise<string> {
-    const bucketTmpFolder = resolve(__dirname, "..");
-    console.log(`ok: ${bucketTmpFolder}`);
-
-    const originalname = resolve(`${upload.tmpFolder}/${folder}`, file);
+    const originalname = resolve(upload.tmpFolder, file);
 
     const fileContent = await fs.promises.readFile(originalname);
 
