@@ -2,18 +2,21 @@ import { inject, injectable } from "tsyringe";
 
 import { IUpdateUserAvatarDTO } from "@modules/accounts/dtos/IUpdateUserAvatarDTO";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
+import { IStorageProvider } from "@shared/container/providers/StorageProvider/IStorageProvider";
 import { ApplicationError } from "@shared/errors/ApplicationError";
-import { deleteFile } from "@utils/file";
 
 @injectable()
 class UpdateUserAvatarUseCase {
   private repository: IUserRepository;
+  private storageProvider: IStorageProvider;
 
   constructor(
     @inject("UserRepository")
-    repository: IUserRepository
+    repository: IUserRepository,
+    @inject("StorageProvider")
+    storageProvider: IStorageProvider
   ) {
-    Object.assign(this, { repository });
+    Object.assign(this, { repository, storageProvider });
   }
 
   async execute({ id, avatar }: IUpdateUserAvatarDTO): Promise<void> {
@@ -21,7 +24,9 @@ class UpdateUserAvatarUseCase {
 
     if (!user) throw new ApplicationError("User not found", 404);
 
-    if (user.avatar) await deleteFile(`./tmp/avatar/${user.avatar}`);
+    if (user.avatar) await this.storageProvider.delete(user.avatar, "avatar");
+
+    await this.storageProvider.save(avatar, "avatar");
 
     await this.repository.updateAvatar({ id, avatar });
   }
