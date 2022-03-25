@@ -10,7 +10,7 @@ import { isAdminMiddleware } from "@shared/infra/http/middlewares/isAdminMiddlew
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 const upload = multer({
-  dest: "./tmp/cars",
+  dest: "",
 });
 
 const carRouter = Router();
