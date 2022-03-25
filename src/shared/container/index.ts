@@ -23,6 +23,8 @@ import { IDateProvider } from "./providers/DateProvider/IDateProvider";
 import { DayJsDateProvider } from "./providers/DateProvider/implementations/DayJsDateProvider";
 import { IMailProvider } from "./providers/MailProvider/IMailProvider";
 import { EtherealMailProvider } from "./providers/MailProvider/implementations/EtherealMailProvider";
+import { LocalStorageProvider } from "./providers/StorageProvider/implementations/LocalStorageProvider";
+import { IStorageProvider } from "./providers/StorageProvider/IStorageProvider";
 
 container.registerSingleton<ICategoryRepository>(
   "CategoryRepository",
@@ -63,6 +65,11 @@ container.registerSingleton<IRentalRepository>(
 container.registerSingleton<IUserTokenRepository>(
   "UserTokenRepository",
   UserTokenRepository
+);
+
+container.registerSingleton<IStorageProvider>(
+  "StorageProvider",
+  LocalStorageProvider
 );
 
 container.registerInstance<IMailProvider>(
