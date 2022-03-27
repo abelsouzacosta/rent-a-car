@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 
+import upload from "@config/upload";
 import { UploadCarImagesController } from "@modules/cars/usecases/cars_images/UploadCarImagesController";
 import { CreateCarSpecificationController } from "@modules/cars/usecases/cars_specification/createCarSpecification/CreateCarSpecificationController";
 import { CreateCarController } from "@modules/cars/usecases/cars/createCar/CreateCarController";
@@ -9,9 +10,7 @@ import { isAdminMiddleware } from "@shared/infra/http/middlewares/isAdminMiddlew
 
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
-const upload = multer({
-  dest: "",
-});
+const uploadFile = multer(upload);
 
 const carRouter = Router();
 const create = new CreateCarController();
@@ -30,7 +29,7 @@ carRouter.post("/assign", createSpecification.handle);
 carRouter.post(
   "/images/:id",
   isAdminMiddleware,
-  upload.array("images"),
+  uploadFile.array("images"),
   uploadCarImages.handle
 );
 
