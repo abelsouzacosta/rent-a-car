@@ -21,6 +21,7 @@ class UserProfileUseCase {
     if (!user) throw new ApplicationError("User not found", 404);
 
     delete user.password;
+    delete user.isAdmin;
 
     return user;
   }
