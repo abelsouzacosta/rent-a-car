@@ -45,7 +45,7 @@ class User {
   token: UserToken[];
 
   @Expose({ name: "avatar_url" })
-  getUserAvatarURL(): string {
+  avatar_url(): string {
     switch (process.env.disk) {
       case "local":
         return `${process.env.APP_API_URL}/files/${this.avatar}`;
