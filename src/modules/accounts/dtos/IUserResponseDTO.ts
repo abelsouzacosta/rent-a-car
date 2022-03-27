@@ -5,3 +5,5 @@ type IUserResponseDTO = {
   avatar: string;
   driver_license: string;
 };
+
+export { IUserResponseDTO };

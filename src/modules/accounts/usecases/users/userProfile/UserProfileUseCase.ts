@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { User } from "@modules/accounts/infra/typeorm/entities/User";
+import { IUserResponseDTO } from "@modules/accounts/dtos/IUserResponseDTO";
+import { UserMapper } from "@modules/accounts/mappers/UserMapper";
 import { IUserRepository } from "@modules/accounts/repositories/users/IUserRepository";
 import { ApplicationError } from "@shared/errors/ApplicationError";
 
@@ -15,15 +16,12 @@ class UserProfileUseCase {
     Object.assign(this, { repository });
   }
 
-  async execute(id: string): Promise<User> {
+  async execute(id: string): Promise<IUserResponseDTO> {
     const user = await this.repository.findById(id);
 
     if (!user) throw new ApplicationError("User not found", 404);
 
-    delete user.password;
-    delete user.isAdmin;
-
-    return user;
+    return UserMapper.toDTO(user);
   }
 }
 
