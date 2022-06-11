@@ -27,6 +27,8 @@ import { LocalStorageProvider } from "./providers/StorageProvider/implementation
 import { S3StorageProvider } from "./providers/StorageProvider/implementations/S3StorageProvider";
 import { IStorageProvider } from "./providers/StorageProvider/IStorageProvider";
 
+import "dotenv/config";
+
 container.registerSingleton<ICategoryRepository>(
   "CategoryRepository",
   CategoryRepository
