@@ -26,7 +26,7 @@ class RefreshTokenUseCase {
 
   constructor(
     @inject("UserTokenRepository")
-    repository: IUserRepository,
+    repository: IUserTokenRepository,
     @inject("UserRepository")
     userRepository: IUserRepository,
     @inject("DateProvider")
