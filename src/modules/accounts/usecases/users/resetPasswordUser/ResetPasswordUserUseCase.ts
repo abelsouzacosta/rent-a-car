@@ -42,8 +42,6 @@ class ResetPasswordUserUseCase {
       expireTokenDate
     );
 
-    console.log(isValidToken);
-
     if (!isValidToken) throw new ApplicationError("Invalid Token", 400);
 
     const hashedPassword = await hash(password, 10);
